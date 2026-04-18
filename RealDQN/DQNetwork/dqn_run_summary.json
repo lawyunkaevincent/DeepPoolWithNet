@@ -1,0 +1,10 @@
+{
+  "total_requests": 2000,
+  "completed_requests": 2000,
+  "completion_rate": 1.0,
+  "picked_up_requests": 2000,
+  "avg_wait_until_pickup": 162.655,
+  "max_wait_until_pickup": 1030.0,
+  "avg_excess_ride_time": 360.88320301410795,
+  "decisions_seen": 3691
+}

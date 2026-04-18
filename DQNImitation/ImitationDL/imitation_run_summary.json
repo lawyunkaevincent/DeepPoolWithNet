@@ -1,0 +1,18 @@
+{
+  "total_requests": 2000,
+  "completed_requests": 2000,
+  "completion_rate": 1.0,
+  "picked_up_requests": 2000,
+  "currently_onboard": 0,
+  "currently_assigned": 0,
+  "still_pending_or_deferred": 0,
+  "avg_wait_until_pickup": 253.415,
+  "max_wait_until_pickup": 1030.0,
+  "avg_excess_ride_time": 193.88424467263067,
+  "max_excess_ride_time": 1362.7978227218757,
+  "decisions_seen": 2000,
+  "final_accum_completed_dropoffs": 7,
+  "final_accum_wait_cost": 0.0,
+  "final_accum_ride_cost": 1122.6982956509223,
+  "last_known_request_time": 86930.0
+}

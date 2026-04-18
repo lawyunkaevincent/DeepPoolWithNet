@@ -1,0 +1,337 @@
+"""
+train_zone_dqn.py
+-----------------
+Training script for the zone-based repositioning DQN.
+
+What this script does
+---------------------
+1. Builds a ZoneCNNQNetwork (online) and a copy (target network).
+2. Runs SUMO episodes via ZoneBasedDRTEnv.
+3. Pushes collected transitions into a ZoneReplayBuffer.
+4. Every TRAIN_EVERY episodes, samples a mini-batch and updates the
+   online network using the DQN Bellman target:
+       y = r + γ · max_a Q_target(s', a)   (or just r if done)
+5. Soft-updates the target network: θ_target ← τθ + (1-τ)θ_target
+6. Linearly decays ε (exploration probability) over EPSILON_DECAY_EPISODES.
+7. Saves checkpoints and a training log.
+
+Usage
+-----
+    python train_zone_dqn.py \
+        --cfg  ../SunwaySmallMap/osm.sumocfg \
+        --net  ../SunwaySmallMap/osm.net.xml  \
+        --episodes 200 \
+        --batch-size 64 \
+        --checkpoint-dir checkpoints_zone
+
+Hyperparameters (configurable via CLI)
+---------------------------------------
+    --episodes           : total training episodes          (default 200)
+    --batch-size         : replay mini-batch size           (default 64)
+    --buffer-capacity    : replay buffer capacity           (default 20000)
+    --gamma              : discount factor                  (default 0.95)
+    --lr                 : learning rate                    (default 1e-3)
+    --tau                : soft target update rate          (default 0.005)
+    --epsilon-start      : initial exploration rate         (default 1.0)
+    --epsilon-end        : final exploration rate           (default 0.05)
+    --epsilon-decay-ep   : episodes over which ε decays     (default 150)
+    --train-every        : update network every N episodes  (default 1)
+    --grid-cols          : zone grid columns                (default 10)
+    --grid-rows          : zone grid rows                   (default 7)
+    --use-dueling        : use DuelingZoneCNNQNetwork       (flag)
+    --gui                : launch SUMO-GUI                  (flag)
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import os
+import sys
+from pathlib import Path
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+# ---------------------------------------------------------------------------
+# Local imports
+# ---------------------------------------------------------------------------
+_HERE = os.path.dirname(__file__)
+if _HERE not in sys.path:
+    sys.path.insert(0, _HERE)
+
+from zone_qnetwork import ZoneCNNQNetwork, DuelingZoneCNNQNetwork
+from zone_replay_buffer import ZoneReplayBuffer
+from zone_env import ZoneBasedDRTEnv
+
+
+# ---------------------------------------------------------------------------
+# DQN update
+# ---------------------------------------------------------------------------
+
+def dqn_update(
+    online_net: nn.Module,
+    target_net: nn.Module,
+    optimizer: optim.Optimizer,
+    replay_buffer: ZoneReplayBuffer,
+    batch_size: int,
+    gamma: float,
+    device: torch.device,
+) -> float:
+    """
+    Sample one mini-batch and perform one gradient step.
+
+    Returns the loss value (float) for logging.
+    """
+    states, actions, rewards, next_states, dones = replay_buffer.sample_arrays(batch_size)
+
+    # Move to device
+    s  = torch.from_numpy(states).to(device)       # (B, 2, R, C)
+    a  = torch.from_numpy(actions).long().to(device)  # (B,)
+    r  = torch.from_numpy(rewards).to(device)      # (B,)
+    ns = torch.from_numpy(next_states).to(device)  # (B, 2, R, C)
+    d  = torch.from_numpy(dones).to(device)        # (B,)
+
+    # Current Q-values: Q(s, a)
+    q_all  = online_net(s)                          # (B, n_zones)
+    q_vals = q_all.gather(1, a.unsqueeze(1)).squeeze(1)  # (B,)
+
+    # Target Q-values: y = r + γ * max_a' Q_target(s', a')  [masked by done]
+    with torch.no_grad():
+        q_next = target_net(ns).max(dim=1).values   # (B,)
+        y = r + gamma * q_next * (1.0 - d)
+
+    loss = nn.functional.smooth_l1_loss(q_vals, y)
+
+    optimizer.zero_grad()
+    loss.backward()
+    nn.utils.clip_grad_norm_(online_net.parameters(), max_norm=10.0)
+    optimizer.step()
+
+    return loss.item()
+
+
+def soft_update(online_net: nn.Module, target_net: nn.Module, tau: float) -> None:
+    """θ_target ← τ·θ_online + (1-τ)·θ_target"""
+    for online_p, target_p in zip(online_net.parameters(), target_net.parameters()):
+        target_p.data.copy_(tau * online_p.data + (1.0 - tau) * target_p.data)
+
+
+# ---------------------------------------------------------------------------
+# Training loop
+# ---------------------------------------------------------------------------
+
+def train(args: argparse.Namespace) -> None:
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"[Train] device={device}")
+
+    # --- Build networks ---
+    NetworkClass = DuelingZoneCNNQNetwork if args.use_dueling else ZoneCNNQNetwork
+    online_net = NetworkClass(grid_rows=args.grid_rows, grid_cols=args.grid_cols).to(device)
+    target_net = NetworkClass(grid_rows=args.grid_rows, grid_cols=args.grid_cols).to(device)
+    target_net.load_state_dict(online_net.state_dict())
+    target_net.eval()
+
+    optimizer = optim.Adam(online_net.parameters(), lr=args.lr)
+    replay_buffer = ZoneReplayBuffer(capacity=args.buffer_capacity)
+
+    # --- Checkpoint directory ---
+    ckpt_dir = Path(args.checkpoint_dir)
+    ckpt_dir.mkdir(parents=True, exist_ok=True)
+
+    # --- Training log ---
+    log: list[dict] = []
+    best_episode_reward = float("-inf")
+
+    # --- CSV log setup (matches training_history.csv schema) ---
+    csv_path = ckpt_dir / "training_history.csv"
+    _CSV_FIELDS = [
+        "episode", "total_reward", "normalised_reward", "steps",
+        "mean_loss",
+        "completed_requests", "picked_up_requests",
+        "avg_wait_until_pickup", "avg_excess_ride_time",
+        "epsilon", "lr",
+        "eval_completed_requests", "eval_picked_up_requests",
+        "eval_avg_wait_until_pickup", "eval_avg_excess_ride_time",
+        "eval_eval_total_reward", "eval_eval_steps",
+    ]
+    csv_file = open(csv_path, "w", newline="")
+    csv_writer = csv.DictWriter(csv_file, fieldnames=_CSV_FIELDS)
+    csv_writer.writeheader()
+
+    # --- Epsilon schedule ---
+    eps_start   = args.epsilon_start
+    eps_end     = args.epsilon_end
+    eps_decay   = args.epsilon_decay_ep
+    epsilon     = eps_start
+
+    # ---------------------------------------------------------------------------
+    # Define the policy function (wraps the online net for inference)
+    # ---------------------------------------------------------------------------
+    def policy_fn(state: np.ndarray) -> int:
+        """Map (2, R, C) state to zone_id using the online network."""
+        online_net.eval()
+        with torch.no_grad():
+            s = torch.from_numpy(state).unsqueeze(0).to(device)  # (1, 2, R, C)
+            q = online_net(s)                                      # (1, n_zones)
+        online_net.train()
+        return int(q.argmax(dim=1).item())
+
+    # ---------------------------------------------------------------------------
+    # Episode loop
+    # ---------------------------------------------------------------------------
+    for ep in range(1, args.episodes + 1):
+        episode_epsilon = epsilon
+        print(f"\n{'='*60}")
+        print(f"[Train] Episode {ep}/{args.episodes}  ε={epsilon:.3f}")
+        print(f"{'='*60}")
+
+        # Build environment for this episode
+        env = ZoneBasedDRTEnv(
+            cfg_path=args.cfg,
+            net_xml_path=args.net,
+            stops_json_path=args.stops,
+            grid_cols=args.grid_cols,
+            grid_rows=args.grid_rows,
+            policy_fn=policy_fn,
+            epsilon=episode_epsilon,
+            step_length=1.0,
+            use_gui=args.gui,
+        )
+
+        # Run simulation and collect transitions + episode stats
+        transitions, ep_stats = env.run_episode()
+
+        # Push all transitions into replay buffer
+        for t in transitions:
+            replay_buffer.push(t.state, t.action, t.reward, t.next_state, t.done)
+
+        episode_reward = sum(t.reward for t in transitions)
+        n_trans = len(transitions)
+
+        print(f"[Train] Episode {ep}: {n_trans} transitions, "
+              f"total_reward={episode_reward:.2f}, buffer={len(replay_buffer)}")
+
+        # --- Training step ---
+        loss_val = None
+        if ep % args.train_every == 0 and replay_buffer.is_ready(args.batch_size):
+            online_net.train()
+            loss_val = dqn_update(
+                online_net, target_net, optimizer, replay_buffer,
+                batch_size=args.batch_size, gamma=args.gamma, device=device,
+            )
+            soft_update(online_net, target_net, tau=args.tau)
+            print(f"[Train] Loss={loss_val:.4f}")
+
+        # --- Epsilon decay ---
+        if eps_decay > 0:
+            progress = min(1.0, (ep - 1) / eps_decay)
+            epsilon = eps_start + (eps_end - eps_start) * progress
+        else:
+            epsilon = eps_end
+
+        # --- Log ---
+        current_lr = optimizer.param_groups[0]["lr"]
+        row = {
+            "episode":               ep,
+            "total_reward":          episode_reward,
+            "normalised_reward":     episode_reward / max(1, n_trans),
+            "steps":                 n_trans,
+            "mean_loss":             loss_val,
+            "completed_requests":    ep_stats["completed_requests"],
+            "picked_up_requests":    ep_stats["picked_up_requests"],
+            "avg_wait_until_pickup": ep_stats["avg_wait_until_pickup"],
+            "avg_excess_ride_time":  ep_stats["avg_excess_ride_time"],
+            "epsilon":               episode_epsilon,
+            "lr":                    current_lr,
+            # eval columns left empty (no separate eval loop)
+            "eval_completed_requests":   None,
+            "eval_picked_up_requests":   None,
+            "eval_avg_wait_until_pickup": None,
+            "eval_avg_excess_ride_time": None,
+            "eval_eval_total_reward":    None,
+            "eval_eval_steps":           None,
+        }
+        log.append(row)
+        csv_writer.writerow(row)
+        csv_file.flush()
+
+        # --- Checkpoint ---
+        if episode_reward > best_episode_reward:
+            best_episode_reward = episode_reward
+            ckpt_path = ckpt_dir / "best_zone_dqn.pt"
+            torch.save({
+                "episode": ep,
+                "online_net": online_net.state_dict(),
+                "target_net": target_net.state_dict(),
+                "optimizer": optimizer.state_dict(),
+                "epsilon": episode_epsilon,
+                "episode_reward": episode_reward,
+                "grid_rows": args.grid_rows,
+                "grid_cols": args.grid_cols,
+            }, ckpt_path)
+            print(f"[Train] ★ New best checkpoint saved → {ckpt_path}")
+
+        # Periodic checkpoint every 10 episodes
+        if ep % 10 == 0:
+            periodic_path = ckpt_dir / f"zone_dqn_ep{ep:04d}.pt"
+            torch.save({
+                "episode": ep,
+                "online_net": online_net.state_dict(),
+                "target_net": target_net.state_dict(),
+                "optimizer": optimizer.state_dict(),
+                "epsilon": episode_epsilon,
+                "grid_rows": args.grid_rows,
+                "grid_cols": args.grid_cols,
+            }, periodic_path)
+
+        # Save JSON log (full detail backup alongside CSV)
+        log_path = ckpt_dir / "training_log.json"
+        with open(log_path, "w") as f:
+            json.dump(log, f, indent=2)
+
+    csv_file.close()
+    print(f"\n[Train] Training complete. Best reward={best_episode_reward:.2f}")
+    print(f"[Train] Checkpoints saved in: {ckpt_dir}")
+    print(f"[Train] Training CSV saved → {csv_path}")
+
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+
+def parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(
+        description="Train zone-based repositioning DQN for DRT in SUMO"
+    )
+
+    # Environment
+    p.add_argument("--cfg",   required=True, help="Path to .sumocfg file")
+    p.add_argument("--net",   required=True, help="Path to .net.xml file")
+    p.add_argument("--stops", required=True, help="Path to stops.json file")
+    p.add_argument("--grid-cols", type=int, default=10, help="Zone grid columns (default 10)")
+    p.add_argument("--grid-rows", type=int, default=7,  help="Zone grid rows    (default 7)")
+    p.add_argument("--gui",  action="store_true", help="Launch SUMO-GUI")
+
+    # Training
+    p.add_argument("--episodes",          type=int,   default=200,    help="Total training episodes")
+    p.add_argument("--batch-size",        type=int,   default=64,     help="Replay mini-batch size")
+    p.add_argument("--buffer-capacity",   type=int,   default=20_000, help="Replay buffer capacity")
+    p.add_argument("--gamma",             type=float, default=0.95,   help="Discount factor")
+    p.add_argument("--lr",                type=float, default=1e-3,   help="Adam learning rate")
+    p.add_argument("--tau",               type=float, default=0.005,  help="Soft target update rate")
+    p.add_argument("--epsilon-start",     type=float, default=1.0,    help="Initial ε")
+    p.add_argument("--epsilon-end",       type=float, default=0.05,   help="Final ε")
+    p.add_argument("--epsilon-decay-ep",  type=int,   default=150,    help="Episodes to decay ε over")
+    p.add_argument("--train-every",       type=int,   default=1,      help="Train every N episodes")
+    p.add_argument("--use-dueling",       action="store_true",        help="Use Dueling DQN")
+    p.add_argument("--checkpoint-dir",    default="checkpoints_zone", help="Checkpoint directory")
+
+    return p.parse_args()
+
+
+if __name__ == "__main__":
+    train(parse_args())
