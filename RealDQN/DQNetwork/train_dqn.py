@@ -12,12 +12,13 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn.functional as F
+import traci
 from tqdm import trange
 
 from dqn_env import DQNStepEnvironment
 from dispatcher import setup_logger
 from feature_extractor import flatten_decision_features
-from q_network import ParametricQNetwork, TaxiFairQNetwork
+from q_network import ParametricQNetwork
 from replay_buffer import (
     NStepBuffer, ReplayBuffer, PrioritizedReplayBuffer,
     PrioritizedReplayBatch, Transition,
@@ -49,6 +50,10 @@ class EpisodeStats:
     q_max: float
     q_min: float
     target_mean: float
+    total_taxi_distance_m: float  # sum of traci.vehicle.getDistance across all taxis
+    avg_load_factor: float        # mean (fleet onboard / fleet capacity) across decisions
+    p90_wait_time: float          # 90th pct of (pickup_time - request_time) for picked-up reqs
+    p90_excess_ride_time: float   # 90th pct of excess_ride_time for dropped reqs
 
 
 class DQNAgent:
@@ -73,11 +78,11 @@ class DQNAgent:
         self.tau = tau
         self.forbid_defer_when_action_exists = forbid_defer_when_action_exists
 
-        self.online_net = TaxiFairQNetwork(
-            input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout
+        self.online_net = ParametricQNetwork(
+            input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout, use_dueling=True
         ).to(device)
-        self.target_net = TaxiFairQNetwork(
-            input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout
+        self.target_net = ParametricQNetwork(
+            input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout, use_dueling=True
         ).to(device)
         self.target_net.load_state_dict(self.online_net.state_dict())
         self.target_net.eval()
@@ -101,13 +106,7 @@ class DQNAgent:
         print(f"Warm start loaded. missing={missing} unexpected={unexpected}")
 
     def decision_to_matrix(self, decision_point, taxi_plans) -> np.ndarray:
-        # Assign each unique taxi a local integer group id (0, 1, 2, ...).
-        # Defer action always gets -1. This is used by TaxiFairQNetwork to
-        # normalise scores within each taxi group before comparing across taxis.
-        seen_taxis: dict[str, int] = {}
         rows: list[list[float]] = []
-        group_ids: list[float] = []
-
         for cand in decision_point.candidate_actions:
             feat = flatten_decision_features(
                 decision_point.state_summary,
@@ -121,55 +120,11 @@ class DQNAgent:
                 raise KeyError(f"Missing feature columns at DQN time: {missing[:10]}")
             rows.append([float(feat[c]) for c in self.feature_columns])
 
-            if cand.is_defer:
-                group_ids.append(-1.0)
-            else:
-                tid = cand.taxi_id
-                if tid not in seen_taxis:
-                    seen_taxis[tid] = len(seen_taxis)
-                group_ids.append(float(seen_taxis[tid]))
-
         x = np.asarray(rows, dtype=np.float32)
         x = self.scaler.transform(x).astype(np.float32)
-        group_col = np.array(group_ids, dtype=np.float32).reshape(-1, 1)
         mask = np.ones((x.shape[0], 1), dtype=np.float32)
-        # Layout: [features | taxi_group_id | valid_mask]  — matches TaxiFairQNetwork
-        return np.concatenate([x, group_col, mask], axis=1)
-
-    def _fair_random_action(
-        self,
-        valid_indices: list[int],
-        candidate_actions: list,
-    ) -> int:
-        """
-        Taxi-fair random exploration.
-
-        Problem with naive random.choice(valid_indices):
-          A taxi with N existing stops generates O(N²) insertion candidates,
-          while an idle taxi generates exactly 1. Uniform sampling over all
-          candidates therefore picks the busiest taxi with probability
-          proportional to N² — a vicious circle where long stop lists
-          attract more random assignments, making them even longer.
-
-        Fix — two-level sampling:
-          1. Pick a taxi uniformly at random from all taxis that have at
-             least one valid candidate.
-          2. Pick uniformly from that taxi's candidates.
-
-        This gives every eligible taxi exactly the same probability of
-        being chosen during exploration, regardless of how many insertion
-        positions it currently has.
-        """
-        # Group valid candidate indices by taxi_id
-        taxi_to_indices: dict[str, list[int]] = {}
-        for idx in valid_indices:
-            cand = candidate_actions[idx]
-            key = cand.taxi_id if not cand.is_defer else "__defer__"
-            taxi_to_indices.setdefault(key, []).append(idx)
-
-        # Pick a taxi uniformly, then a candidate within it uniformly
-        chosen_taxi = random.choice(list(taxi_to_indices.keys()))
-        return random.choice(taxi_to_indices[chosen_taxi])
+        # Layout: [features | valid_mask]  — matches ParametricQNetwork
+        return np.concatenate([x, mask], axis=1)
 
     def select_action(
         self, state_matrix: np.ndarray, decision_point, epsilon: float
@@ -192,7 +147,9 @@ class DQNAgent:
                     scores[i] = -1e9
 
         if random.random() < epsilon:
-            return self._fair_random_action(valid_indices, decision_point.candidate_actions)
+            # With one candidate per taxi + DEFER, uniform over valid_indices
+            # already gives each taxi equal exploration probability.
+            return random.choice(valid_indices)
         return int(np.argmax(scores))
 
     def train_step(
@@ -281,6 +238,21 @@ class DQNAgent:
 # Evaluation / summary helpers
 # ---------------------------------------------------------------------------
 
+def sum_taxi_distances(env: DQNStepEnvironment) -> float:
+    """Sum traci.vehicle.getDistance across every taxi known to the env.
+
+    Must be called while TraCI is still live (before env.close_episode()).
+    Taxis that have left the sim are silently skipped.
+    """
+    total = 0.0
+    for taxi_id in list(env.taxi_plans.keys()):
+        try:
+            total += float(traci.vehicle.getDistance(taxi_id))
+        except traci.TraCIException:
+            continue
+    return total
+
+
 def summarize_env(env: DQNStepEnvironment) -> dict[str, float]:
     requests = list(env.requests.values())
     completed = [r for r in requests if r.status.name == "COMPLETED"]
@@ -289,19 +261,21 @@ def summarize_env(env: DQNStepEnvironment) -> dict[str, float]:
         r for r in completed
         if r.dropoff_time is not None and r.pickup_time is not None
     ]
-    avg_wait = (
-        sum((r.pickup_time - r.request_time) for r in picked_up) / len(picked_up)
-        if picked_up else 0.0
-    )
-    avg_excess = (
-        sum((r.excess_ride_time or 0.0) for r in dropped) / len(dropped)
-        if dropped else 0.0
-    )
+    waits = [(r.pickup_time - r.request_time) for r in picked_up]
+    excesses = [(r.excess_ride_time or 0.0) for r in dropped]
+
+    avg_wait = sum(waits) / len(waits) if waits else 0.0
+    avg_excess = sum(excesses) / len(excesses) if excesses else 0.0
+    p90_wait = float(np.percentile(waits, 90)) if waits else 0.0
+    p90_excess = float(np.percentile(excesses, 90)) if excesses else 0.0
+
     return {
         "completed_requests": float(len(completed)),
         "picked_up_requests": float(len(picked_up)),
         "avg_wait_until_pickup": float(avg_wait),
         "avg_excess_ride_time": float(avg_excess),
+        "p90_wait_time": p90_wait,
+        "p90_excess_ride_time": p90_excess,
     }
 
 
@@ -320,6 +294,7 @@ def evaluate_policy(
     )
     total_reward = 0.0
     steps = 0
+    load_factors: list[float] = []
     try:
         decision = env.reset_episode()
         while decision is not None:
@@ -338,9 +313,20 @@ def evaluate_policy(
             shaped = max(-reward_clip, min(reward_clip, shaped))
             total_reward += shaped
             steps += 1
+
+            fleet_cap = sum(p.capacity for p in env.taxi_plans.values())
+            if fleet_cap > 0:
+                fleet_onboard = sum(p.onboard_count for p in env.taxi_plans.values())
+                load_factors.append(fleet_onboard / fleet_cap)
+
             decision = None if result.done else result.next_decision
         summary = summarize_env(env)
-        summary.update({"eval_total_reward": total_reward, "eval_steps": steps})
+        summary.update({
+            "eval_total_reward": total_reward,
+            "eval_steps": steps,
+            "total_taxi_distance_m": float(sum_taxi_distances(env)),
+            "avg_load_factor": float(np.mean(load_factors)) if load_factors else 0.0,
+        })
         return summary
     finally:
         env.close_episode()
@@ -480,7 +466,7 @@ def main() -> None:
     input_dim = int(metadata.get("input_dim", len(feature_columns)))
 
     # If spatial features are enabled, extend input_dim by the flattened grid size.
-    # The first Linear layer of TaxiFairQNetwork will not warm-start (shape mismatch),
+    # The first Linear layer of ParametricQNetwork will not warm-start (shape mismatch),
     # but all subsequent layers still load correctly via strict=False.
     SPATIAL_DIM = 7 * 10 * 2  # 140  (grid_rows × grid_cols × channels)
     use_spatial = bool(args.net)
@@ -608,6 +594,7 @@ def main() -> None:
         q_maxs: list[float] = []
         q_mins: list[float] = []
         target_means: list[float] = []
+        load_factors: list[float] = []
         steps = 0
         n_step_buf = NStepBuffer(n_steps=args.n_step, gamma=args.gamma)
 
@@ -671,6 +658,12 @@ def main() -> None:
                 total_reward += shaped_r
                 steps += 1
 
+                # Sample fleet load factor at this decision point
+                fleet_cap = sum(p.capacity for p in env.taxi_plans.values())
+                if fleet_cap > 0:
+                    fleet_onboard = sum(p.onboard_count for p in env.taxi_plans.values())
+                    load_factors.append(fleet_onboard / fleet_cap)
+
                 # Gradient update: only after warmup, only every N decisions,
                 # only when buffer has enough samples
                 if (
@@ -688,6 +681,7 @@ def main() -> None:
                 decision = None if result.done else result.next_decision
 
             summary = summarize_env(env)
+            total_taxi_dist = sum_taxi_distances(env)
             normalised_r = total_reward / max(1, steps)
 
             stats = EpisodeStats(
@@ -706,6 +700,10 @@ def main() -> None:
                 q_max=float(np.mean(q_maxs)) if q_maxs else float("nan"),
                 q_min=float(np.mean(q_mins)) if q_mins else float("nan"),
                 target_mean=float(np.mean(target_means)) if target_means else float("nan"),
+                total_taxi_distance_m=float(total_taxi_dist),
+                avg_load_factor=float(np.mean(load_factors)) if load_factors else 0.0,
+                p90_wait_time=float(summary["p90_wait_time"]),
+                p90_excess_ride_time=float(summary["p90_excess_ride_time"]),
             )
             history.append(stats.__dict__)
 
@@ -775,7 +773,7 @@ def main() -> None:
         "hidden_dims": hidden_dims,
         "dropout": dropout,
         "input_dim": input_dim,
-        "use_taxi_fair": True,  # signals DQNPolicy to load TaxiFairQNetwork
+        "use_dueling": True,  # signals DQNPolicy to use DuelingCandidateScorerMLP
         "warm_start_from": str(imitation_dir),
         "episodes": args.episodes,
         "warmup_episodes": args.warmup_episodes,

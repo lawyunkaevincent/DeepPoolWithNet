@@ -12,7 +12,7 @@ import torch
 from drt_policy_types import CandidateEvaluation, DecisionPoint, PolicyOutput
 from feature_extractor import flatten_decision_features
 from heuristic_policy import BasePolicy
-from q_network import ParametricQNetwork, TaxiFairQNetwork
+from q_network import ParametricQNetwork
 
 
 class DQNPolicy(BasePolicy):
@@ -43,22 +43,21 @@ class DQNPolicy(BasePolicy):
         dropout = float(self.metadata.get("dropout", 0.1))
         input_dim = int(self.metadata.get("input_dim", len(self.feature_columns)))
 
-        use_taxi_fair = bool(self.metadata.get("use_taxi_fair", False))
-        self.use_taxi_fair = use_taxi_fair
+        use_dueling = bool(self.metadata.get("use_dueling", True))
 
         self.scaler = joblib.load(scaler_path)
-        if use_taxi_fair:
-            self.model = TaxiFairQNetwork(input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout)
-        else:
-            self.model = ParametricQNetwork(input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout)
+        self.model = ParametricQNetwork(
+            input_dim=input_dim,
+            hidden_dims=hidden_dims,
+            dropout=dropout,
+            use_dueling=use_dueling,
+        )
         self.model.load_state_dict(torch.load(model_path, map_location=self.device))
         self.model.to(self.device)
         self.model.eval()
 
     def _build_feature_matrix(self, decision_point: DecisionPoint, taxi_plans) -> np.ndarray:
         rows: list[list[float]] = []
-        seen_taxis: dict[str, int] = {}
-        group_ids: list[float] = []
 
         for cand in decision_point.candidate_actions:
             feature_dict = flatten_decision_features(
@@ -73,21 +72,9 @@ class DQNPolicy(BasePolicy):
                 raise KeyError(f"Missing feature columns at inference: {missing[:10]}")
             rows.append([float(feature_dict[col]) for col in self.feature_columns])
 
-            if cand.is_defer:
-                group_ids.append(-1.0)
-            else:
-                tid = cand.taxi_id
-                if tid not in seen_taxis:
-                    seen_taxis[tid] = len(seen_taxis)
-                group_ids.append(float(seen_taxis[tid]))
-
         x = np.asarray(rows, dtype=np.float32)
         x = self.scaler.transform(x).astype(np.float32)
         valid_mask = np.ones((x.shape[0], 1), dtype=np.float32)
-
-        if self.use_taxi_fair:
-            group_col = np.array(group_ids, dtype=np.float32).reshape(-1, 1)
-            return np.concatenate([x, group_col, valid_mask], axis=1)
         return np.concatenate([x, valid_mask], axis=1)
 
     @torch.no_grad()

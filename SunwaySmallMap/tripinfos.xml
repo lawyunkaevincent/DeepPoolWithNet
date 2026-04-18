@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-18T12:36:41.753553+08:00 by Eclipse SUMO sumo 1.26.0
+<!-- generated on 2026-04-18T22:04:09.641918+08:00 by Eclipse SUMO sumo 1.26.0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -39,7 +39,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="49187"/>
+        <remote-port value="56788"/>
     </traci_server>
 
     <gui_only>
@@ -50,3 +50,9 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="1" depart="454.00" type="DEFAULT_PEDTYPE" speedFactor="0.88" duration="233.00" waitingTime="51.00" timeLoss="23.87" traveltime="182.00">
+        <ride waitingTime="51.00" vehicle="t_13" depart="505.00" arrival="687.00" arrivalPos="74.37" duration="182.00" routeLength="1378.65" timeLoss="23.87"/>
+    </personinfo>
+    <personinfo id="0" depart="70.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="619.00" waitingTime="133.00" timeLoss="120.90" traveltime="486.00">
+        <ride waitingTime="133.00" vehicle="t_6" depart="203.00" arrival="689.00" arrivalPos="77.65" duration="486.00" routeLength="5748.36" timeLoss="120.90"/>
+    </personinfo>
