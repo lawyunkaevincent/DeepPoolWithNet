@@ -860,133 +860,62 @@ def score_candidate(
     now: float,
 ) -> float:
     """
-    Scoring pipeline:
-      1. compute raw component metrics
-      2. normalize raw metrics online
-      3. apply weights AFTER normalization
-      4. combine into final score
+    Heuristic score aligned with DQN reward v2 (compute_shaped_reward_v2).
+
+    Only per-candidate terms are kept — system_pressure and completion_bonus
+    are constant across candidates at a single decision point and drop out
+    of the argmax. Returned score = -(total penalty), higher is better.
     """
     if c.is_defer:
         return -1e9
 
-    plan = taxi_plans.get(c.taxi_id)
-    if plan is None:
+    if taxi_plans.get(c.taxi_id) is None:
         return -1e9
 
-    waiting_so_far = max(0.0, now - request.request_time)
-    future_wait = max(0.0, c.pickup_eta_new - now)
-    total_wait = max(0.0, c.pickup_eta_new - request.request_time)
+    # 1. Per-passenger wait penalty (dominant)
+    predicted_wait = max(0.0, c.pickup_eta_new - request.request_time)
+    wait_penalty = 1.2 * (predicted_wait / 300.0)
 
-    is_idle_activation = (plan.status == TaxiStatus.IDLE and len(plan.stops) == 0)
-    slack = max(0.0, getattr(request, "max_wait", 300.0) - total_wait)
-    urgency_factor = 1.0 if slack >= 60.0 else max(0.10, slack / 60.0)
-    activation_raw = urgency_factor if is_idle_activation else 0.0
+    # 2. Per-passenger excess ride penalty
+    excess_ride_penalty = 0.0
+    if request.direct_travel_time > 0:
+        predicted_ride = c.dropoff_eta_new - c.pickup_eta_new
+        excess_ride = max(0.0, predicted_ride - request.direct_travel_time)
+        excess_ride_penalty = 2.5 * (excess_ride / 200.0)
 
-    suffix_completion = (
-        max(0.0, c.resulting_stops[-1].eta - now)
-        if c.resulting_stops else 0.0
+    # 3. Existing-passenger delay (worst-case + aggregate violations)
+    existing_delay_penalty = (
+        1.0 * (c.max_existing_delay / 300.0)
+        + 0.5 * (getattr(c, "existing_ride_violation_sum", 0.0) / 200.0)
     )
 
-    other_workloads = [
-        _plan_remaining_workload(tp, now)
-        for tid, tp in taxi_plans.items()
-        if tid != c.taxi_id
-    ]
-    baseline_other = min(other_workloads) if other_workloads else 0.0
-    imbalance_raw = max(0.0, suffix_completion - baseline_other)
+    # 4. Overload guard rail (taxi with >4 stops)
+    overload_penalty = 0.0
+    n_stops = len(getattr(c, "resulting_stops", []))
+    if n_stops > 4:
+        overload_penalty = 0.1 * (n_stops - 4) ** 1.5
 
-    before_unique = len(_unique_req_ids_in_stops(plan.stops)) + len(plan.onboard_request_ids)
-    after_unique = len(_unique_req_ids_in_stops(c.resulting_stops)) + len(plan.onboard_request_ids)
-    share_gain = max(0, after_unique - max(1, before_unique))
-    compact_share = (
-        after_unique >= 2
-        and c.max_existing_delay <= 30.0
-        and future_wait <= 150.0
+    total_penalty = (
+        wait_penalty
+        + excess_ride_penalty
+        + existing_delay_penalty
+        + overload_penalty
     )
-    share_raw = float(share_gain) if compact_share else 0.0
 
-    # --------------------------------------------------
-    # Raw metrics only (NO weights here)
-    # --------------------------------------------------
-    raw_cost_components = {
-        "max_delay": c.max_existing_delay,
-        "avg_delay": c.avg_existing_delay,
-        "waited": waiting_so_far,
-        "future_wait": future_wait,
-        "total_wait": total_wait,
-        "route": c.added_route_time,
-        "activation": activation_raw,
-        "workload": suffix_completion,
-        "imbalance": imbalance_raw,
-        "new_wait_viol": c.new_wait_violation ** 2,
-        "new_ride_viol": c.new_ride_violation ** 2,
-        "exist_wait_viol": (
-            (c.existing_wait_violation_sum ** 2)
-            + 2.0 * (c.existing_wait_violation_max ** 2)
-        ),
-        "exist_ride_viol": (
-            (c.existing_ride_violation_sum ** 2)
-            + 2.0 * (c.existing_ride_violation_max ** 2)
-        ),
-    }
+    _append_score_metrics_row({
+        "predicted_wait": predicted_wait,
+        "excess_ride": max(0.0, (c.dropoff_eta_new - c.pickup_eta_new) - request.direct_travel_time) if request.direct_travel_time > 0 else 0.0,
+        "max_existing_delay": c.max_existing_delay,
+        "existing_ride_viol_sum": getattr(c, "existing_ride_violation_sum", 0.0),
+        "n_stops": n_stops,
+        "wait_penalty": wait_penalty,
+        "excess_ride_penalty": excess_ride_penalty,
+        "existing_delay_penalty": existing_delay_penalty,
+        "overload_penalty": overload_penalty,
+        "total_penalty": total_penalty,
+    })
 
-    raw_bonus_components = {
-        "share": share_raw,
-    }
-
-    # --------------------------------------------------
-    # Normalize raw metrics first
-    # --------------------------------------------------
-    norm_cost_components = _normalize_component_dict(raw_cost_components)
-    norm_bonus_components = _normalize_component_dict(raw_bonus_components)
-
-    # --------------------------------------------------
-    # Apply weights AFTER normalization
-    # --------------------------------------------------
-    weighted_cost_components = {
-        "max_delay_cost": W_MAX_ONBOARD_DELAY * norm_cost_components["max_delay"],
-        # "avg_delay_cost": W_AVG_ONBOARD_DELAY * norm_cost_components["avg_delay"],
-        "waited_cost": W_WAIT_SO_FAR * norm_cost_components["waited"],
-        "future_wait_cost": W_FUTURE_WAIT * norm_cost_components["future_wait"],
-        # "total_wait_cost": W_TOTAL_WAIT * norm_cost_components["total_wait"],
-        "route_cost": W_ROUTE * norm_cost_components["route"],
-        "activation_cost": W_ACTIVATION * norm_cost_components["activation"],
-        "workload_cost": W_WORKLOAD * norm_cost_components["workload"],
-        "imbalance_cost": W_IMBALANCE * norm_cost_components["imbalance"],
-        "new_wait_viol_cost": W_NEW_WAIT_VIOL * norm_cost_components["new_wait_viol"],
-        "new_ride_viol_cost": W_NEW_RIDE_VIOL * norm_cost_components["new_ride_viol"],
-        "exist_wait_viol_cost": W_EXIST_WAIT_VIOL * norm_cost_components["exist_wait_viol"],
-        "exist_ride_viol_cost": W_EXIST_RIDE_VIOL * norm_cost_components["exist_ride_viol"],
-    }
-
-    weighted_bonus_components = {
-        "share_bonus": W_SHARE_BONUS * norm_bonus_components["share"],
-    }
-
-    # --------------------------------------------------
-    # Save raw / normalized / weighted values
-    # --------------------------------------------------
-    debug_row = {}
-
-    for k, v in raw_cost_components.items():
-        debug_row[f"raw_{k}"] = v
-    for k, v in raw_bonus_components.items():
-        debug_row[f"raw_{k}"] = v
-
-    for k, v in norm_cost_components.items():
-        debug_row[f"norm_{k}"] = v
-    for k, v in norm_bonus_components.items():
-        debug_row[f"norm_{k}"] = v
-
-    for k, v in weighted_cost_components.items():
-        debug_row[k] = v
-    for k, v in weighted_bonus_components.items():
-        debug_row[k] = v
-
-    _append_score_metrics_row(debug_row)
-
-    total_cost = sum(weighted_cost_components.values()) - sum(weighted_bonus_components.values())
-    return -total_cost
+    return -total_penalty
 
 
 SCORE_RECORD_FILE = Path("score_metrics_record.csv")

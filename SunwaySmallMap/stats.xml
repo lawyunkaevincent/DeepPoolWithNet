@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-18T22:04:09.642249+08:00 by Eclipse SUMO sumo 1.26.0
+<!-- generated on 2026-04-19T11:34:09.308362+08:00 by Eclipse SUMO sumo 1.26.0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="D:\FYP\DeepPoolPer\SunwaySmallMap\osm.net.xml"/>
-        <route-files value="D:\FYP\DeepPoolPer\SunwaySmallMap\self_request.rou.xml,D:\FYP\DeepPoolPer\SunwaySmallMap\taxi_more.rou.xml"/>
+        <net-file value="D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\osm.net.xml"/>
+        <route-files value="D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\self_request.rou.xml,D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\taxi_more.rou.xml"/>
     </input>
 
     <output>
-        <tripinfo-output value="D:\FYP\DeepPoolPer\SunwaySmallMap\tripinfos.xml"/>
-        <statistic-output value="D:\FYP\DeepPoolPer\SunwaySmallMap\stats.xml"/>
+        <tripinfo-output value="D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\tripinfos.xml"/>
+        <statistic-output value="D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\stats.xml"/>
     </output>
 
     <time>
@@ -39,11 +39,11 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="56788"/>
+        <remote-port value="52505"/>
     </traci_server>
 
     <gui_only>
-        <gui-settings-file value="D:\FYP\DeepPoolPer\SunwaySmallMap\osm.view.xml"/>
+        <gui-settings-file value="D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\osm.view.xml"/>
     </gui_only>
 
 </sumoConfiguration>

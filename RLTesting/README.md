@@ -1,7 +1,7 @@
 Run the code with the following command:
 
 To run the dispactcher at the DQN folder:
-python .\dispatcher.py --cfg D:\FYP\DQNLargeScale1\SunwaySmallMap\osm.sumocfg   
+python .\dispatcher.py --cfg D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\osm.sumocfg
 
 To generate the request: 
 python .\request_chain_generator.py --report D:\FYP\FYP-DRT\SmallTestingMap\connectivity_report.json --taxi D:\FYP\FYP-DRT\SmallTestingMap\map.rou.xml --output D:\FYP\FYP-DRT\SmallTestingMap\persontrips_scale.rou.xml --num-requests 200 --depart-step 25 75 200 --max-random-deviation-pct 10

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-19T11:34:09.308001+08:00 by Eclipse SUMO sumo 1.26.0
+<!-- generated on 2026-04-18T23:45:49.750124+08:00 by Eclipse SUMO GUI 1.26.0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -12,10 +12,6 @@
         <tripinfo-output value="D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\tripinfos.xml"/>
         <statistic-output value="D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\stats.xml"/>
     </output>
-
-    <time>
-        <step-length value="1.0"/>
-    </time>
 
     <processing>
         <ignore-route-errors value="true"/>
@@ -34,13 +30,9 @@
     </report>
 
     <taxi_device>
-        <device.taxi.dispatch-algorithm value="traci"/>
+        <device.taxi.dispatch-algorithm value="greedyShared"/>
         <device.taxi.idle-algorithm value="stop"/>
     </taxi_device>
-
-    <traci_server>
-        <remote-port value="52505"/>
-    </traci_server>
 
     <gui_only>
         <gui-settings-file value="D:\FYP\DeepPoolPer_Comparison\SunwaySmallMap\osm.view.xml"/>
@@ -49,4 +41,4 @@
 </sumoConfiguration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">

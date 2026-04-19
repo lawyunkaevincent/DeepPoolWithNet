@@ -70,6 +70,7 @@ class DQNAgent:
         lr_min: float,
         tau: float,
         forbid_defer_when_action_exists: bool = True,
+        spatial_dim: int = 0,
     ):
         self.feature_columns = feature_columns
         self.scaler = scaler
@@ -77,6 +78,8 @@ class DQNAgent:
         self.gamma = gamma
         self.tau = tau
         self.forbid_defer_when_action_exists = forbid_defer_when_action_exists
+        self.spatial_dim = int(spatial_dim)
+        self.spatial_columns = [f"spatial_{i}" for i in range(self.spatial_dim)]
 
         self.online_net = ParametricQNetwork(
             input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout, use_dueling=True
@@ -107,6 +110,7 @@ class DQNAgent:
 
     def decision_to_matrix(self, decision_point, taxi_plans) -> np.ndarray:
         rows: list[list[float]] = []
+        spatial_rows: list[list[float]] = []
         for cand in decision_point.candidate_actions:
             feat = flatten_decision_features(
                 decision_point.state_summary,
@@ -120,10 +124,28 @@ class DQNAgent:
                 raise KeyError(f"Missing feature columns at DQN time: {missing[:10]}")
             rows.append([float(feat[c]) for c in self.feature_columns])
 
+            if self.spatial_dim > 0:
+                missing_sp = [c for c in self.spatial_columns if c not in feat]
+                if missing_sp:
+                    raise KeyError(
+                        f"Spatial features enabled (spatial_dim={self.spatial_dim}) "
+                        f"but missing from feat dict: {missing_sp[:5]}... "
+                        f"— check that --net was passed and ZoneStateTracker initialised."
+                    )
+                spatial_rows.append([float(feat[c]) for c in self.spatial_columns])
+
         x = np.asarray(rows, dtype=np.float32)
         x = self.scaler.transform(x).astype(np.float32)
+
+        # Spatial features are already normalised to [0,1] by ZoneStateTracker,
+        # so they're appended AFTER the scaler (bypassing it), matching the
+        # feature ordering used when input_dim was extended in main().
+        if self.spatial_dim > 0:
+            sp = np.asarray(spatial_rows, dtype=np.float32)
+            x = np.concatenate([x, sp], axis=1)
+
         mask = np.ones((x.shape[0], 1), dtype=np.float32)
-        # Layout: [features | valid_mask]  — matches ParametricQNetwork
+        # Layout: [tabular-scaled | spatial-raw | valid_mask] — matches ParametricQNetwork
         return np.concatenate([x, mask], axis=1)
 
     def select_action(
@@ -470,6 +492,7 @@ def main() -> None:
     # but all subsequent layers still load correctly via strict=False.
     SPATIAL_DIM = 7 * 10 * 2  # 140  (grid_rows × grid_cols × channels)
     use_spatial = bool(args.net)
+    spatial_dim = SPATIAL_DIM if use_spatial else 0
     if use_spatial:
         input_dim += SPATIAL_DIM
         print(f"[Train] Spatial features enabled (+{SPATIAL_DIM} dims) → input_dim={input_dim}")
@@ -488,6 +511,7 @@ def main() -> None:
         lr=args.lr,
         lr_min=args.lr_min,
         tau=args.tau,
+        spatial_dim=spatial_dim,
     )
 
     # ── Resume vs fresh start ──────────────────────────────
