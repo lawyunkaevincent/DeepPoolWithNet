@@ -141,3 +141,90 @@ class ParametricQNetwork(nn.Module):
         q_values = self.scorer(x, mask=mask)
         q_values = q_values.masked_fill(mask <= 0.0, -1e9)
         return q_values, mask
+
+
+class SpatialEncodedQNetwork(nn.Module):
+    """Q(s, a) scorer with separate tabular and spatial encoders.
+
+    Splits the per-row feature vector into:
+        [tabular (tab_dim) | spatial (spat_dim) | mask (1)]
+    Then encodes each modality independently before merging into the dueling head.
+
+    Spatial features are global state (identical across all candidates at one
+    decision point), so the spatial branch only runs ONCE per decision —
+    extracted from candidate index 0, then broadcast to every candidate before
+    concat. This is both faster and a stronger inductive bias than letting one
+    big Linear(189→256) re-discover the modality boundary from scratch.
+
+    Architecture:
+        tabular(tab_dim) ─► Linear(tab_dim → tab_emb) → ReLU → Dropout
+                                                           │
+                                                           ▼ per-candidate [B,C,tab_emb]
+        spatial(spat_dim) ─► Linear(spat_dim → spat_emb) → ReLU → Dropout
+                          ─► Linear(spat_emb → spat_emb) → ReLU
+                                                           │
+                                                           ▼ per-decision [B,1,spat_emb]
+                                          (broadcast to C candidates)
+                                                           │
+                            concat → [B, C, tab_emb + spat_emb] → DuelingCandidateScorerMLP
+    """
+
+    def __init__(
+        self,
+        tab_dim: int,
+        spat_dim: int,
+        hidden_dims: Sequence[int],
+        tab_emb: int = 64,
+        spat_emb: int = 32,
+        dropout: float = 0.1,
+    ):
+        super().__init__()
+        if spat_dim <= 0:
+            raise ValueError(
+                "SpatialEncodedQNetwork requires spat_dim > 0. "
+                "Use ParametricQNetwork when spatial features are disabled."
+            )
+        self.tab_dim = int(tab_dim)
+        self.spat_dim = int(spat_dim)
+        self.tab_emb = int(tab_emb)
+        self.spat_emb = int(spat_emb)
+
+        self.tabular_encoder = nn.Sequential(
+            nn.Linear(tab_dim, tab_emb),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+        )
+        self.spatial_encoder = nn.Sequential(
+            nn.Linear(spat_dim, spat_emb),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(spat_emb, spat_emb),
+            nn.ReLU(),
+        )
+        self.scorer = DuelingCandidateScorerMLP(
+            input_dim=tab_emb + spat_emb,
+            hidden_dims=hidden_dims,
+            dropout=dropout,
+        )
+
+    def forward(self, x_with_mask: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        # Layout per row: [tab(tab_dim) | spat(spat_dim) | mask(1)]
+        tab = x_with_mask[..., : self.tab_dim]                                    # [B, C, tab_dim]
+        spat_per_cand = x_with_mask[..., self.tab_dim : self.tab_dim + self.spat_dim]  # [B, C, spat_dim]
+        mask = x_with_mask[..., -1]                                               # [B, C]
+
+        b, c, _ = tab.shape
+
+        # Tabular: per-candidate
+        tab_emb = self.tabular_encoder(tab.reshape(b * c, self.tab_dim)).reshape(b, c, -1)
+
+        # Spatial: per-decision (use candidate 0 — values are identical across C)
+        spat = spat_per_cand[:, 0, :]                                             # [B, spat_dim]
+        spat_emb = self.spatial_encoder(spat)                                     # [B, spat_emb]
+        spat_emb = spat_emb.unsqueeze(1).expand(b, c, spat_emb.shape[-1])         # [B, C, spat_emb]
+
+        merged = torch.cat([tab_emb, spat_emb], dim=-1)                           # [B, C, tab_emb + spat_emb]
+
+        q_values = self.scorer(merged, mask=mask)
+        q_values = q_values.masked_fill(mask <= 0.0, -1e9)
+        return q_values, mask

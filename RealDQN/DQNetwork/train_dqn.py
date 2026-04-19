@@ -18,7 +18,7 @@ from tqdm import trange
 from dqn_env import DQNStepEnvironment
 from dispatcher import setup_logger
 from feature_extractor import flatten_decision_features
-from q_network import ParametricQNetwork
+from q_network import ParametricQNetwork, SpatialEncodedQNetwork
 from replay_buffer import (
     NStepBuffer, ReplayBuffer, PrioritizedReplayBuffer,
     PrioritizedReplayBatch, Transition,
@@ -71,6 +71,9 @@ class DQNAgent:
         tau: float,
         forbid_defer_when_action_exists: bool = True,
         spatial_dim: int = 0,
+        use_spatial_encoder: bool = False,
+        tab_emb: int = 64,
+        spat_emb: int = 32,
     ):
         self.feature_columns = feature_columns
         self.scaler = scaler
@@ -80,13 +83,32 @@ class DQNAgent:
         self.forbid_defer_when_action_exists = forbid_defer_when_action_exists
         self.spatial_dim = int(spatial_dim)
         self.spatial_columns = [f"spatial_{i}" for i in range(self.spatial_dim)]
+        self.use_spatial_encoder = bool(use_spatial_encoder)
 
-        self.online_net = ParametricQNetwork(
-            input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout, use_dueling=True
-        ).to(device)
-        self.target_net = ParametricQNetwork(
-            input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout, use_dueling=True
-        ).to(device)
+        if self.use_spatial_encoder:
+            if self.spatial_dim <= 0:
+                raise ValueError(
+                    "use_spatial_encoder=True requires spatial_dim > 0 "
+                    "(pass --net so spatial features are produced)."
+                )
+            tab_dim = input_dim - self.spatial_dim
+            self.online_net = SpatialEncodedQNetwork(
+                tab_dim=tab_dim, spat_dim=self.spatial_dim,
+                hidden_dims=hidden_dims, tab_emb=tab_emb, spat_emb=spat_emb,
+                dropout=dropout,
+            ).to(device)
+            self.target_net = SpatialEncodedQNetwork(
+                tab_dim=tab_dim, spat_dim=self.spatial_dim,
+                hidden_dims=hidden_dims, tab_emb=tab_emb, spat_emb=spat_emb,
+                dropout=dropout,
+            ).to(device)
+        else:
+            self.online_net = ParametricQNetwork(
+                input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout, use_dueling=True
+            ).to(device)
+            self.target_net = ParametricQNetwork(
+                input_dim=input_dim, hidden_dims=hidden_dims, dropout=dropout, use_dueling=True
+            ).to(device)
         self.target_net.load_state_dict(self.online_net.state_dict())
         self.target_net.eval()
 
@@ -366,6 +388,20 @@ def main() -> None:
     parser.add_argument("--net", default=None,
                         help="Path to .net.xml for spatial demand/supply grid features. "
                              "If omitted, spatial features are disabled.")
+    parser.add_argument(
+        "--spatial-encoder", action="store_true",
+        help="Use SpatialEncodedQNetwork: separate encoders for tabular (per-candidate) "
+             "and spatial (per-decision, broadcast) features, then merged into the dueling head. "
+             "Requires --net. Imitation warm-start does NOT load (architecture diverges).",
+    )
+    parser.add_argument(
+        "--tab-emb", type=int, default=64,
+        help="Tabular encoder output dim (only used with --spatial-encoder).",
+    )
+    parser.add_argument(
+        "--spat-emb", type=int, default=32,
+        help="Spatial encoder output dim (only used with --spatial-encoder).",
+    )
     parser.add_argument("--imitation-model-dir", required=True)
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--episodes", type=int, default=100)
@@ -511,6 +547,13 @@ def main() -> None:
         input_dim += SPATIAL_DIM
         print(f"[Train] Spatial features enabled (+{SPATIAL_DIM} dims) → input_dim={input_dim}")
 
+    if args.spatial_encoder and not use_spatial:
+        raise ValueError("--spatial-encoder requires --net to produce spatial features.")
+    if args.spatial_encoder:
+        print(f"[Train] Spatial encoder enabled (tab_emb={args.tab_emb}, spat_emb={args.spat_emb}) "
+              f"— architecture: tab({input_dim - SPATIAL_DIM}→{args.tab_emb}) || "
+              f"spat({SPATIAL_DIM}→{args.spat_emb}) → dueling")
+
     device = torch.device(
         args.device or ("cuda" if torch.cuda.is_available() else "cpu")
     )
@@ -526,6 +569,9 @@ def main() -> None:
         lr_min=args.lr_min,
         tau=args.tau,
         spatial_dim=spatial_dim,
+        use_spatial_encoder=args.spatial_encoder,
+        tab_emb=args.tab_emb,
+        spat_emb=args.spat_emb,
     )
 
     # ── Resume vs fresh start ──────────────────────────────
@@ -564,6 +610,11 @@ def main() -> None:
         # Skip warmup when resuming — buffer will fill from the trained policy
         args.warmup_episodes = 0
         print("Warmup skipped (resuming from trained model)")
+    elif args.spatial_encoder:
+        # Architecture diverges from imitation (split tab/spat encoders) — warm-start
+        # would only match the dueling head, which is fragile to load piecemeal.
+        # Train from scratch and rely on the spatial encoder + reward shaping instead.
+        print("Warm-start skipped (--spatial-encoder uses a different architecture).")
     else:
         warm_state = torch.load(imitation_dir / "imitation_model.pt", map_location=device)
         agent.load_warm_start(warm_state)
@@ -840,6 +891,9 @@ def main() -> None:
         "epsilon_end": args.epsilon_end,
         "epsilon_schedule": args.epsilon_schedule,
         "epsilon_decay_rate": args.epsilon_decay_rate if args.epsilon_schedule == "exponential" else None,
+        "spatial_encoder": args.spatial_encoder,
+        "tab_emb": args.tab_emb if args.spatial_encoder else None,
+        "spat_emb": args.spat_emb if args.spatial_encoder else None,
         "reward_clip": args.reward_clip,
         "per_enabled": use_per,
         "per_alpha": args.per_alpha if use_per else None,

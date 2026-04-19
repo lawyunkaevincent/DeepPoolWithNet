@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-19T13:15:19.000716+08:00 by Eclipse SUMO sumo 1.26.0
+<!-- generated on 2026-04-19T15:56:19.590068+08:00 by Eclipse SUMO sumo 1.26.0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -39,7 +39,7 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="56209"/>
+        <remote-port value="62387"/>
     </traci_server>
 
     <gui_only>
@@ -50,76 +50,1167 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="0" depart="70.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="617.00" waitingTime="119.00" timeLoss="141.14" traveltime="498.00">
-        <ride waitingTime="119.00" vehicle="t_0" depart="189.00" arrival="687.00" arrivalPos="77.65" duration="498.00" routeLength="5748.36" timeLoss="141.14"/>
+    <personinfo id="0" depart="70.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="614.00" waitingTime="156.00" timeLoss="126.93" traveltime="458.00">
+        <ride waitingTime="156.00" vehicle="t_12" depart="226.00" arrival="684.00" arrivalPos="77.65" duration="458.00" routeLength="5748.36" timeLoss="126.93"/>
     </personinfo>
-    <personinfo id="1" depart="454.00" type="DEFAULT_PEDTYPE" speedFactor="0.88" duration="279.00" waitingTime="96.00" timeLoss="26.60" traveltime="183.00">
-        <ride waitingTime="96.00" vehicle="t_3" depart="550.00" arrival="733.00" arrivalPos="74.37" duration="183.00" routeLength="1378.64" timeLoss="26.60"/>
+    <personinfo id="1" depart="454.00" type="DEFAULT_PEDTYPE" speedFactor="0.88" duration="278.00" waitingTime="98.00" timeLoss="23.65" traveltime="180.00">
+        <ride waitingTime="98.00" vehicle="t_3" depart="552.00" arrival="732.00" arrivalPos="74.37" duration="180.00" routeLength="1378.58" timeLoss="23.65"/>
     </personinfo>
-    <personinfo id="3" depart="1093.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="410.00" waitingTime="117.00" timeLoss="28.45" traveltime="293.00">
-        <ride waitingTime="117.00" vehicle="t_14" depart="1210.00" arrival="1503.00" arrivalPos="125.51" duration="293.00" routeLength="2915.18" timeLoss="28.45"/>
+    <personinfo id="3" depart="1093.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="380.00" waitingTime="89.00" timeLoss="32.24" traveltime="291.00">
+        <ride waitingTime="89.00" vehicle="t_13" depart="1182.00" arrival="1473.00" arrivalPos="125.51" duration="291.00" routeLength="2915.22" timeLoss="32.24"/>
     </personinfo>
-    <personinfo id="2" depart="1083.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="552.00" waitingTime="187.00" timeLoss="83.36" traveltime="365.00">
-        <ride waitingTime="187.00" vehicle="t_8" depart="1270.00" arrival="1635.00" arrivalPos="77.65" duration="365.00" routeLength="4227.42" timeLoss="83.36"/>
+    <personinfo id="2" depart="1083.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="515.00" waitingTime="142.00" timeLoss="93.57" traveltime="373.00">
+        <ride waitingTime="142.00" vehicle="t_6" depart="1225.00" arrival="1598.00" arrivalPos="77.65" duration="373.00" routeLength="4227.43" timeLoss="93.57"/>
     </personinfo>
-    <personinfo id="6" depart="1309.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="332.00" waitingTime="60.00" timeLoss="29.17" traveltime="272.00">
-        <ride waitingTime="60.00" vehicle="t_3" depart="1369.00" arrival="1641.00" arrivalPos="117.72" duration="272.00" routeLength="3463.93" timeLoss="29.17"/>
+    <personinfo id="6" depart="1309.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="335.00" waitingTime="65.00" timeLoss="18.55" traveltime="270.00">
+        <ride waitingTime="65.00" vehicle="t_14" depart="1374.00" arrival="1644.00" arrivalPos="117.72" duration="270.00" routeLength="3463.95" timeLoss="18.55"/>
     </personinfo>
-    <personinfo id="8" depart="1372.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="321.00" waitingTime="136.00" timeLoss="39.90" traveltime="185.00">
-        <ride waitingTime="136.00" vehicle="t_2" depart="1508.00" arrival="1693.00" arrivalPos="66.56" duration="185.00" routeLength="1903.94" timeLoss="39.90"/>
+    <personinfo id="9" depart="1456.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="241.00" waitingTime="85.00" timeLoss="17.53" traveltime="156.00">
+        <ride waitingTime="85.00" vehicle="t_7" depart="1541.00" arrival="1697.00" arrivalPos="27.15" duration="156.00" routeLength="1039.51" timeLoss="17.53"/>
     </personinfo>
-    <personinfo id="4" depart="1229.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="498.00" waitingTime="55.00" timeLoss="83.85" traveltime="443.00">
-        <ride waitingTime="55.00" vehicle="t_0" depart="1284.00" arrival="1727.00" arrivalPos="105.07" duration="443.00" routeLength="5318.93" timeLoss="83.85"/>
+    <personinfo id="4" depart="1229.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="489.00" waitingTime="52.00" timeLoss="101.91" traveltime="437.00">
+        <ride waitingTime="52.00" vehicle="t_12" depart="1281.00" arrival="1718.00" arrivalPos="105.07" duration="437.00" routeLength="5318.94" timeLoss="101.91"/>
     </personinfo>
-    <personinfo id="9" depart="1456.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="271.00" waitingTime="120.00" timeLoss="17.89" traveltime="151.00">
-        <ride waitingTime="120.00" vehicle="t_11" depart="1576.00" arrival="1727.00" arrivalPos="27.15" duration="151.00" routeLength="1039.52" timeLoss="17.89"/>
+    <personinfo id="8" depart="1372.00" type="DEFAULT_PEDTYPE" speedFactor="0.73" duration="356.00" waitingTime="192.00" timeLoss="16.45" traveltime="164.00">
+        <ride waitingTime="192.00" vehicle="t_10" depart="1564.00" arrival="1728.00" arrivalPos="66.56" duration="164.00" routeLength="1903.89" timeLoss="16.45"/>
     </personinfo>
-    <personinfo id="7" depart="1317.00" type="DEFAULT_PEDTYPE" speedFactor="1.16" duration="500.00" waitingTime="227.00" timeLoss="28.99" traveltime="273.00">
-        <ride waitingTime="227.00" vehicle="t_6" depart="1544.00" arrival="1817.00" arrivalPos="139.84" duration="273.00" routeLength="3651.10" timeLoss="28.99"/>
+    <personinfo id="10" depart="1468.00" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="268.00" waitingTime="44.00" timeLoss="65.63" traveltime="224.00">
+        <ride waitingTime="44.00" vehicle="t_9" depart="1512.00" arrival="1736.00" arrivalPos="13.58" duration="224.00" routeLength="1904.86" timeLoss="65.63"/>
     </personinfo>
-    <personinfo id="10" depart="1468.00" type="DEFAULT_PEDTYPE" speedFactor="0.73" duration="432.00" waitingTime="222.00" timeLoss="45.18" traveltime="210.00">
-        <ride waitingTime="222.00" vehicle="t_7" depart="1690.00" arrival="1900.00" arrivalPos="13.58" duration="210.00" routeLength="1904.78" timeLoss="45.18"/>
+    <personinfo id="5" depart="1251.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="531.00" waitingTime="159.00" timeLoss="48.90" traveltime="372.00">
+        <ride waitingTime="159.00" vehicle="t_11" depart="1410.00" arrival="1782.00" arrivalPos="105.07" duration="372.00" routeLength="5349.76" timeLoss="48.90"/>
     </personinfo>
-    <personinfo id="11" depart="1531.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="438.00" waitingTime="177.00" timeLoss="38.75" traveltime="261.00">
-        <ride waitingTime="177.00" vehicle="t_3" depart="1708.00" arrival="1969.00" arrivalPos="11.40" duration="261.00" routeLength="2934.92" timeLoss="38.75"/>
+    <personinfo id="7" depart="1317.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="611.00" waitingTime="89.00" timeLoss="85.61" traveltime="522.00">
+        <ride waitingTime="89.00" vehicle="t_7" depart="1406.00" arrival="1928.00" arrivalPos="139.84" duration="522.00" routeLength="5401.93" timeLoss="85.61"/>
     </personinfo>
-    <personinfo id="5" depart="1251.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="820.00" waitingTime="132.00" timeLoss="156.35" traveltime="688.00">
-        <ride waitingTime="132.00" vehicle="t_2" depart="1383.00" arrival="2071.00" arrivalPos="105.07" duration="688.00" routeLength="8704.58" timeLoss="156.35"/>
+    <personinfo id="11" depart="1531.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="659.00" waitingTime="380.00" timeLoss="39.51" traveltime="279.00">
+        <ride waitingTime="380.00" vehicle="t_4" depart="1911.00" arrival="2190.00" arrivalPos="11.40" duration="279.00" routeLength="2934.96" timeLoss="39.51"/>
     </personinfo>
-    <personinfo id="12" depart="1850.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="443.00" waitingTime="97.00" timeLoss="55.13" traveltime="346.00">
-        <ride waitingTime="97.00" vehicle="t_9" depart="1947.00" arrival="2293.00" arrivalPos="757.86" duration="346.00" routeLength="3382.67" timeLoss="55.13"/>
+    <personinfo id="12" depart="1850.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="439.00" waitingTime="66.00" timeLoss="85.26" traveltime="373.00">
+        <ride waitingTime="66.00" vehicle="t_12" depart="1916.00" arrival="2289.00" arrivalPos="757.86" duration="373.00" routeLength="3382.69" timeLoss="85.26"/>
     </personinfo>
-    <personinfo id="14" depart="2024.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="369.00" waitingTime="95.00" timeLoss="40.35" traveltime="274.00">
-        <ride waitingTime="95.00" vehicle="t_13" depart="2119.00" arrival="2393.00" arrivalPos="77.65" duration="274.00" routeLength="2884.52" timeLoss="40.35"/>
+    <personinfo id="14" depart="2024.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="332.00" waitingTime="56.00" timeLoss="46.84" traveltime="276.00">
+        <ride waitingTime="56.00" vehicle="t_3" depart="2080.00" arrival="2356.00" arrivalPos="77.65" duration="276.00" routeLength="2884.53" timeLoss="46.84"/>
     </personinfo>
-    <personinfo id="13" depart="2003.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="625.00" waitingTime="105.00" timeLoss="157.46" traveltime="520.00">
-        <ride waitingTime="105.00" vehicle="t_6" depart="2108.00" arrival="2628.00" arrivalPos="127.70" duration="520.00" routeLength="5759.82" timeLoss="157.46"/>
+    <personinfo id="13" depart="2003.00" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="575.00" waitingTime="90.00" timeLoss="128.45" traveltime="485.00">
+        <ride waitingTime="90.00" vehicle="t_14" depart="2093.00" arrival="2578.00" arrivalPos="127.70" duration="485.00" routeLength="5759.86" timeLoss="128.45"/>
     </personinfo>
-    <personinfo id="17" depart="2773.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="301.00" waitingTime="66.00" timeLoss="25.82" traveltime="235.00">
-        <ride waitingTime="66.00" vehicle="t_0" depart="2839.00" arrival="3074.00" arrivalPos="38.69" duration="235.00" routeLength="2673.47" timeLoss="25.82"/>
+    <personinfo id="15" depart="2590.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="518.00" waitingTime="88.00" timeLoss="97.69" traveltime="430.00">
+        <ride waitingTime="88.00" vehicle="t_10" depart="2678.00" arrival="3108.00" arrivalPos="86.92" duration="430.00" routeLength="5453.16" timeLoss="97.69"/>
     </personinfo>
-    <personinfo id="15" depart="2590.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="574.00" waitingTime="148.00" timeLoss="95.03" traveltime="426.00">
-        <ride waitingTime="148.00" vehicle="t_11" depart="2738.00" arrival="3164.00" arrivalPos="86.92" duration="426.00" routeLength="5453.15" timeLoss="95.03"/>
+    <personinfo id="17" depart="2773.00" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="348.00" waitingTime="124.00" timeLoss="25.42" traveltime="224.00">
+        <ride waitingTime="124.00" vehicle="t_9" depart="2897.00" arrival="3121.00" arrivalPos="38.69" duration="224.00" routeLength="2673.42" timeLoss="25.42"/>
     </personinfo>
-    <personinfo id="16" depart="2696.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="589.00" waitingTime="182.00" timeLoss="55.80" traveltime="407.00">
-        <ride waitingTime="182.00" vehicle="t_1" depart="2878.00" arrival="3285.00" arrivalPos="105.07" duration="407.00" routeLength="5715.53" timeLoss="55.80"/>
+    <personinfo id="18" depart="2858.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="397.00" waitingTime="105.00" timeLoss="67.59" traveltime="292.00">
+        <ride waitingTime="105.00" vehicle="t_7" depart="2963.00" arrival="3255.00" arrivalPos="68.01" duration="292.00" routeLength="2619.82" timeLoss="67.59"/>
     </personinfo>
-    <personinfo id="18" depart="2858.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="502.00" waitingTime="262.00" timeLoss="24.08" traveltime="240.00">
-        <ride waitingTime="262.00" vehicle="t_10" depart="3120.00" arrival="3360.00" arrivalPos="68.01" duration="240.00" routeLength="2619.81" timeLoss="24.08"/>
+    <personinfo id="16" depart="2696.00" type="DEFAULT_PEDTYPE" speedFactor="0.88" duration="589.00" waitingTime="182.00" timeLoss="56.04" traveltime="407.00">
+        <ride waitingTime="182.00" vehicle="t_1" depart="2878.00" arrival="3285.00" arrivalPos="105.07" duration="407.00" routeLength="5715.55" timeLoss="56.04"/>
     </personinfo>
-    <personinfo id="19" depart="3086.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="394.00" waitingTime="116.00" timeLoss="40.94" traveltime="278.00">
-        <ride waitingTime="116.00" vehicle="t_14" depart="3202.00" arrival="3480.00" arrivalPos="139.40" duration="278.00" routeLength="2615.39" timeLoss="40.94"/>
+    <personinfo id="20" depart="3344.00" type="DEFAULT_PEDTYPE" speedFactor="1.17" duration="259.00" waitingTime="142.00" timeLoss="9.69" traveltime="117.00">
+        <ride waitingTime="142.00" vehicle="t_10" depart="3486.00" arrival="3603.00" arrivalPos="14.88" duration="117.00" routeLength="905.10" timeLoss="9.69"/>
     </personinfo>
-    <personinfo id="20" depart="3344.00" type="DEFAULT_PEDTYPE" speedFactor="0.69" duration="149.00" waitingTime="33.00" timeLoss="8.20" traveltime="116.00">
-        <ride waitingTime="33.00" vehicle="t_7" depart="3377.00" arrival="3493.00" arrivalPos="14.88" duration="116.00" routeLength="905.16" timeLoss="8.20"/>
+    <personinfo id="19" depart="3086.00" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="519.00" waitingTime="233.00" timeLoss="38.98" traveltime="286.00">
+        <ride waitingTime="233.00" vehicle="t_4" depart="3319.00" arrival="3605.00" arrivalPos="139.40" duration="286.00" routeLength="2615.39" timeLoss="38.98"/>
     </personinfo>
-    <personinfo id="23" depart="3567.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="261.00" waitingTime="60.00" timeLoss="40.36" traveltime="201.00">
-        <ride waitingTime="60.00" vehicle="t_8" depart="3627.00" arrival="3828.00" arrivalPos="70.28" duration="201.00" routeLength="1734.69" timeLoss="40.36"/>
+    <personinfo id="21" depart="3358.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="446.00" waitingTime="149.00" timeLoss="41.77" traveltime="297.00">
+        <ride waitingTime="149.00" vehicle="t_6" depart="3507.00" arrival="3804.00" arrivalPos="117.72" duration="297.00" routeLength="3463.88" timeLoss="41.77"/>
     </personinfo>
-    <personinfo id="22" depart="3529.00" type="DEFAULT_PEDTYPE" speedFactor="1.21" duration="314.00" waitingTime="128.00" timeLoss="19.75" traveltime="186.00">
-        <ride waitingTime="128.00" vehicle="t_4" depart="3657.00" arrival="3843.00" arrivalPos="18.57" duration="186.00" routeLength="1971.98" timeLoss="19.75"/>
+    <personinfo id="22" depart="3529.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="302.00" waitingTime="115.00" timeLoss="32.04" traveltime="187.00">
+        <ride waitingTime="115.00" vehicle="t_2" depart="3644.00" arrival="3831.00" arrivalPos="18.57" duration="187.00" routeLength="1971.99" timeLoss="32.04"/>
     </personinfo>
-    <personinfo id="21" depart="3358.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="556.00" waitingTime="262.00" timeLoss="45.08" traveltime="294.00">
-        <ride waitingTime="262.00" vehicle="t_7" depart="3620.00" arrival="3914.00" arrivalPos="117.72" duration="294.00" routeLength="3463.89" timeLoss="45.08"/>
+    <personinfo id="23" depart="3567.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="385.00" waitingTime="212.00" timeLoss="21.46" traveltime="173.00">
+        <ride waitingTime="212.00" vehicle="t_11" depart="3779.00" arrival="3952.00" arrivalPos="70.28" duration="173.00" routeLength="1734.61" timeLoss="21.46"/>
     </personinfo>
-    <personi
+    <personinfo id="24" depart="4113.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="227.00" waitingTime="93.00" timeLoss="8.97" traveltime="134.00">
+        <ride waitingTime="93.00" vehicle="t_6" depart="4206.00" arrival="4340.00" arrivalPos="23.96" duration="134.00" routeLength="761.71" timeLoss="8.97"/>
+    </personinfo>
+    <personinfo id="25" depart="4762.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="543.00" waitingTime="159.00" timeLoss="93.28" traveltime="384.00">
+        <ride waitingTime="159.00" vehicle="t_0" depart="4921.00" arrival="5305.00" arrivalPos="52.47" duration="384.00" routeLength="4909.24" timeLoss="93.28"/>
+    </personinfo>
+    <personinfo id="27" depart="5355.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="331.00" waitingTime="72.00" timeLoss="34.05" traveltime="259.00">
+        <ride waitingTime="72.00" vehicle="t_12" depart="5427.00" arrival="5686.00" arrivalPos="45.85" duration="259.00" routeLength="3249.41" timeLoss="34.05"/>
+    </personinfo>
+    <personinfo id="26" depart="5290.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="401.00" waitingTime="193.00" timeLoss="31.18" traveltime="208.00">
+        <ride waitingTime="193.00" vehicle="t_10" depart="5483.00" arrival="5691.00" arrivalPos="117.72" duration="208.00" routeLength="1767.08" timeLoss="31.18"/>
+    </personinfo>
+    <personinfo id="28" depart="5371.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="477.00" waitingTime="202.00" timeLoss="25.98" traveltime="275.00">
+        <ride waitingTime="202.00" vehicle="t_14" depart="5573.00" arrival="5848.00" arrivalPos="3.04" duration="275.00" routeLength="2563.20" timeLoss="25.98"/>
+    </personinfo>
+    <personinfo id="29" depart="5737.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="490.00" waitingTime="72.00" timeLoss="155.32" traveltime="418.00">
+        <ride waitingTime="72.00" vehicle="t_10" depart="5809.00" arrival="6227.00" arrivalPos="117.15" duration="418.00" routeLength="4982.07" timeLoss="155.32"/>
+    </personinfo>
+    <personinfo id="32" depart="6017.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="230.00" waitingTime="31.00" timeLoss="36.90" traveltime="199.00">
+        <ride waitingTime="31.00" vehicle="t_1" depart="6048.00" arrival="6247.00" arrivalPos="85.99" duration="199.00" routeLength="1666.39" timeLoss="36.90"/>
+    </personinfo>
+    <personinfo id="30" depart="5783.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="608.00" waitingTime="168.00" timeLoss="73.37" traveltime="440.00">
+        <ride waitingTime="168.00" vehicle="t_6" depart="5951.00" arrival="6391.00" arrivalPos="892.96" duration="440.00" routeLength="4334.18" timeLoss="73.37"/>
+    </personinfo>
+    <personinfo id="31" depart="6004.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="531.00" waitingTime="139.00" timeLoss="86.63" traveltime="392.00">
+        <ride waitingTime="139.00" vehicle="t_0" depart="6143.00" arrival="6535.00" arrivalPos="26.00" duration="392.00" routeLength="4658.72" timeLoss="86.63"/>
+    </personinfo>
+    <personinfo id="33" depart="6340.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="335.00" waitingTime="64.00" timeLoss="67.58" traveltime="271.00">
+        <ride waitingTime="64.00" vehicle="t_5" depart="6404.00" arrival="6675.00" arrivalPos="53.15" duration="271.00" routeLength="2120.85" timeLoss="67.58"/>
+    </personinfo>
+    <personinfo id="34" depart="7653.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="356.00" waitingTime="170.00" timeLoss="29.81" traveltime="186.00">
+        <ride waitingTime="170.00" vehicle="t_1" depart="7823.00" arrival="8009.00" arrivalPos="18.89" duration="186.00" routeLength="1907.06" timeLoss="29.81"/>
+    </personinfo>
+    <personinfo id="35" depart="7996.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="490.00" waitingTime="40.00" timeLoss="70.47" traveltime="450.00">
+        <ride waitingTime="40.00" vehicle="t_7" depart="8036.00" arrival="8486.00" arrivalPos="52.47" duration="450.00" routeLength="6223.26" timeLoss="70.47"/>
+    </personinfo>
+    <personinfo id="36" depart="8186.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="439.00" waitingTime="192.00" timeLoss="19.48" traveltime="247.00">
+        <ride waitingTime="192.00" vehicle="t_5" depart="8378.00" arrival="8625.00" arrivalPos="88.03" duration="247.00" routeLength="3524.48" timeLoss="19.48"/>
+    </personinfo>
+    <personinfo id="37" depart="8618.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="421.00" waitingTime="116.00" timeLoss="36.39" traveltime="305.00">
+        <ride waitingTime="116.00" vehicle="t_14" depart="8734.00" arrival="9039.00" arrivalPos="22.37" duration="305.00" routeLength="3724.46" timeLoss="36.39"/>
+    </personinfo>
+    <personinfo id="38" depart="8627.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="423.00" waitingTime="94.00" timeLoss="60.94" traveltime="329.00">
+        <ride waitingTime="94.00" vehicle="t_2" depart="8721.00" arrival="9050.00" arrivalPos="29.51" duration="329.00" routeLength="4222.94" timeLoss="60.94"/>
+    </personinfo>
+    <personinfo id="39" depart="8779.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="311.00" waitingTime="142.00" timeLoss="26.58" traveltime="169.00">
+        <ride waitingTime="142.00" vehicle="t_5" depart="8921.00" arrival="9090.00" arrivalPos="14.88" duration="169.00" routeLength="1384.45" timeLoss="26.58"/>
+    </personinfo>
+    <personinfo id="42" depart="9140.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="231.00" waitingTime="124.00" timeLoss="6.64" traveltime="107.00">
+        <ride waitingTime="124.00" vehicle="t_13" depart="9264.00" arrival="9371.00" arrivalPos="15.91" duration="107.00" routeLength="470.59" timeLoss="6.64"/>
+    </personinfo>
+    <personinfo id="41" depart="9137.00" type="DEFAULT_PEDTYPE" speedFactor="0.73" duration="342.00" waitingTime="136.00" timeLoss="13.75" traveltime="206.00">
+        <ride waitingTime="136.00" vehicle="t_4" depart="9273.00" arrival="9479.00" arrivalPos="37.52" duration="206.00" routeLength="2145.85" timeLoss="13.75"/>
+    </personinfo>
+    <personinfo id="40" depart="9055.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="507.00" waitingTime="135.00" timeLoss="89.43" traveltime="372.00">
+        <ride waitingTime="135.00" vehicle="t_1" depart="9190.00" arrival="9562.00" arrivalPos="41.64" duration="372.00" routeLength="5462.62" timeLoss="89.43"/>
+    </personinfo>
+    <personinfo id="43" depart="9572.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="288.00" waitingTime="28.00" timeLoss="29.26" traveltime="260.00">
+        <ride waitingTime="28.00" vehicle="t_13" depart="9600.00" arrival="9860.00" arrivalPos="32.30" duration="260.00" routeLength="2966.29" timeLoss="29.26"/>
+    </personinfo>
+    <personinfo id="44" depart="9690.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="424.00" waitingTime="83.00" timeLoss="82.32" traveltime="341.00">
+        <ride waitingTime="83.00" vehicle="t_0" depart="9773.00" arrival="10114.00" arrivalPos="26.51" duration="341.00" routeLength="3587.51" timeLoss="82.32"/>
+    </personinfo>
+    <personinfo id="45" depart="10210.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="386.00" waitingTime="176.00" timeLoss="52.26" traveltime="210.00">
+        <ride waitingTime="176.00" vehicle="t_8" depart="10386.00" arrival="10596.00" arrivalPos="13.58" duration="210.00" routeLength="2011.53" timeLoss="52.26"/>
+    </personinfo>
+    <personinfo id="46" depart="10554.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="465.00" waitingTime="153.00" timeLoss="70.73" traveltime="312.00">
+        <ride waitingTime="153.00" vehicle="t_2" depart="10707.00" arrival="11019.00" arrivalPos="0.47" duration="312.00" routeLength="3771.83" timeLoss="70.73"/>
+    </personinfo>
+    <personinfo id="47" depart="11006.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="270.00" waitingTime="28.00" timeLoss="40.91" traveltime="242.00">
+        <ride waitingTime="28.00" vehicle="t_13" depart="11034.00" arrival="11276.00" arrivalPos="339.41" duration="242.00" routeLength="2015.94" timeLoss="40.91"/>
+    </personinfo>
+    <personinfo id="48" depart="11292.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="416.00" waitingTime="97.00" timeLoss="59.64" traveltime="319.00">
+        <ride waitingTime="97.00" vehicle="t_14" depart="11389.00" arrival="11708.00" arrivalPos="273.01" duration="319.00" routeLength="3103.00" timeLoss="59.64"/>
+    </personinfo>
+    <personinfo id="49" depart="11924.00" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="619.00" waitingTime="176.00" timeLoss="112.27" traveltime="443.00">
+        <ride waitingTime="176.00" vehicle="t_8" depart="12100.00" arrival="12543.00" arrivalPos="127.70" duration="443.00" routeLength="5421.70" timeLoss="112.27"/>
+    </personinfo>
+    <personinfo id="51" depart="12505.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="317.00" waitingTime="51.00" timeLoss="22.38" traveltime="266.00">
+        <ride waitingTime="51.00" vehicle="t_0" depart="12556.00" arrival="12822.00" arrivalPos="240.81" duration="266.00" routeLength="3149.29" timeLoss="22.38"/>
+    </personinfo>
+    <personinfo id="50" depart="12471.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="470.00" waitingTime="113.00" timeLoss="50.39" traveltime="357.00">
+        <ride waitingTime="113.00" vehicle="t_13" depart="12584.00" arrival="12941.00" arrivalPos="38.27" duration="357.00" routeLength="4954.97" timeLoss="50.39"/>
+    </personinfo>
+    <personinfo id="52" depart="12710.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="410.00" waitingTime="174.00" timeLoss="25.20" traveltime="236.00">
+        <ride waitingTime="174.00" vehicle="t_2" depart="12884.00" arrival="13120.00" arrivalPos="105.07" duration="236.00" routeLength="2367.21" timeLoss="25.20"/>
+    </personinfo>
+    <personinfo id="53" depart="12755.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="526.00" waitingTime="191.00" timeLoss="74.47" traveltime="335.00">
+        <ride waitingTime="191.00" vehicle="t_5" depart="12946.00" arrival="13281.00" arrivalPos="979.46" duration="335.00" routeLength="3050.81" timeLoss="74.47"/>
+    </personinfo>
+    <personinfo id="54" depart="13004.00" type="DEFAULT_PEDTYPE" speedFactor="0.81" duration="294.00" waitingTime="119.00" timeLoss="10.75" traveltime="175.00">
+        <ride waitingTime="119.00" vehicle="t_9" depart="13123.00" arrival="13298.00" arrivalPos="75.73" duration="175.00" routeLength="1621.75" timeLoss="10.75"/>
+    </personinfo>
+    <personinfo id="55" depart="13154.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="495.00" waitingTime="184.00" timeLoss="56.07" traveltime="311.00">
+        <ride waitingTime="184.00" vehicle="t_0" depart="13338.00" arrival="13649.00" arrivalPos="56.18" duration="311.00" routeLength="4211.31" timeLoss="56.07"/>
+    </personinfo>
+    <personinfo id="57" depart="13812.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="407.00" waitingTime="110.00" timeLoss="73.30" traveltime="297.00">
+        <ride waitingTime="110.00" vehicle="t_5" depart="13922.00" arrival="14219.00" arrivalPos="11.40" duration="297.00" routeLength="3058.79" timeLoss="73.30"/>
+    </personinfo>
+    <personinfo id="56" depart="13716.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="690.00" waitingTime="254.00" timeLoss="93.18" traveltime="436.00">
+        <ride waitingTime="254.00" vehicle="t_13" depart="13970.00" arrival="14406.00" arrivalPos="86.92" duration="436.00" routeLength="5448.06" timeLoss="93.18"/>
+    </personinfo>
+    <personinfo id="58" depart="14157.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="462.00" waitingTime="102.00" timeLoss="59.24" traveltime="360.00">
+        <ride waitingTime="102.00" vehicle="t_14" depart="14259.00" arrival="14619.00" arrivalPos="53.15" duration="360.00" routeLength="3916.98" timeLoss="59.24"/>
+    </personinfo>
+    <personinfo id="59" depart="14283.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="397.00" waitingTime="199.00" timeLoss="19.52" traveltime="198.00">
+        <ride waitingTime="199.00" vehicle="t_11" depart="14482.00" arrival="14680.00" arrivalPos="105.07" duration="198.00" routeLength="1749.70" timeLoss="19.52"/>
+    </personinfo>
+    <personinfo id="60" depart="14450.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="269.00" waitingTime="165.00" timeLoss="4.99" traveltime="104.00">
+        <ride waitingTime="165.00" vehicle="t_9" depart="14615.00" arrival="14719.00" arrivalPos="15.91" duration="104.00" routeLength="470.54" timeLoss="4.99"/>
+    </personinfo>
+    <personinfo id="61" depart="14466.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="421.00" waitingTime="94.00" timeLoss="56.96" traveltime="327.00">
+        <ride waitingTime="94.00" vehicle="t_13" depart="14560.00" arrival="14887.00" arrivalPos="18.37" duration="327.00" routeLength="4627.81" timeLoss="56.96"/>
+    </personinfo>
+    <personinfo id="63" depart="14725.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="293.00" waitingTime="125.00" timeLoss="28.62" traveltime="168.00">
+        <ride waitingTime="125.00" vehicle="t_3" depart="14850.00" arrival="15018.00" arrivalPos="18.57" duration="168.00" routeLength="1601.05" timeLoss="28.62"/>
+    </personinfo>
+    <personinfo id="62" depart="14617.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="531.00" waitingTime="240.00" timeLoss="49.54" traveltime="291.00">
+        <ride waitingTime="240.00" vehicle="t_5" depart="14857.00" arrival="15148.00" arrivalPos="240.81" duration="291.00" routeLength="2983.48" timeLoss="49.54"/>
+    </personinfo>
+    <personinfo id="64" depart="14788.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="430.00" waitingTime="191.00" timeLoss="87.53" traveltime="239.00">
+        <ride waitingTime="191.00" vehicle="t_9" depart="14979.00" arrival="15218.00" arrivalPos="18.37" duration="239.00" routeLength="1816.48" timeLoss="87.53"/>
+    </personinfo>
+    <personinfo id="65" depart="15080.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="369.00" waitingTime="140.00" timeLoss="26.71" traveltime="229.00">
+        <ride waitingTime="140.00" vehicle="t_7" depart="15220.00" arrival="15449.00" arrivalPos="52.47" duration="229.00" routeLength="2391.98" timeLoss="26.71"/>
+    </personinfo>
+    <personinfo id="66" depart="15159.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="326.00" waitingTime="91.00" timeLoss="29.57" traveltime="235.00">
+        <ride waitingTime="91.00" vehicle="t_12" depart="15250.00" arrival="15485.00" arrivalPos="70.28" duration="235.00" routeLength="3182.57" timeLoss="29.57"/>
+    </personinfo>
+    <personinfo id="67" depart="15289.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="360.00" waitingTime="121.00" timeLoss="86.78" traveltime="239.00">
+        <ride waitingTime="121.00" vehicle="t_5" depart="15410.00" arrival="15649.00" arrivalPos="18.37" duration="239.00" routeLength="1816.39" timeLoss="86.78"/>
+    </personinfo>
+    <personinfo id="68" depart="15466.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="416.00" waitingTime="213.00" timeLoss="22.97" traveltime="203.00">
+        <ride waitingTime="213.00" vehicle="t_9" depart="15679.00" arrival="15882.00" arrivalPos="33.53" duration="203.00" routeLength="1926.46" timeLoss="22.97"/>
+    </personinfo>
+    <personinfo id="70" depart="16135.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="252.00" waitingTime="76.00" timeLoss="21.08" traveltime="176.00">
+        <ride waitingTime="76.00" vehicle="t_2" depart="16211.00" arrival="16387.00" arrivalPos="63.74" duration="176.00" routeLength="1607.47" timeLoss="21.08"/>
+    </personinfo>
+    <personinfo id="71" depart="16314.00" type="DEFAULT_PEDTYPE" speedFactor="0.83" duration="365.00" waitingTime="190.00" timeLoss="18.88" traveltime="175.00">
+        <ride waitingTime="190.00" vehicle="t_10" depart="16504.00" arrival="16679.00" arrivalPos="48.99" duration="175.00" routeLength="1362.52" timeLoss="18.88"/>
+    </personinfo>
+    <personinfo id="69" depart="16092.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="712.00" waitingTime="321.00" timeLoss="43.71" traveltime="391.00">
+        <ride waitingTime="321.00" vehicle="t_4" depart="16413.00" arrival="16804.00" arrivalPos="88.03" duration="391.00" routeLength="5888.60" timeLoss="43.71"/>
+    </personinfo>
+    <personinfo id="73" depart="16470.00" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="421.00" waitingTime="142.00" timeLoss="70.26" traveltime="279.00">
+        <ride waitingTime="142.00" vehicle="t_11" depart="16612.00" arrival="16891.00" arrivalPos="85.47" duration="279.00" routeLength="2949.53" timeLoss="70.26"/>
+    </personinfo>
+    <personinfo id="72" depart="16458.00" type="DEFAULT_PEDTYPE" speedFactor="0.73" duration="528.00" waitingTime="133.00" timeLoss="39.01" traveltime="395.00">
+        <ride waitingTime="133.00" vehicle="t_7" depart="16591.00" arrival="16986.00" arrivalPos="117.72" duration="395.00" routeLength="6034.17" timeLoss="39.01"/>
+    </personinfo>
+    <personinfo id="74" depart="16602.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="425.00" waitingTime="143.00" timeLoss="24.43" traveltime="282.00">
+        <ride waitingTime="143.00" vehicle="t_10" depart="16745.00" arrival="17027.00" arrivalPos="97.31" duration="282.00" routeLength="4198.40" timeLoss="24.43"/>
+    </personinfo>
+    <personinfo id="75" depart="17109.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="426.00" waitingTime="60.00" timeLoss="92.50" traveltime="366.00">
+        <ride waitingTime="60.00" vehicle="t_7" depart="17169.00" arrival="17535.00" arrivalPos="66.56" duration="366.00" routeLength="4340.79" timeLoss="92.50"/>
+    </personinfo>
+    <personinfo id="76" depart="17434.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="358.00" waitingTime="80.00" timeLoss="51.03" traveltime="278.00">
+        <ride waitingTime="80.00" vehicle="t_4" depart="17514.00" arrival="17792.00" arrivalPos="3.04" duration="278.00" routeLength="2791.32" timeLoss="51.03"/>
+    </personinfo>
+    <personinfo id="77" depart="17484.00" type="DEFAULT_PEDTYPE" speedFactor="1.17" duration="576.00" waitingTime="231.00" timeLoss="83.38" traveltime="345.00">
+        <ride waitingTime="231.00" vehicle="t_11" depart="17715.00" arrival="18060.00" arrivalPos="81.57" duration="345.00" routeLength="4429.28" timeLoss="83.38"/>
+    </personinfo>
+    <personinfo id="78" depart="17751.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="535.00" waitingTime="258.00" timeLoss="33.85" traveltime="277.00">
+        <ride waitingTime="258.00" vehicle="t_7" depart="18009.00" arrival="18286.00" arrivalPos="13.58" duration="277.00" routeLength="3806.93" timeLoss="33.85"/>
+    </personinfo>
+    <personinfo id="79" depart="18306.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="459.00" waitingTime="94.00" timeLoss="60.18" traveltime="365.00">
+        <ride waitingTime="94.00" vehicle="t_1" depart="18400.00" arrival="18765.00" arrivalPos="88.03" duration="365.00" routeLength="5557.74" timeLoss="60.18"/>
+    </personinfo>
+    <personinfo id="81" depart="18475.00" type="DEFAULT_PEDTYPE" speedFactor="0.82" duration="337.00" waitingTime="85.00" timeLoss="46.53" traveltime="252.00">
+        <ride waitingTime="85.00" vehicle="t_2" depart="18560.00" arrival="18812.00" arrivalPos="46.21" duration="252.00" routeLength="2633.60" timeLoss="46.53"/>
+    </personinfo>
+    <personinfo id="82" depart="18600.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="407.00" waitingTime="54.00" timeLoss="100.49" traveltime="353.00">
+        <ride waitingTime="54.00" vehicle="t_9" depart="18654.00" arrival="19007.00" arrivalPos="81.57" duration="353.00" routeLength="4160.28" timeLoss="100.49"/>
+    </personinfo>
+    <personinfo id="80" depart="18389.00" type="DEFAULT_PEDTYPE" speedFactor="0.88" duration="661.00" waitingTime="218.00" timeLoss="92.84" traveltime="443.00">
+        <ride waitingTime="218.00" vehicle="t_14" depart="18607.00" arrival="19050.00" arrivalPos="66.56" duration="443.00" routeLength="5593.43" timeLoss="92.84"/>
+    </personinfo>
+    <personinfo id="85" depart="18803.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="357.00" waitingTime="142.00" timeLoss="50.60" traveltime="215.00">
+        <ride waitingTime="142.00" vehicle="t_12" depart="18945.00" arrival="19160.00" arrivalPos="77.65" duration="215.00" routeLength="2148.38" timeLoss="50.60"/>
+    </personinfo>
+    <personinfo id="83" depart="18659.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="505.00" waitingTime="257.00" timeLoss="27.28" traveltime="248.00">
+        <ride waitingTime="257.00" vehicle="t_4" depart="18916.00" arrival="19164.00" arrivalPos="117.72" duration="248.00" routeLength="2202.52" timeLoss="27.28"/>
+    </personinfo>
+    <personinfo id="84" depart="18676.00" type="DEFAULT_PEDTYPE" speedFactor="0.85" duration="584.00" waitingTime="143.00" timeLoss="138.35" traveltime="441.00">
+        <ride waitingTime="143.00" vehicle="t_13" depart="18819.00" arrival="19260.00" arrivalPos="82.96" duration="441.00" routeLength="5530.55" timeLoss="138.35"/>
+    </personinfo>
+    <personinfo id="86" depart="18930.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="389.00" waitingTime="147.00" timeLoss="38.16" traveltime="242.00">
+        <ride waitingTime="147.00" vehicle="t_2" depart="19077.00" arrival="19319.00" arrivalPos="14.88" duration="242.00" routeLength="3273.40" timeLoss="38.16"/>
+    </personinfo>
+    <personinfo id="87" depart="18980.00" type="DEFAULT_PEDTYPE" speedFactor="0.85" duration="462.00" waitingTime="128.00" timeLoss="53.18" traveltime="334.00">
+        <ride waitingTime="128.00" vehicle="t_14" depart="19108.00" arrival="19442.00" arrivalPos="18.37" duration="334.00" routeLength="4706.69" timeLoss="53.18"/>
+    </personinfo>
+    <personinfo id="88" depart="19432.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="305.00" waitingTime="141.00" timeLoss="18.62" traveltime="164.00">
+        <ride waitingTime="141.00" vehicle="t_5" depart="19573.00" arrival="19737.00" arrivalPos="48.40" duration="164.00" routeLength="1046.63" timeLoss="18.62"/>
+    </personinfo>
+    <personinfo id="89" depart="19839.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="279.00" waitingTime="91.00" timeLoss="47.19" traveltime="188.00">
+        <ride waitingTime="91.00" vehicle="t_12" depart="19930.00" arrival="20118.00" arrivalPos="79.18" duration="188.00" routeLength="2094.21" timeLoss="47.19"/>
+    </personinfo>
+    <personinfo id="90" depart="19859.00" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="489.00" waitingTime="98.00" timeLoss="93.44" traveltime="391.00">
+        <ride waitingTime="98.00" vehicle="t_3" depart="19957.00" arrival="20348.00" arrivalPos="26.00" duration="391.00" routeLength="4677.08" timeLoss="93.44"/>
+    </personinfo>
+    <personinfo id="91" depart="20013.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="345.00" waitingTime="61.00" timeLoss="85.47" traveltime="284.00">
+        <ride waitingTime="61.00" vehicle="t_10" depart="20074.00" arrival="20358.00" arrivalPos="11.40" duration="284.00" routeLength="3030.65" timeLoss="85.47"/>
+    </personinfo>
+    <personinfo id="94" depart="20975.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="290.00" waitingTime="114.00" timeLoss="18.54" traveltime="176.00">
+        <ride waitingTime="114.00" vehicle="t_5" depart="21089.00" arrival="21265.00" arrivalPos="48.40" duration="176.00" routeLength="1403.89" timeLoss="18.54"/>
+    </personinfo>
+    <personinfo id="92" depart="20924.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="391.00" waitingTime="143.00" timeLoss="23.37" traveltime="248.00">
+        <ride waitingTime="143.00" vehicle="t_6" depart="21067.00" arrival="21315.00" arrivalPos="3.04" duration="248.00" routeLength="2342.35" timeLoss="23.37"/>
+    </personinfo>
+    <personinfo id="93" depart="20930.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="413.00" waitingTime="31.00" timeLoss="50.41" traveltime="382.00">
+        <ride waitingTime="31.00" vehicle="t_14" depart="20961.00" arrival="21343.00" arrivalPos="81.57" duration="382.00" routeLength="5013.96" timeLoss="50.41"/>
+    </personinfo>
+    <personinfo id="95" depart="21124.00" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="479.00" waitingTime="85.00" timeLoss="74.52" traveltime="394.00">
+        <ride waitingTime="85.00" vehicle="t_11" depart="21209.00" arrival="21603.00" arrivalPos="69.35" duration="394.00" routeLength="5903.02" timeLoss="74.52"/>
+    </personinfo>
+    <personinfo id="97" depart="21516.00" type="DEFAULT_PEDTYPE" speedFactor="1.17" duration="354.00" waitingTime="62.00" timeLoss="34.77" traveltime="292.00">
+        <ride waitingTime="62.00" vehicle="t_9" depart="21578.00" arrival="21870.00" arrivalPos="139.40" duration="292.00" routeLength="3661.57" timeLoss="34.77"/>
+    </personinfo>
+    <personinfo id="96" depart="21374.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="546.00" waitingTime="194.00" timeLoss="52.04" traveltime="352.00">
+        <ride waitingTime="194.00" vehicle="t_4" depart="21568.00" arrival="21920.00" arrivalPos="71.87" duration="352.00" routeLength="4360.88" timeLoss="52.04"/>
+    </personinfo>
+    <personinfo id="99" depart="21683.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="331.00" waitingTime="107.00" timeLoss="21.28" traveltime="224.00">
+        <ride waitingTime="107.00" vehicle="t_0" depart="21790.00" arrival="22014.00" arrivalPos="14.88" duration="224.00" routeLength="3041.87" timeLoss="21.28"/>
+    </personinfo>
+    <personinfo id="101" depart="21748.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="292.00" waitingTime="15.00" timeLoss="60.71" traveltime="277.00">
+        <ride waitingTime="15.00" vehicle="t_7" depart="21763.00" arrival="22040.00" arrivalPos="240.81" duration="277.00" routeLength="2017.06" timeLoss="60.71"/>
+    </personinfo>
+    <personinfo id="98" depart="21638.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="522.00" waitingTime="104.00" timeLoss="132.39" traveltime="418.00">
+        <ride waitingTime="104.00" vehicle="t_1" depart="21742.00" arrival="22160.00" arrivalPos="18.57" duration="418.00" routeLength="5317.53" timeLoss="132.39"/>
+    </personinfo>
+    <personinfo id="108" depart="21868.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="320.00" waitingTime="125.00" timeLoss="20.12" traveltime="195.00">
+        <ride waitingTime="125.00" vehicle="t_2" depart="21993.00" arrival="22188.00" arrivalPos="33.53" duration="195.00" routeLength="2206.18" timeLoss="20.12"/>
+    </personinfo>
+    <personinfo id="100" depart="21687.00" type="DEFAULT_PEDTYPE" speedFactor="0.87" duration="528.00" waitingTime="141.00" timeLoss="79.82" traveltime="387.00">
+        <ride waitingTime="141.00" vehicle="t_11" depart="21828.00" arrival="22215.00" arrivalPos="70.28" duration="387.00" routeLength="5668.77" timeLoss="79.82"/>
+    </personinfo>
+    <personinfo id="103" depart="21802.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="430.00" waitingTime="143.00" timeLoss="84.96" traveltime="287.00">
+        <ride waitingTime="143.00" vehicle="t_9" depart="21945.00" arrival="22232.00" arrivalPos="79.18" duration="287.00" routeLength="2659.68" timeLoss="84.96"/>
+    </personinfo>
+    <personinfo id="117" depart="21999.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="271.00" waitingTime="94.00" timeLoss="19.07" traveltime="177.00">
+        <ride waitingTime="94.00" vehicle="t_3" depart="22093.00" arrival="22270.00" arrivalPos="38.27" duration="177.00" routeLength="1018.82" timeLoss="19.07"/>
+    </personinfo>
+    <personinfo id="107" depart="21864.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="408.00" waitingTime="235.00" timeLoss="19.43" traveltime="173.00">
+        <ride waitingTime="235.00" vehicle="t_6" depart="22099.00" arrival="22272.00" arrivalPos="93.68" duration="173.00" routeLength="1088.58" timeLoss="19.43"/>
+    </personinfo>
+    <personinfo id="109" depart="21877.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="403.00" waitingTime="144.00" timeLoss="25.92" traveltime="259.00">
+        <ride waitingTime="144.00" vehicle="t_10" depart="22021.00" arrival="22280.00" arrivalPos="68.01" duration="259.00" routeLength="3000.89" timeLoss="25.92"/>
+    </personinfo>
+    <personinfo id="104" depart="21805.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="509.00" waitingTime="237.00" timeLoss="29.07" traveltime="272.00">
+        <ride waitingTime="237.00" vehicle="t_5" depart="22042.00" arrival="22314.00" arrivalPos="29.50" duration="272.00" routeLength="2714.83" timeLoss="29.07"/>
+    </personinfo>
+    <personinfo id="111" depart="21912.00" type="DEFAULT_PEDTYPE" speedFactor="0.81" duration="404.00" waitingTime="36.00" timeLoss="75.07" traveltime="368.00">
+        <ride waitingTime="36.00" vehicle="t_12" depart="21948.00" arrival="22316.00" arrivalPos="18.37" duration="368.00" routeLength="5523.57" timeLoss="75.07"/>
+    </personinfo>
+    <personinfo id="119" depart="22052.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="338.00" waitingTime="39.00" timeLoss="67.07" traveltime="299.00">
+        <ride waitingTime="39.00" vehicle="t_8" depart="22091.00" arrival="22390.00" arrivalPos="38.27" duration="299.00" routeLength="2876.51" timeLoss="67.07"/>
+    </personinfo>
+    <personinfo id="123" depart="22090.00" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="320.00" waitingTime="53.00" timeLoss="26.47" traveltime="267.00">
+        <ride waitingTime="53.00" vehicle="t_4" depart="22143.00" arrival="22410.00" arrivalPos="117.15" duration="267.00" routeLength="2209.01" timeLoss="26.47"/>
+    </personinfo>
+    <personinfo id="102" depart="21760.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="734.00" waitingTime="97.00" timeLoss="104.54" traveltime="637.00">
+        <ride waitingTime="97.00" vehicle="t_3" depart="21857.00" arrival="22494.00" arrivalPos="72.80" duration="637.00" routeLength="6083.75" timeLoss="104.54"/>
+    </personinfo>
+    <personinfo id="122" depart="22079.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="435.00" waitingTime="283.00" timeLoss="20.30" traveltime="152.00">
+        <ride waitingTime="283.00" vehicle="t_2" depart="22362.00" arrival="22514.00" arrivalPos="27.15" duration="152.00" routeLength="887.10" timeLoss="20.30"/>
+    </personinfo>
+    <personinfo id="115" depart="21989.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="545.00" waitingTime="65.00" timeLoss="139.01" traveltime="480.00">
+        <ride waitingTime="65.00" vehicle="t_9" depart="22054.00" arrival="22534.00" arrivalPos="63.74" duration="480.00" routeLength="5049.18" timeLoss="139.01"/>
+    </personinfo>
+    <personinfo id="131" depart="22244.00" type="DEFAULT_PEDTYPE" speedFactor="1.18" duration="312.00" waitingTime="105.00" timeLoss="51.85" traveltime="207.00">
+        <ride waitingTime="105.00" vehicle="t_13" depart="22349.00" arrival="22556.00" arrivalPos="66.56" duration="207.00" routeLength="2224.91" timeLoss="51.85"/>
+    </personinfo>
+    <personinfo id="112" depart="21953.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="619.00" waitingTime="134.00" timeLoss="148.71" traveltime="485.00">
+        <ride waitingTime="134.00" vehicle="t_14" depart="22087.00" arrival="22572.00" arrivalPos="5.00" duration="485.00" routeLength="6275.03" timeLoss="148.71"/>
+    </personinfo>
+    <personinfo id="132" depart="22278.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="357.00" waitingTime="50.00" timeLoss="48.74" traveltime="307.00">
+        <ride waitingTime="50.00" vehicle="t_6" depart="22328.00" arrival="22635.00" arrivalPos="66.56" duration="307.00" routeLength="4094.30" timeLoss="48.74"/>
+    </personinfo>
+    <personinfo id="113" depart="21976.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="690.00" waitingTime="300.00" timeLoss="75.61" traveltime="390.00">
+        <ride waitingTime="300.00" vehicle="t_7" depart="22276.00" arrival="22666.00" arrivalPos="86.92" duration="390.00" routeLength="3472.79" timeLoss="75.61"/>
+    </personinfo>
+    <personinfo id="125" depart="22142.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="528.00" waitingTime="219.00" timeLoss="37.22" traveltime="309.00">
+        <ride waitingTime="219.00" vehicle="t_5" depart="22361.00" arrival="22670.00" arrivalPos="48.40" duration="309.00" routeLength="3772.20" timeLoss="37.22"/>
+    </personinfo>
+    <personinfo id="126" depart="22146.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="527.00" waitingTime="132.00" timeLoss="40.68" traveltime="395.00">
+        <ride waitingTime="132.00" vehicle="t_8" depart="22278.00" arrival="22673.00" arrivalPos="86.92" duration="395.00" routeLength="3445.07" timeLoss="40.68"/>
+    </personinfo>
+    <personinfo id="118" depart="22035.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="649.00" waitingTime="259.00" timeLoss="53.40" traveltime="390.00">
+        <ride waitingTime="259.00" vehicle="t_1" depart="22294.00" arrival="22684.00" arrivalPos="93.68" duration="390.00" routeLength="5891.51" timeLoss="53.40"/>
+    </personinfo>
+    <personinfo id="106" depart="21856.00" type="DEFAULT_PEDTYPE" speedFactor="1.18" duration="924.00" waitingTime="242.00" timeLoss="91.36" traveltime="682.00">
+        <ride waitingTime="242.00" vehicle="t_4" depart="22098.00" arrival="22780.00" arrivalPos="13.58" duration="682.00" routeLength="6407.81" timeLoss="91.36"/>
+    </personinfo>
+    <personinfo id="110" depart="21891.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="905.00" waitingTime="300.00" timeLoss="152.54" traveltime="605.00">
+        <ride waitingTime="300.00" vehicle="t_0" depart="22191.00" arrival="22796.00" arrivalPos="72.80" duration="605.00" routeLength="7395.66" timeLoss="152.54"/>
+    </personinfo>
+    <personinfo id="134" depart="22341.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="496.00" waitingTime="273.00" timeLoss="23.23" traveltime="223.00">
+        <ride waitingTime="273.00" vehicle="t_2" depart="22614.00" arrival="22837.00" arrivalPos="273.01" duration="223.00" routeLength="2112.52" timeLoss="23.23"/>
+    </personinfo>
+    <personinfo id="105" depart="21820.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="1029.00" waitingTime="207.00" timeLoss="124.61" traveltime="822.00">
+        <ride waitingTime="207.00" vehicle="t_6" depart="22027.00" arrival="22849.00" arrivalPos="38.27" duration="822.00" routeLength="8718.99" timeLoss="124.61"/>
+    </personinfo>
+    <personinfo id="139" depart="22400.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="462.00" waitingTime="207.00" timeLoss="70.06" traveltime="255.00">
+        <ride waitingTime="207.00" vehicle="t_12" depart="22607.00" arrival="22862.00" arrivalPos="26.00" duration="255.00" routeLength="2112.10" timeLoss="70.06"/>
+    </personinfo>
+    <personinfo id="146" depart="22465.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="423.00" waitingTime="108.00" timeLoss="48.94" traveltime="315.00">
+        <ride waitingTime="108.00" vehicle="t_14" depart="22573.00" arrival="22888.00" arrivalPos="48.99" duration="315.00" routeLength="3314.88" timeLoss="48.94"/>
+    </personinfo>
+    <personinfo id="145" depart="22452.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="438.00" waitingTime="156.00" timeLoss="60.38" traveltime="282.00">
+        <ride waitingTime="156.00" vehicle="t_11" depart="22608.00" arrival="22890.00" arrivalPos="26.51" duration="282.00" routeLength="2295.83" timeLoss="60.38"/>
+    </personinfo>
+    <personinfo id="130" depart="22214.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="688.00" waitingTime="240.00" timeLoss="127.97" traveltime="448.00">
+        <ride waitingTime="240.00" vehicle="t_10" depart="22454.00" arrival="22902.00" arrivalPos="85.99" duration="448.00" routeLength="4961.91" timeLoss="127.97"/>
+    </personinfo>
+    <personinfo id="147" depart="22470.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="451.00" waitingTime="248.00" timeLoss="25.40" traveltime="203.00">
+        <ride waitingTime="248.00" vehicle="t_7" depart="22718.00" arrival="22921.00" arrivalPos="18.37" duration="203.00" routeLength="1753.64" timeLoss="25.40"/>
+    </personinfo>
+    <personinfo id="121" depart="22071.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="855.00" waitingTime="367.00" timeLoss="124.21" traveltime="488.00">
+        <ride waitingTime="367.00" vehicle="t_0" depart="22438.00" arrival="22926.00" arrivalPos="56.18" duration="488.00" routeLength="4602.71" timeLoss="124.21"/>
+    </personinfo>
+    <personinfo id="143" depart="22437.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="518.00" waitingTime="255.00" timeLoss="56.10" traveltime="263.00">
+        <ride waitingTime="255.00" vehicle="t_13" depart="22692.00" arrival="22955.00" arrivalPos="4.99" duration="263.00" routeLength="4516.15" timeLoss="56.10"/>
+    </personinfo>
+    <personinfo id="153" depart="22673.00" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="327.00" waitingTime="94.00" timeLoss="66.99" traveltime="233.00">
+        <ride waitingTime="94.00" vehicle="t_3" depart="22767.00" arrival="23000.00" arrivalPos="15.91" duration="233.00" routeLength="2130.80" timeLoss="66.99"/>
+    </personinfo>
+    <personinfo id="114" depart="21988.00" type="DEFAULT_PEDTYPE" speedFactor="0.81" duration="1018.00" waitingTime="548.00" timeLoss="91.51" traveltime="470.00">
+        <ride waitingTime="548.00" vehicle="t_12" depart="22536.00" arrival="23006.00" arrivalPos="86.92" duration="470.00" routeLength="3862.92" timeLoss="91.51"/>
+    </personinfo>
+    <personinfo id="144" depart="22449.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="575.00" waitingTime="181.00" timeLoss="32.99" traveltime="394.00">
+        <ride waitingTime="181.00" vehicle="t_10" depart="22630.00" arrival="23024.00" arrivalPos="45.85" duration="394.00" routeLength="3799.20" timeLoss="32.99"/>
+    </personinfo>
+    <personinfo id="149" depart="22525.00" type="DEFAULT_PEDTYPE" speedFactor="0.87" duration="522.00" waitingTime="322.00" timeLoss="30.27" traveltime="200.00">
+        <ride waitingTime="322.00" vehicle="t_5" depart="22847.00" arrival="23047.00" arrivalPos="119.03" duration="200.00" routeLength="2152.56" timeLoss="30.27"/>
+    </personinfo>
+    <personinfo id="124" depart="22097.00" type="DEFAULT_PEDTYPE" speedFactor="0.83" duration="959.00" waitingTime="229.00" timeLoss="142.87" traveltime="730.00">
+        <ride waitingTime="229.00" vehicle="t_14" depart="22326.00" arrival="23056.00" arrivalPos="78.33" duration="730.00" routeLength="8285.47" timeLoss="142.87"/>
+    </personinfo>
+    <personinfo id="135" depart="22345.00" type="DEFAULT_PEDTYPE" speedFactor="1.25" duration="718.00" waitingTime="148.00" timeLoss="54.81" traveltime="570.00">
+        <ride waitingTime="148.00" vehicle="t_4" depart="22493.00" arrival="23063.00" arrivalPos="125.51" duration="570.00" routeLength="5341.51" timeLoss="54.81"/>
+    </personinfo>
+    <personinfo id="136" depart="22391.00" type="DEFAULT_PEDTYPE" speedFactor="0.83" duration="692.00" waitingTime="164.00" timeLoss="122.77" traveltime="528.00">
+        <ride waitingTime="164.00" vehicle="t_0" depart="22555.00" arrival="23083.00" arrivalPos="77.65" duration="528.00" routeLength="4370.07" timeLoss="122.77"/>
+    </personinfo>
+    <personinfo id="158" depart="22808.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="304.00" waitingTime="134.00" timeLoss="25.27" traveltime="170.00">
+        <ride waitingTime="134.00" vehicle="t_9" depart="22942.00" arrival="23112.00" arrivalPos="15.91" duration="170.00" routeLength="1628.09" timeLoss="25.27"/>
+    </personinfo>
+    <personinfo id="120" depart="22057.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="1069.00" waitingTime="304.00" timeLoss="169.12" traveltime="765.00">
+        <ride waitingTime="304.00" vehicle="t_11" depart="22361.00" arrival="23126.00" arrivalPos="49.27" duration="765.00" routeLength="8777.45" timeLoss="169.12"/>
+    </personinfo>
+    <personinfo id="138" depart="22398.00" type="DEFAULT_PEDTYPE" speedFactor="0.84" duration="780.00" waitingTime="364.00" timeLoss="115.58" traveltime="416.00">
+        <ride waitingTime="364.00" vehicle="t_8" depart="22762.00" arrival="23178.00" arrivalPos="72.80" duration="416.00" routeLength="3894.12" timeLoss="115.58"/>
+    </personinfo>
+    <personinfo id="129" depart="22207.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="974.00" waitingTime="364.00" timeLoss="167.64" traveltime="610.00">
+        <ride waitingTime="364.00" vehicle="t_3" depart="22571.00" arrival="23181.00" arrivalPos="85.99" duration="610.00" routeLength="6436.27" timeLoss="167.64"/>
+    </personinfo>
+    <personinfo id="133" depart="22294.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="888.00" waitingTime="142.00" timeLoss="108.60" traveltime="746.00">
+        <ride waitingTime="142.00" vehicle="t_14" depart="22436.00" arrival="23182.00" arrivalPos="3.68" duration="746.00" routeLength="8251.91" timeLoss="108.60"/>
+    </personinfo>
+    <personinfo id="155" depart="22710.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="500.00" waitingTime="279.00" timeLoss="15.99" traveltime="221.00">
+        <ride waitingTime="279.00" vehicle="t_2" depart="22989.00" arrival="23210.00" arrivalPos="75.73" duration="221.00" routeLength="1401.32" timeLoss="15.99"/>
+    </personinfo>
+    <personinfo id="148" depart="22520.00" type="DEFAULT_PEDTYPE" speedFactor="0.80" duration="719.00" waitingTime="424.00" timeLoss="24.71" traveltime="295.00">
+        <ride waitingTime="424.00" vehicle="t_4" depart="22944.00" arrival="23239.00" arrivalPos="48.40" duration="295.00" routeLength="1879.52" timeLoss="24.71"/>
+    </personinfo>
+    <personinfo id="140" depart="22408.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="831.00" waitingTime="146.00" timeLoss="146.31" traveltime="685.00">
+        <ride waitingTime="146.00" vehicle="t_5" depart="22554.00" arrival="23239.00" arrivalPos="45.85" duration="685.00" routeLength="6331.20" timeLoss="146.31"/>
+    </personinfo>
+    <personinfo id="154" depart="22708.00" type="DEFAULT_PEDTYPE" speedFactor="0.88" duration="538.00" waitingTime="339.00" timeLoss="26.67" traveltime="199.00">
+        <ride waitingTime="339.00" vehicle="t_12" depart="23047.00" arrival="23246.00" arrivalPos="68.01" duration="199.00" routeLength="2109.39" timeLoss="26.67"/>
+    </personinfo>
+    <personinfo id="137" depart="22394.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="867.00" waitingTime="165.00" timeLoss="113.71" traveltime="702.00">
+        <ride waitingTime="165.00" vehicle="t_7" depart="22559.00" arrival="23261.00" arrivalPos="3.68" duration="702.00" routeLength="6464.69" timeLoss="113.71"/>
+    </personinfo>
+    <personinfo id="150" depart="22575.00" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="693.00" waitingTime="342.00" timeLoss="36.16" traveltime="351.00">
+        <ride waitingTime="342.00" vehicle="t_1" depart="22917.00" arrival="23268.00" arrivalPos="125.51" duration="351.00" routeLength="3939.85" timeLoss="36.16"/>
+    </personinfo>
+    <personinfo id="152" depart="22609.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="666.00" waitingTime="347.00" timeLoss="54.03" traveltime="319.00">
+        <ride waitingTime="347.00" vehicle="t_13" depart="22956.00" arrival="23275.00" arrivalPos="48.99" duration="319.00" routeLength="3584.52" timeLoss="54.03"/>
+    </personinfo>
+    <personinfo id="116" depart="21996.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="1349.00" waitingTime="632.00" timeLoss="172.44" traveltime="717.00">
+        <ride waitingTime="632.00" vehicle="t_9" depart="22628.00" arrival="23345.00" arrivalPos="79.18" duration="717.00" routeLength="7778.74" timeLoss="172.44"/>
+    </personinfo>
+    <personinfo id="168" depart="23211.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="196.00" waitingTime="28.00" timeLoss="39.25" traveltime="168.00">
+        <ride waitingTime="28.00" vehicle="t_8" depart="23239.00" arrival="23407.00" arrivalPos="78.33" duration="168.00" routeLength="1536.65" timeLoss="39.25"/>
+    </personinfo>
+    <personinfo id="159" depart="22827.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="639.00" waitingTime="374.00" timeLoss="62.11" traveltime="265.00">
+        <ride waitingTime="374.00" vehicle="t_11" depart="23201.00" arrival="23466.00" arrivalPos="93.68" duration="265.00" routeLength="2497.35" timeLoss="62.11"/>
+    </personinfo>
+    <personinfo id="163" depart="22993.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="475.00" waitingTime="169.00" timeLoss="41.23" traveltime="306.00">
+        <ride waitingTime="169.00" vehicle="t_1" depart="23162.00" arrival="23468.00" arrivalPos="48.99" duration="306.00" routeLength="2420.36" timeLoss="41.23"/>
+    </personinfo>
+    <personinfo id="172" depart="23300.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="197.00" waitingTime="97.00" timeLoss="4.40" traveltime="100.00">
+        <ride waitingTime="97.00" vehicle="t_3" depart="23397.00" arrival="23497.00" arrivalPos="339.41" duration="100.00" routeLength="392.83" timeLoss="4.40"/>
+    </personinfo>
+    <personinfo id="162" depart="22975.00" type="DEFAULT_PEDTYPE" speedFactor="0.78" duration="532.00" waitingTime="91.00" timeLoss="93.07" traveltime="441.00">
+        <ride waitingTime="91.00" vehicle="t_13" depart="23066.00" arrival="23507.00" arrivalPos="56.18" duration="441.00" routeLength="4612.85" timeLoss="93.07"/>
+    </personinfo>
+    <personinfo id="142" depart="22433.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="1089.00" waitingTime="286.00" timeLoss="193.13" traveltime="803.00">
+        <ride waitingTime="286.00" vehicle="t_9" depart="22719.00" arrival="23522.00" arrivalPos="77.65" duration="803.00" routeLength="7903.85" timeLoss="193.13"/>
+    </personinfo>
+    <personinfo id="170" depart="23279.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="258.00" waitingTime="137.00" timeLoss="27.30" traveltime="121.00">
+        <ride waitingTime="137.00" vehicle="t_0" depart="23416.00" arrival="23537.00" arrivalPos="4.99" duration="121.00" routeLength="2194.91" timeLoss="27.30"/>
+    </personinfo>
+    <personinfo id="164" depart="23086.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="454.00" waitingTime="91.00" timeLoss="41.50" traveltime="363.00">
+        <ride waitingTime="91.00" vehicle="t_6" depart="23177.00" arrival="23540.00" arrivalPos="93.68" duration="363.00" routeLength="4299.89" timeLoss="41.50"/>
+    </personinfo>
+    <personinfo id="128" depart="22166.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="1389.00" waitingTime="302.00" timeLoss="183.08" traveltime="1087.00">
+        <ride waitingTime="302.00" vehicle="t_7" depart="22468.00" arrival="23555.00" arrivalPos="84.25" duration="1087.00" routeLength="10627.10" timeLoss="183.08"/>
+    </personinfo>
+    <personinfo id="151" depart="22585.00" type="DEFAULT_PEDTYPE" speedFactor="1.26" duration="975.00" waitingTime="129.00" timeLoss="127.11" traveltime="846.00">
+        <ride waitingTime="129.00" vehicle="t_14" depart="22714.00" arrival="23560.00" arrivalPos="32.30" duration="846.00" routeLength="8586.65" timeLoss="127.11"/>
+    </personinfo>
+    <personinfo id="160" depart="22840.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="789.00" waitingTime="194.00" timeLoss="96.50" traveltime="595.00">
+        <ride waitingTime="194.00" vehicle="t_6" depart="23034.00" arrival="23629.00" arrivalPos="4.98" duration="595.00" routeLength="7216.12" timeLoss="96.50"/>
+    </personinfo>
+    <personinfo id="161" depart="22844.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="823.00" waitingTime="375.00" timeLoss="111.75" traveltime="448.00">
+        <ride waitingTime="375.00" vehicle="t_0" depart="23219.00" arrival="23667.00" arrivalPos="3.68" duration="448.00" routeLength="5528.39" timeLoss="111.75"/>
+    </personinfo>
+    <personinfo id="157" depart="22771.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="896.00" waitingTime="151.00" timeLoss="189.98" traveltime="745.00">
+        <ride waitingTime="151.00" vehicle="t_8" depart="22922.00" arrival="23667.00" arrivalPos="45.85" duration="745.00" routeLength="7551.94" timeLoss="189.98"/>
+    </personinfo>
+    <personinfo id="171" depart="23291.00" type="DEFAULT_PEDTYPE" speedFactor="0.76" duration="399.00" waitingTime="171.00" timeLoss="40.38" traveltime="228.00">
+        <ride waitingTime="171.00" vehicle="t_12" depart="23462.00" arrival="23690.00" arrivalPos="192.12" duration="228.00" routeLength="2145.11" timeLoss="40.38"/>
+    </personinfo>
+    <personinfo id="169" depart="23229.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="470.00" waitingTime="128.00" timeLoss="33.13" traveltime="342.00">
+        <ride waitingTime="128.00" vehicle="t_14" depart="23357.00" arrival="23699.00" arrivalPos="192.12" duration="342.00" routeLength="2240.34" timeLoss="33.13"/>
+    </personinfo>
+    <personinfo id="167" depart="23142.00" type="DEFAULT_PEDTYPE" speedFactor="0.87" duration="566.00" waitingTime="222.00" timeLoss="58.75" traveltime="344.00">
+        <ride waitingTime="222.00" vehicle="t_2" depart="23364.00" arrival="23708.00" arrivalPos="23.96" duration="344.00" routeLength="4884.37" timeLoss="58.75"/>
+    </personinfo>
+    <personinfo id="127" depart="22166.00" type="DEFAULT_PEDTYPE" speedFactor="1.17" duration="1553.00" waitingTime="153.00" timeLoss="292.55" traveltime="1400.00">
+        <ride waitingTime="153.00" vehicle="t_3" depart="22319.00" arrival="23719.00" arrivalPos="757.86" duration="1400.00" routeLength="13888.05" timeLoss="292.55"/>
+    </personinfo>
+    <personinfo id="141" depart="22410.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1314.00" waitingTime="461.00" timeLoss="131.80" traveltime="853.00">
+        <ride waitingTime="461.00" vehicle="t_1" depart="22871.00" arrival="23724.00" arrivalPos="127.70" duration="853.00" routeLength="9061.78" timeLoss="131.80"/>
+    </personinfo>
+    <personinfo id="165" depart="23087.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="678.00" waitingTime="265.00" timeLoss="85.75" traveltime="413.00">
+        <ride waitingTime="265.00" vehicle="t_10" depart="23352.00" arrival="23765.00" arrivalPos="268.01" duration="413.00" routeLength="5209.46" timeLoss="85.75"/>
+    </personinfo>
+    <personinfo id="166" depart="23132.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="685.00" waitingTime="256.00" timeLoss="54.98" traveltime="429.00">
+        <ride waitingTime="256.00" vehicle="t_5" depart="23388.00" arrival="23817.00" arrivalPos="32.30" duration="429.00" routeLength="6255.59" timeLoss="54.98"/>
+    </personinfo>
+    <personinfo id="183" depart="23547.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="303.00" waitingTime="195.00" timeLoss="16.40" traveltime="108.00">
+        <ride waitingTime="195.00" vehicle="t_11" depart="23742.00" arrival="23850.00" arrivalPos="45.85" duration="108.00" routeLength="424.27" timeLoss="16.40"/>
+    </personinfo>
+    <personinfo id="178" depart="23474.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="383.00" waitingTime="156.00" timeLoss="39.88" traveltime="227.00">
+        <ride waitingTime="156.00" vehicle="t_6" depart="23630.00" arrival="23857.00" arrivalPos="85.99" duration="227.00" routeLength="1912.67" timeLoss="39.88"/>
+    </personinfo>
+    <personinfo id="179" depart="23491.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="429.00" waitingTime="49.00" timeLoss="83.61" traveltime="380.00">
+        <ride waitingTime="49.00" vehicle="t_0" depart="23540.00" arrival="23920.00" arrivalPos="56.18" duration="380.00" routeLength="3189.40" timeLoss="83.61"/>
+    </personinfo>
+    <personinfo id="156" depart="22718.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="1217.00" waitingTime="880.00" timeLoss="36.98" traveltime="337.00">
+        <ride waitingTime="880.00" vehicle="t_4" depart="23598.00" arrival="23935.00" arrivalPos="105.07" duration="337.00" routeLength="4134.55" timeLoss="36.98"/>
+    </personinfo>
+    <personinfo id="176" depart="23397.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="543.00" waitingTime="220.00" timeLoss="67.67" traveltime="323.00">
+        <ride waitingTime="220.00" vehicle="t_9" depart="23617.00" arrival="23940.00" arrivalPos="979.46" duration="323.00" routeLength="2324.39" timeLoss="67.67"/>
+    </personinfo>
+    <personinfo id="184" depart="23548.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="392.00" waitingTime="95.00" timeLoss="32.27" traveltime="297.00">
+        <ride waitingTime="95.00" vehicle="t_13" depart="23643.00" arrival="23940.00" arrivalPos="45.85" duration="297.00" routeLength="3617.30" timeLoss="32.27"/>
+    </personinfo>
+    <personinfo id="174" depart="23319.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="644.00" waitingTime="391.00" timeLoss="54.37" traveltime="253.00">
+        <ride waitingTime="391.00" vehicle="t_12" depart="23710.00" arrival="23963.00" arrivalPos="46.21" duration="253.00" routeLength="2471.22" timeLoss="54.37"/>
+    </personinfo>
+    <personinfo id="177" depart="23456.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="563.00" waitingTime="366.00" timeLoss="24.45" traveltime="197.00">
+        <ride waitingTime="366.00" vehicle="t_2" depart="23822.00" arrival="24019.00" arrivalPos="192.12" duration="197.00" routeLength="1691.87" timeLoss="24.45"/>
+    </personinfo>
+    <personinfo id="173" depart="23304.00" type="DEFAULT_PEDTYPE" speedFactor="1.16" duration="849.00" waitingTime="316.00" timeLoss="113.50" traveltime="533.00">
+        <ride waitingTime="316.00" vehicle="t_11" depart="23620.00" arrival="24153.00" arrivalPos="78.33" duration="533.00" routeLength="5614.77" timeLoss="113.50"/>
+    </personinfo>
+    <personinfo id="175" depart="23345.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="820.00" waitingTime="379.00" timeLoss="148.85" traveltime="441.00">
+        <ride waitingTime="379.00" vehicle="t_14" depart="23724.00" arrival="24165.00" arrivalPos="38.69" duration="441.00" routeLength="4547.18" timeLoss="148.85"/>
+    </personinfo>
+    <personinfo id="181" depart="23513.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="692.00" waitingTime="291.00" timeLoss="42.06" traveltime="401.00">
+        <ride waitingTime="291.00" vehicle="t_4" depart="23804.00" arrival="24205.00" arrivalPos="53.15" duration="401.00" routeLength="3406.21" timeLoss="42.06"/>
+    </personinfo>
+    <personinfo id="186" depart="23560.00" type="DEFAULT_PEDTYPE" speedFactor="1.17" duration="647.00" waitingTime="293.00" timeLoss="44.98" traveltime="354.00">
+        <ride waitingTime="293.00" vehicle="t_12" depart="23853.00" arrival="24207.00" arrivalPos="24.53" duration="354.00" routeLength="3899.36" timeLoss="44.98"/>
+    </personinfo>
+    <personinfo id="187" depart="23563.00" type="DEFAULT_PEDTYPE" speedFactor="0.71" duration="697.00" waitingTime="290.00" timeLoss="59.88" traveltime="407.00">
+        <ride waitingTime="290.00" vehicle="t_5" depart="23853.00" arrival="24260.00" arrivalPos="46.21" duration="407.00" routeLength="4544.61" timeLoss="59.88"/>
+    </personinfo>
+    <personinfo id="189" depart="23834.00" type="DEFAULT_PEDTYPE" speedFactor="0.78" duration="427.00" waitingTime="166.00" timeLoss="32.85" traveltime="261.00">
+        <ride waitingTime="166.00" vehicle="t_5" depart="24000.00" arrival="24261.00" arrivalPos="46.21" duration="261.00" routeLength="2687.00" timeLoss="32.85"/>
+    </personinfo>
+    <personinfo id="191" depart="23875.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="403.00" waitingTime="185.00" timeLoss="20.62" traveltime="218.00">
+        <ride waitingTime="185.00" vehicle="t_9" depart="24060.00" arrival="24278.00" arrivalPos="273.01" duration="218.00" routeLength="2646.21" timeLoss="20.62"/>
+    </personinfo>
+    <personinfo id="180" depart="23497.00" type="DEFAULT_PEDTYPE" speedFactor="0.82" duration="803.00" waitingTime="401.00" timeLoss="73.61" traveltime="402.00">
+        <ride waitingTime="401.00" vehicle="t_14" depart="23898.00" arrival="24300.00" arrivalPos="15.91" duration="402.00" routeLength="4074.29" timeLoss="73.61"/>
+    </personinfo>
+    <personinfo id="185" depart="23553.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="756.00" waitingTime="377.00" timeLoss="70.31" traveltime="379.00">
+        <ride waitingTime="377.00" vehicle="t_8" depart="23930.00" arrival="24309.00" arrivalPos="81.57" duration="379.00" routeLength="5138.88" timeLoss="70.31"/>
+    </personinfo>
+    <personinfo id="198" depart="23993.00" type="DEFAULT_PEDTYPE" speedFactor="1.17" duration="336.00" waitingTime="173.00" timeLoss="32.48" traveltime="163.00">
+        <ride waitingTime="173.00" vehicle="t_3" depart="24166.00" arrival="24329.00" arrivalPos="48.99" duration="163.00" routeLength="1493.80" timeLoss="32.48"/>
+    </personinfo>
+    <personinfo id="188" depart="23755.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="593.00" waitingTime="351.00" timeLoss="49.85" traveltime="242.00">
+        <ride waitingTime="351.00" vehicle="t_6" depart="24106.00" arrival="24348.00" arrivalPos="45.85" duration="242.00" routeLength="2454.69" timeLoss="49.85"/>
+    </personinfo>
+    <personinfo id="201" depart="24027.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="352.00" waitingTime="225.00" timeLoss="26.05" traveltime="127.00">
+        <ride waitingTime="225.00" vehicle="t_10" depart="24252.00" arrival="24379.00" arrivalPos="5.00" duration="127.00" routeLength="1755.49" timeLoss="26.05"/>
+    </personinfo>
+    <personinfo id="194" depart="23963.00" type="DEFAULT_PEDTYPE" speedFactor="1.18" duration="490.00" waitingTime="50.00" timeLoss="87.52" traveltime="440.00">
+        <ride waitingTime="50.00" vehicle="t_7" depart="24013.00" arrival="24453.00" arrivalPos="53.15" duration="440.00" routeLength="5455.87" timeLoss="87.52"/>
+    </personinfo>
+    <personinfo id="207" depart="24176.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="285.00" waitingTime="204.00" timeLoss="19.22" traveltime="81.00">
+        <ride waitingTime="204.00" vehicle="t_10" depart="24380.00" arrival="24461.00" arrivalPos="5.00" duration="81.00" routeLength="1033.88" timeLoss="19.22"/>
+    </personinfo>
+    <personinfo id="190" depart="23870.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="596.00" waitingTime="202.00" timeLoss="111.87" traveltime="394.00">
+        <ride waitingTime="202.00" vehicle="t_13" depart="24072.00" arrival="24466.00" arrivalPos="70.28" duration="394.00" routeLength="5292.18" timeLoss="111.87"/>
+    </personinfo>
+    <personinfo id="197" depart="23993.00" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="526.00" waitingTime="154.00" timeLoss="93.31" traveltime="372.00">
+        <ride waitingTime="154.00" vehicle="t_1" depart="24147.00" arrival="24519.00" arrivalPos="85.99" duration="372.00" routeLength="3919.61" timeLoss="93.31"/>
+    </personinfo>
+    <personinfo id="193" depart="23937.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="602.00" waitingTime="164.00" timeLoss="69.29" traveltime="438.00">
+        <ride waitingTime="164.00" vehicle="t_3" depart="24101.00" arrival="24539.00" arrivalPos="52.47" duration="438.00" routeLength="4569.80" timeLoss="69.29"/>
+    </personinfo>
+    <personinfo id="205" depart="24136.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="440.00" waitingTime="111.00" timeLoss="41.31" traveltime="329.00">
+        <ride waitingTime="111.00" vehicle="t_0" depart="24247.00" arrival="24576.00" arrivalPos="29.51" duration="329.00" routeLength="4597.57" timeLoss="41.31"/>
+    </personinfo>
+    <personinfo id="203" depart="24047.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="535.00" waitingTime="417.00" timeLoss="6.58" traveltime="118.00">
+        <ride waitingTime="417.00" vehicle="t_14" depart="24464.00" arrival="24582.00" arrivalPos="26.00" duration="118.00" routeLength="606.04" timeLoss="6.58"/>
+    </personinfo>
+    <personinfo id="200" depart="24026.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="612.00" waitingTime="346.00" timeLoss="29.67" traveltime="266.00">
+        <ride waitingTime="346.00" vehicle="t_11" depart="24372.00" arrival="24638.00" arrivalPos="86.69" duration="266.00" routeLength="3510.43" timeLoss="29.67"/>
+    </personinfo>
+    <personinfo id="218" depart="24399.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="245.00" waitingTime="67.00" timeLoss="33.34" traveltime="178.00">
+        <ride waitingTime="67.00" vehicle="t_5" depart="24466.00" arrival="24644.00" arrivalPos="11.40" duration="178.00" routeLength="1835.03" timeLoss="33.34"/>
+    </personinfo>
+52.00" routeLength="2581.86" timeLoss="34.11"/>
+    </personinfo>
+    <personinfo id="174" depart="23319.00" type="DEFAULT_PEDTYPE" speedFactor="0.81" duration="1513.00" waitingTime="1184.00" timeLoss="78.44" traveltime="329.00">
+        <ride waitingTime="1184.00" vehicle="t_8" depart="24503.00" arrival="24832.00" arrivalPos="46.21" duration="329.00" routeLength="2853.33" timeLoss="78.44"/>
+    </personinfo>
+    <personinfo id="205" depart="24136.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="698.00" waitingTime="89.00" timeLoss="88.28" traveltime="609.00">
+        <ride waitingTime="89.00" vehicle="t_13" depart="24225.00" arrival="24834.00" arrivalPos="29.51" duration="609.00" routeLength="6384.10" timeLoss="88.28"/>
+    </personinfo>
+    <personinfo id="193" depart="23937.00" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="899.00" waitingTime="143.00" timeLoss="111.77" traveltime="756.00">
+        <ride waitingTime="143.00" vehicle="t_3" depart="24080.00" arrival="24836.00" arrivalPos="52.47" duration="756.00" routeLength="7441.46" timeLoss="111.77"/>
+    </personinfo>
+    <personinfo id="209" depart="24198.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="648.00" waitingTime="324.00" timeLoss="78.41" traveltime="324.00">
+        <ride waitingTime="324.00" vehicle="t_9" depart="24522.00" arrival="24846.00" arrivalPos="26.51" duration="324.00" routeLength="3497.61" timeLoss="78.41"/>
+    </personinfo>
+    <personinfo id="216" depart="24358.00" type="DEFAULT_PEDTYPE" speedFactor="0.84" duration="542.00" waitingTime="393.00" timeLoss="17.12" traveltime="149.00">
+        <ride waitingTime="393.00" vehicle="t_2" depart="24751.00" arrival="24900.00" arrivalPos="18.89" duration="149.00" routeLength="750.50" timeLoss="17.12"/>
+    </personinfo>
+    <personinfo id="230" depart="24595.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="306.00" waitingTime="133.00" timeLoss="28.24" traveltime="173.00">
+        <ride waitingTime="133.00" vehicle="t_7" depart="24728.00" arrival="24901.00" arrivalPos="69.35" duration="173.00" routeLength="1417.44" timeLoss="28.24"/>
+    </personinfo>
+    <personinfo id="224" depart="24484.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="426.00" waitingTime="175.00" timeLoss="28.20" traveltime="251.00">
+        <ride waitingTime="175.00" vehicle="t_1" depart="24659.00" arrival="24910.00" arrivalPos="9.53" duration="251.00" routeLength="1813.73" timeLoss="28.20"/>
+    </personinfo>
+    <personinfo id="192" depart="23898.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="1044.00" waitingTime="190.00" timeLoss="120.32" traveltime="854.00">
+        <ride waitingTime="190.00" vehicle="t_5" depart="24088.00" arrival="24942.00" arrivalPos="71.87" duration="854.00" routeLength="10492.21" timeLoss="120.32"/>
+    </personinfo>
+    <personinfo id="165" depart="23087.00" type="DEFAULT_PEDTYPE" speedFactor="1.19" duration="1881.00" waitingTime="904.00" timeLoss="154.78" traveltime="977.00">
+        <ride waitingTime="904.00" vehicle="t_8" depart="23991.00" arrival="24968.00" arrivalPos="268.01" duration="977.00" routeLength="10908.10" timeLoss="154.78"/>
+    </personinfo>
+    <personinfo id="218" depart="24399.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="581.00" waitingTime="406.00" timeLoss="35.15" traveltime="175.00">
+        <ride waitingTime="406.00" vehicle="t_12" depart="24805.00" arrival="24980.00" arrivalPos="11.40" duration="175.00" routeLength="1832.15" timeLoss="35.15"/>
+    </personinfo>
+    <personinfo id="237" depart="24755.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="241.00" waitingTime="95.00" timeLoss="15.98" traveltime="146.00">
+        <ride waitingTime="95.00" vehicle="t_6" depart="24850.00" arrival="24996.00" arrivalPos="119.03" duration="146.00" routeLength="827.58" timeLoss="15.98"/>
+    </personinfo>
+    <personinfo id="215" depart="24351.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="702.00" waitingTime="398.00" timeLoss="77.35" traveltime="304.00">
+        <ride waitingTime="398.00" vehicle="t_14" depart="24749.00" arrival="25053.00" arrivalPos="41.77" duration="304.00" routeLength="2738.11" timeLoss="77.35"/>
+    </personinfo>
+    <personinfo id="225" depart="24535.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="574.00" waitingTime="127.00" timeLoss="78.56" traveltime="447.00">
+        <ride waitingTime="127.00" vehicle="t_9" depart="24662.00" arrival="25109.00" arrivalPos="15.91" duration="447.00" routeLength="4924.09" timeLoss="78.56"/>
+    </personinfo>
+    <personinfo id="231" depart="24612.00" type="DEFAULT_PEDTYPE" speedFactor="1.18" duration="500.00" waitingTime="235.00" timeLoss="96.19" traveltime="265.00">
+        <ride waitingTime="235.00" vehicle="t_4" depart="24847.00" arrival="25112.00" arrivalPos="4.99" duration="265.00" routeLength="2473.25" timeLoss="96.19"/>
+    </personinfo>
+    <personinfo id="219" depart="24456.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="675.00" waitingTime="501.00" timeLoss="13.43" traveltime="174.00">
+        <ride waitingTime="501.00" vehicle="t_7" depart="24957.00" arrival="25131.00" arrivalPos="53.15" duration="174.00" routeLength="1278.68" timeLoss="13.43"/>
+    </personinfo>
+    <personinfo id="199" depart="24022.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="1124.00" waitingTime="307.00" timeLoss="189.08" traveltime="817.00">
+        <ride waitingTime="307.00" vehicle="t_12" depart="24329.00" arrival="25146.00" arrivalPos="38.27" duration="817.00" routeLength="7938.73" timeLoss="189.08"/>
+    </personinfo>
+    <personinfo id="200" depart="24026.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="1164.00" waitingTime="274.00" timeLoss="126.44" traveltime="890.00">
+        <ride waitingTime="274.00" vehicle="t_3" depart="24300.00" arrival="25190.00" arrivalPos="86.69" duration="890.00" routeLength="9785.52" timeLoss="126.44"/>
+    </personinfo>
+    <personinfo id="188" depart="23755.00" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="1436.00" waitingTime="813.00" timeLoss="108.26" traveltime="623.00">
+        <ride waitingTime="813.00" vehicle="t_8" depart="24568.00" arrival="25191.00" arrivalPos="45.85" duration="623.00" routeLength="5451.87" timeLoss="108.26"/>
+    </personinfo>
+    <personinfo id="235" depart="24671.00" type="DEFAULT_PEDTYPE" speedFactor="0.82" duration="539.00" waitingTime="365.00" timeLoss="20.16" traveltime="174.00">
+        <ride waitingTime="365.00" vehicle="t_1" depart="25036.00" arrival="25210.00" arrivalPos="23.96" duration="174.00" routeLength="1669.79" timeLoss="20.16"/>
+    </personinfo>
+    <personinfo id="229" depart="24570.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="660.00" waitingTime="371.00" timeLoss="14.82" traveltime="289.00">
+        <ride waitingTime="371.00" vehicle="t_9" depart="24941.00" arrival="25230.00" arrivalPos="15.91" duration="289.00" routeLength="1913.84" timeLoss="14.82"/>
+    </personinfo>
+    <personinfo id="223" depart="24481.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="753.00" waitingTime="527.00" timeLoss="36.52" traveltime="226.00">
+        <ride waitingTime="527.00" vehicle="t_0" depart="25008.00" arrival="25234.00" arrivalPos="24.53" duration="226.00" routeLength="2411.69" timeLoss="36.52"/>
+    </personinfo>
+    <personinfo id="227" depart="24551.00" type="DEFAULT_PEDTYPE" speedFactor="0.72" duration="751.00" waitingTime="270.00" timeLoss="116.34" traveltime="481.00">
+        <ride waitingTime="270.00" vehicle="t_14" depart="24821.00" arrival="25302.00" arrivalPos="23.96" duration="481.00" routeLength="4080.17" timeLoss="116.34"/>
+    </personinfo>
+    <personinfo id="238" depart="24799.00" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="532.00" waitingTime="295.00" timeLoss="49.17" traveltime="237.00">
+        <ride waitingTime="295.00" vehicle="t_11" depart="25094.00" arrival="25331.00" arrivalPos="82.96" duration="237.00" routeLength="2414.70" timeLoss="49.17"/>
+    </personinfo>
+    <personinfo id="249" depart="25097.00" type="DEFAULT_PEDTYPE" speedFactor="1.19" duration="260.00" waitingTime="73.00" timeLoss="29.24" traveltime="187.00">
+        <ride waitingTime="73.00" vehicle="t_5" depart="25170.00" arrival="25357.00" arrivalPos="18.57" duration="187.00" routeLength="1867.77" timeLoss="29.24"/>
+    </personinfo>
+    <personinfo id="217" depart="24375.00" type="DEFAULT_PEDTYPE" speedFactor="0.81" duration="987.00" waitingTime="552.00" timeLoss="107.24" traveltime="435.00">
+        <ride waitingTime="552.00" vehicle="t_2" depart="24927.00" arrival="25362.00" arrivalPos="9.53" duration="435.00" routeLength="5274.52" timeLoss="107.24"/>
+    </personinfo>
+    <personinfo id="220" depart="24456.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="927.00" waitingTime="315.00" timeLoss="98.58" traveltime="612.00">
+        <ride waitingTime="315.00" vehicle="t_6" depart="24771.00" arrival="25383.00" arrivalPos="38.69" duration="612.00" routeLength="6233.96" timeLoss="98.58"/>
+    </personinfo>
+    <personinfo id="248" depart="25081.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="305.00" waitingTime="32.00" timeLoss="43.09" traveltime="273.00">
+        <ride waitingTime="32.00" vehicle="t_4" depart="25113.00" arrival="25386.00" arrivalPos="240.81" duration="273.00" routeLength="2764.39" timeLoss="43.09"/>
+    </personinfo>
+    <personinfo id="206" depart="24162.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="1298.00" waitingTime="520.00" timeLoss="167.87" traveltime="778.00">
+        <ride waitingTime="520.00" vehicle="t_11" depart="24682.00" arrival="25460.00" arrivalPos="78.14" duration="778.00" routeLength="9141.56" timeLoss="167.87"/>
+    </personinfo>
+    <personinfo id="232" depart="24656.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="838.00" waitingTime="496.00" timeLoss="77.02" traveltime="342.00">
+        <ride waitingTime="496.00" vehicle="t_13" depart="25152.00" arrival="25494.00" arrivalPos="75.73" duration="342.00" routeLength="3576.41" timeLoss="77.02"/>
+    </personinfo>
+    <personinfo id="211" depart="24237.00" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="1275.00" waitingTime="586.00" timeLoss="133.68" traveltime="689.00">
+        <ride waitingTime="586.00" vehicle="t_1" depart="24823.00" arrival="25512.00" arrivalPos="892.96" duration="689.00" routeLength="6157.56" timeLoss="133.68"/>
+    </personinfo>
+    <personinfo id="242" depart="24896.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="644.00" waitingTime="366.00" timeLoss="34.94" traveltime="278.00">
+        <ride waitingTime="366.00" vehicle="t_12" depart="25262.00" arrival="25540.00" arrivalPos="71.87" duration="278.00" routeLength="2593.35" timeLoss="34.94"/>
+    </personinfo>
+    <personinfo id="202" depart="24043.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="1512.00" waitingTime="889.00" timeLoss="139.80" traveltime="623.00">
+        <ride waitingTime="889.00" vehicle="t_0" depart="24932.00" arrival="25555.00" arrivalPos="41.64" duration="623.00" routeLength="6347.98" timeLoss="139.80"/>
+    </personinfo>
+    <personinfo id="239" depart="24831.00" type="DEFAULT_PEDTYPE" speedFactor="0.87" duration="760.00" waitingTime="220.00" timeLoss="110.48" traveltime="540.00">
+        <ride waitingTime="220.00" vehicle="t_2" depart="25051.00" arrival="25591.00" arrivalPos="139.40" duration="540.00" routeLength="5489.53" timeLoss="110.48"/>
+    </personinfo>
+    <personinfo id="241" depart="24864.00" type="DEFAULT_PEDTYPE" speedFactor="0.87" duration="744.00" waitingTime="336.00" timeLoss="64.48" traveltime="408.00">
+        <ride waitingTime="336.00" vehicle="t_10" depart="25200.00" arrival="25608.00" arrivalPos="69.35" duration="408.00" routeLength="6068.04" timeLoss="64.48"/>
+    </personinfo>
+    <personinfo id="262" depart="25324.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="290.00" waitingTime="50.00" timeLoss="28.37" traveltime="240.00">
+        <ride waitingTime="50.00" vehicle="t_3" depart="25374.00" arrival="25614.00" arrivalPos="63.74" duration="240.00" routeLength="2300.59" timeLoss="28.37"/>
+    </personinfo>
+    <personinfo id="228" depart="24563.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="1117.00" waitingTime="96.00" timeLoss="203.54" traveltime="1021.00">
+        <ride waitingTime="96.00" vehicle="t_4" depart="24659.00" arrival="25680.00" arrivalPos="38.69" duration="1021.00" routeLength="10033.67" timeLoss="203.54"/>
+    </personinfo>
+    <personinfo id="253" depart="25161.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="532.00" waitingTime="358.00" timeLoss="15.77" traveltime="174.00">
+        <ride waitingTime="358.00" vehicle="t_9" depart="25519.00" arrival="25693.00" arrivalPos="46.21" duration="174.00" routeLength="1949.16" timeLoss="15.77"/>
+    </personinfo>
+    <personinfo id="256" depart="25245.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="452.00" waitingTime="207.00" timeLoss="32.34" traveltime="245.00">
+        <ride waitingTime="207.00" vehicle="t_0" depart="25452.00" arrival="25697.00" arrivalPos="52.47" duration="245.00" routeLength="1385.40" timeLoss="32.34"/>
+    </personinfo>
+    <personinfo id="233" depart="24665.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="1035.00" waitingTime="515.00" timeLoss="81.73" traveltime="520.00">
+        <ride waitingTime="515.00" vehicle="t_6" depart="25180.00" arrival="25700.00" arrivalPos="3.68" duration="520.00" routeLength="5895.93" timeLoss="81.73"/>
+    </personinfo>
+    <personinfo id="240" depart="24852.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="893.00" waitingTime="603.00" timeLoss="49.94" traveltime="290.00">
+        <ride waitingTime="603.00" vehicle="t_14" depart="25455.00" arrival="25745.00" arrivalPos="86.92" duration="290.00" routeLength="2887.75" timeLoss="49.94"/>
+    </personinfo>
+    <personinfo id="264" depart="25391.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="383.00" waitingTime="157.00" timeLoss="22.68" traveltime="226.00">
+        <ride waitingTime="157.00" vehicle="t_5" depart="25548.00" arrival="25774.00" arrivalPos="86.69" duration="226.00" routeLength="2483.34" timeLoss="22.68"/>
+    </personinfo>
+    <personinfo id="254" depart="25162.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="665.00" waitingTime="217.00" timeLoss="92.23" traveltime="448.00">
+        <ride waitingTime="217.00" vehicle="t_7" depart="25379.00" arrival="25827.00" arrivalPos="11.40" duration="448.00" routeLength="5497.64" timeLoss="92.23"/>
+    </personinfo>
+    <personinfo id="226" depart="24548.00" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="1283.00" waitingTime="453.00" timeLoss="158.86" traveltime="830.00">
+        <ride waitingTime="453.00" vehicle="t_13" depart="25001.00" arrival="25831.00" arrivalPos="979.46" duration="830.00" routeLength="8876.43" timeLoss="158.86"/>
+    </personinfo>
+    <personinfo id="259" depart="25271.00" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="587.00" waitingTime="391.00" timeLoss="45.11" traveltime="196.00">
+        <ride waitingTime="391.00" vehicle="t_12" depart="25662.00" arrival="25858.00" arrivalPos="18.57" duration="196.00" routeLength="2070.43" timeLoss="45.11"/>
+    </personinfo>
+    <personinfo id="268" depart="25419.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="448.00" waitingTime="80.00" timeLoss="98.37" traveltime="368.00">
+        <ride waitingTime="80.00" vehicle="t_10" depart="25499.00" arrival="25867.00" arrivalPos="339.41" duration="368.00" routeLength="2365.18" timeLoss="98.37"/>
+    </personinfo>
+    <personinfo id="260" depart="25276.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="595.00" waitingTime="484.00" timeLoss="21.17" traveltime="111.00">
+        <ride waitingTime="484.00" vehicle="t_0" depart="25760.00" arrival="25871.00" arrivalPos="4.96" duration="111.00" routeLength="1873.93" timeLoss="21.17"/>
+    </personinfo>
+    <personinfo id="251" depart="25144.00" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="727.00" waitingTime="329.00" timeLoss="58.66" traveltime="398.00">
+        <ride waitingTime="329.00" vehicle="t_2" depart="25473.00" arrival="25871.00" arrivalPos="0.23" duration="398.00" routeLength="4544.05" timeLoss="58.66"/>
+    </personinfo>
+    <personinfo id="234" depart="24669.00" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="1243.00" waitingTime="118.00" timeLoss="222.34" traveltime="1125.00">
+        <ride waitingTime="118.00" vehicle="t_5" depart="24787.00" arrival="25912.00" arrivalPos="29.50" duration="1125.00" routeLength="10947.73" timeLoss="222.34"/>
+    </personinfo>
+    <personinfo id="258" depart="25262.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="650.00" waitingTime="408.00" timeLoss="40.53" traveltime="242.00">
+        <ride waitingTime="408.00" vehicle="t_11" depart="25670.00" arrival="25912.00" arrivalPos="0.23" duration="242.00" routeLength="2761.93" timeLoss="40.53"/>
+    </personinfo>
+    <personinfo id="250" depart="25135.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="865.00" waitingTime="62.00" timeLoss="216.76" traveltime="803.00">
+        <ride waitingTime="62.00" vehicle="t_7" depart="25197.00" arrival="26000.00" arrivalPos="79.18" duration="803.00" routeLength="8868.60" timeLoss="216.76"/>
+    </personinfo>
+    <personinfo id="279" depart="25618.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="392.00" waitingTime="204.00" timeLoss="13.49" traveltime="188.00">
+        <ride waitingTime="204.00" vehicle="t_4" depart="25822.00" arrival="26010.00" arrivalPos="68.01" duration="188.00" routeLength="1567.31" timeLoss="13.49"/>
+    </personinfo>
+    <personinfo id="243" depart="24912.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="1098.00" waitingTime="434.00" timeLoss="83.38" traveltime="664.00">
+        <ride waitingTime="434.00" vehicle="t_9" depart="25346.00" arrival="26010.00" arrivalPos="48.40" duration="664.00" routeLength="8474.36" timeLoss="83.38"/>
+    </personinfo>
+    <personinfo id="263" depart="25350.00" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="667.00" waitingTime="87.00" timeLoss="112.49" traveltime="580.00">
+        <ride waitingTime="87.00" vehicle="t_3" depart="25437.00" arrival="26017.00" arrivalPos="0.47" duration="580.00" routeLength="6491.75" timeLoss="112.49"/>
+    </personinfo>
+    <personinfo id="247" depart="25072.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="952.00" waitingTime="77.00" timeLoss="155.15" traveltime="875.00">
+        <ride waitingTime="77.00" vehicle="t_2" depart="25149.00" arrival="26024.00" arrivalPos="77.65" duration="875.00" routeLength="9321.45" timeLoss="155.15"/>
+    </personinfo>
+    <personinfo id="255" depart="25200.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="827.00" waitingTime="453.00" timeLoss="59.42" traveltime="374.00">
+        <ride waitingTime="453.00" vehicle="t_8" depart="25653.00" arrival="26027.00" arrivalPos="4.98" duration="374.00" routeLength="5607.06" timeLoss="59.42"/>
+    </personinfo>
+    <personinfo id="245" depart="24995.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="1032.00" waitingTime="91.00" timeLoss="157.20" traveltime="941.00">
+        <ride waitingTime="91.00" vehicle="t_5" depart="25086.00" arrival="26027.00" arrivalPos="86.92" duration="941.00" routeLength="8899.09" timeLoss="157.20"/>
+    </personinfo>
+    <personinfo id="221" depart="24458.00" type="DEFAULT_PEDTYPE" speedFactor="1.17" duration="1580.00" waitingTime="480.00" timeLoss="211.65" traveltime="1100.00">
+        <ride waitingTime="480.00" vehicle="t_13" depart="24938.00" arrival="26038.00" arrivalPos="81.57" duration="1100.00" routeLength="11149.37" timeLoss="211.65"/>
+    </personinfo>
+    <personinfo id="275" depart="25541.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="528.00" waitingTime="324.00" timeLoss="30.72" traveltime="204.00">
+        <ride waitingTime="324.00" vehicle="t_1" depart="25865.00" arrival="26069.00" arrivalPos="240.81" duration="204.00" routeLength="1792.97" timeLoss="30.72"/>
+    </personinfo>
+    <personinfo id="222" depart="24464.00" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="1625.00" waitingTime="394.00" timeLoss="288.27" traveltime="1231.00">
+        <ride waitingTime="394.00" vehicle="t_10" depart="24858.00" arrival="26089.00" arrivalPos="757.86" duration="1231.00" routeLength="14321.99" timeLoss="288.27"/>
+    </personinfo>
+    <personinfo id="267" depart="25400.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="706.00" waitingTime="162.00" timeLoss="109.58" traveltime="544.00">
+        <ride waitingTime="162.00" vehicle="t_7" depart="25562.00" arrival="26106.00" arrivalPos="18.57" duration="544.00" routeLength="5147.27" timeLoss="109.58"/>
+    </personinfo>
+    <personinfo id="236" depart="24679.00" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="1458.00" waitingTime="303.00" timeLoss="204.05" traveltime="1155.00">
+        <ride waitingTime="303.00" vehicle="t_2" depart="24982.00" arrival="26137.00" arrivalPos="52.47" duration="1155.00" routeLength="12351.62" timeLoss="204.05"/>
+    </personinfo>
+    <personinfo id="277" depart="25581.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="581.00" waitingTime="283.00" timeLoss="50.88" traveltime="298.00">
+        <ride waitingTime="283.00" vehicle="t_8" depart="25864.00" arrival="26162.00" arrivalPos="63.74" duration="298.00" routeLength="2559.22" timeLoss="50.88"/>
+    </personinfo>
+    <personinfo id="269" depart="25455.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="708.00" waitingTime="272.00" timeLoss="105.73" traveltime="436.00">
+        <ride waitingTime="272.00" vehicle="t_3" depart="25727.00" arrival="26163.00" arrivalPos="27.15" duration="436.00" routeLength="4197.57" timeLoss="105.73"/>
+    </personinfo>
+    <personinfo id="274" depart="25534.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="629.00" waitingTime="356.00" timeLoss="22.08" traveltime="273.00">
+        <ride waitingTime="356.00" vehicle="t_9" depart="25890.00" arrival="26163.00" arrivalPos="22.37" duration="273.00" routeLength="1508.13" timeLoss="22.08"/>
+    </personinfo>
+    <personinfo id="257" depart="25260.00" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="940.00" waitingTime="653.00" timeLoss="32.56" traveltime="287.00">
+        <ride waitingTime="653.00" vehicle="t_6" depart="25913.00" arrival="26200.00" arrivalPos="268.01" duration="287.00" routeLength="2956.42" timeLoss="32.56"/>
+    </personinfo>
+    <personinfo id="281" depart="25649.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="551.00" waitingTime="305.00" timeLoss="19.79" traveltime="246.00">
+        <ride waitingTime="305.00" vehicle="t_12" depart="25954.00" arrival="26200.00" arrivalPos="79.18" duration="246.00" routeLength="1905.52" timeLoss="19.79"/>
+    </personinfo>
+    <personinfo id="244" depart="24952.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="1339.00" waitingTime="385.00" timeLoss="196.34" traveltime="954.00">
+        <ride waitingTime="385.00" vehicle="t_3" depart="25337.00" arrival="26291.00" arrivalPos="26.92" duration="954.00" routeLength="8576.91" timeLoss="196.34"/>
+    </personinfo>
+    <personinfo id="252" depart="25145.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="1223.00" waitingTime="485.00" timeLoss="197.38" traveltime="738.00">
+        <ride waitingTime="485.00" vehicle="t_1" depart="25630.00" arrival="26368.00" arrivalPos="11.40" duration="738.00" routeLength="7768.53" timeLoss="197.38"/>
+    </personinfo>
+    <personinfo id="272" depart="25530.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="871.00" waitingTime="96.00" timeLoss="163.22" traveltime="775.00">
+        <ride waitingTime="96.00" vehicle="t_13" depart="25626.00" arrival="26401.00" arrivalPos="281.19" duration="775.00" routeLength="7549.67" timeLoss="163.22"/>
+    </personinfo>
+    <personinfo id="292" depart="25916.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="496.00" waitingTime="112.00" timeLoss="44.56" traveltime="384.00">
+        <ride waitingTime="112.00" vehicle="t_8" depart="26028.00" arrival="26412.00" arrivalPos="41.77" duration="384.00" routeLength="2932.60" timeLoss="44.56"/>
+    </personinfo>
+    <personinfo id="210" depart="24213.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="2206.00" waitingTime="515.00" timeLoss="367.11" traveltime="1691.00">
+        <ride waitingTime="515.00" vehicle="t_7" depart="24728.00" arrival="26419.00" arrivalPos="78.33" duration="1691.00" routeLength="15989.66" timeLoss="367.11"/>
+    </personinfo>
+    <personinfo id="286" depart="25760.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="681.00" waitingTime="223.00" timeLoss="132.05" traveltime="458.00">
+        <ride waitingTime="223.00" vehicle="t_14" depart="25983.00" arrival="26441.00" arrivalPos="104.38" duration="458.00" routeLength="4743.46" timeLoss="132.05"/>
+    </personinfo>
+    <personinfo id="271" depart="25508.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="937.00" waitingTime="649.00" timeLoss="76.14" traveltime="288.00">
+        <ride waitingTime="649.00" vehicle="t_11" depart="26157.00" arrival="26445.00" arrivalPos="117.15" duration="288.00" routeLength="3172.74" timeLoss="76.14"/>
+    </personinfo>
+    <personinfo id="299" depart="26127.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="321.00" waitingTime="136.00" timeLoss="25.39" traveltime="185.00">
+        <ride waitingTime="136.00" vehicle="t_10" depart="26263.00" arrival="26448.00" arrivalPos="22.55" duration="185.00" routeLength="1552.09" timeLoss="25.39"/>
+    </personinfo>
+    <personinfo id="291" depart="25900.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="597.00" waitingTime="251.00" timeLoss="32.94" traveltime="346.00">
+        <ride waitingTime="251.00" vehicle="t_0" depart="26151.00" arrival="26497.00" arrivalPos="48.40" duration="346.00" routeLength="4504.47" timeLoss="32.94"/>
+    </personinfo>
+    <personinfo id="311" depart="26332.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="292.00" waitingTime="82.00" timeLoss="26.89" traveltime="210.00">
+        <ride waitingTime="82.00" vehicle="t_9" depart="26414.00" arrival="26624.00" arrivalPos="48.40" duration="210.00" routeLength="2069.64" timeLoss="26.89"/>
+    </personinfo>
+    <personinfo id="300" depart="26134.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="502.00" waitingTime="296.00" timeLoss="24.16" traveltime="206.00">
+        <ride waitingTime="296.00" vehicle="t_6" depart="26430.00" arrival="26636.00" arrivalPos="192.12" duration="206.00" routeLength="1692.14" timeLoss="24.16"/>
+    </personinfo>
+    <personinfo id="304" depart="26236.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="409.00" waitingTime="183.00" timeLoss="56.91" traveltime="226.00">
+        <ride waitingTime="183.00" vehicle="t_12" depart="26419.00" arrival="26645.00" arrivalPos="78.14" duration="226.00" routeLength="2515.24" timeLoss="56.91"/>
+    </personinfo>
+    <personinfo id="288" depart="25797.00" type="DEFAULT_PEDTYPE" speedFactor="1.24" duration="852.00" waitingTime="483.00" timeLoss="72.58" traveltime="369.00">
+        <ride waitingTime="483.00" vehicle="t_14" depart="26280.00" arrival="26649.00" arrivalPos="15.91" duration="369.00" routeLength="2732.56" timeLoss="72.58"/>
+    </personinfo>
+    <personinfo id="261" depart="25280.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="1383.00" waitingTime="1161.00" timeLoss="26.46" traveltime="222.00">
+        <ride waitingTime="1161.00" vehicle="t_2" depart="26441.00" arrival="26663.00" arrivalPos="88.03" duration="222.00" routeLength="2528.46" timeLoss="26.46"/>
+    </personinfo>
+    <personinfo id="290" depart="25888.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="821.00" waitingTime="202.00" timeLoss="65.29" traveltime="619.00">
+        <ride waitingTime="202.00" vehicle="t_0" depart="26090.00" arrival="26709.00" arrivalPos="23.96" duration="619.00" routeLength="6655.46" timeLoss="65.29"/>
+    </personinfo>
+    <personinfo id="296" depart="26076.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="639.00" waitingTime="182.00" timeLoss="125.27" traveltime="457.00">
+        <ride waitingTime="182.00" vehicle="t_4" depart="26258.00" arrival="26715.00" arrivalPos="104.38" duration="457.00" routeLength="4752.46" timeLoss="125.27"/>
+    </personinfo>
+    <personinfo id="246" depart="25067.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="1720.00" waitingTime="407.00" timeLoss="237.23" traveltime="1313.00">
+        <ride waitingTime="407.00" vehicle="t_8" depart="25474.00" arrival="26787.00" arrivalPos="81.57" duration="1313.00" routeLength="15124.41" timeLoss="237.23"/>
+    </personinfo>
+    <personinfo id="283" depart="25715.00" type="DEFAULT_PEDTYPE" speedFactor="1.21" duration="1078.00" waitingTime="692.00" timeLoss="59.35" traveltime="386.00">
+        <ride waitingTime="692.00" vehicle="t_1" depart="26407.00" arrival="26793.00" arrivalPos="117.72" duration="386.00" routeLength="4849.98" timeLoss="59.35"/>
+    </personinfo>
+    <personinfo id="295" depart="26015.00" type="DEFAULT_PEDTYPE" speedFactor="0.87" duration="815.00" waitingTime="630.00" timeLoss="23.01" traveltime="185.00">
+        <ride waitingTime="630.00" vehicle="t_11" depart="26645.00" arrival="26830.00" arrivalPos="66.56" duration="185.00" routeLength="2052.93" timeLoss="23.01"/>
+    </personinfo>
+    <personinfo id="280" depart="25639.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="1240.00" waitingTime="425.00" timeLoss="153.16" traveltime="815.00">
+        <ride waitingTime="425.00" vehicle="t_6" depart="26064.00" arrival="26879.00" arrivalPos="105.07" duration="815.00" routeLength="7283.06" timeLoss="153.16"/>
+    </personinfo>
+    <personinfo id="319" depart="26445.00" type="DEFAULT_PEDTYPE" speedFactor="0.88" duration="452.00" waitingTime="197.00" timeLoss="42.65" traveltime="255.00">
+        <ride waitingTime="197.00" vehicle="t_5" depart="26642.00" arrival="26897.00" arrivalPos="240.81" duration="255.00" routeLength="2584.38" timeLoss="42.65"/>
+    </personinfo>
+    <personinfo id="318" depart="26441.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="456.00" waitingTime="231.00" timeLoss="30.60" traveltime="225.00">
+        <ride waitingTime="231.00" vehicle="t_7" depart="26672.00" arrival="26897.00" arrivalPos="62.80" duration="225.00" routeLength="1950.22" timeLoss="30.60"/>
+    </personinfo>
+    <personinfo id="306" depart="26245.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="685.00" waitingTime="396.00" timeLoss="24.93" traveltime="289.00">
+        <ride waitingTime="396.00" vehicle="t_10" depart="26641.00" arrival="26930.00" arrivalPos="33.53" duration="289.00" routeLength="2316.60" timeLoss="24.93"/>
+    </personinfo>
+    <personinfo id="303" depart="26209.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="753.00" waitingTime="325.00" timeLoss="154.51" traveltime="428.00">
+        <ride waitingTime="325.00" vehicle="t_3" depart="26534.00" arrival="26962.00" arrivalPos="56.18" duration="428.00" routeLength="4370.06" timeLoss="154.51"/>
+    </personinfo>
+    <personinfo id="266" depart="25398.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="1582.00" waitingTime="585.00" timeLoss="246.50" traveltime="997.00">
+        <ride waitingTime="585.00" vehicle="t_14" depart="25983.00" arrival="26980.00" arrivalPos="0.23" duration="997.00" routeLength="10469.27" timeLoss="246.50"/>
+    </personinfo>
+    <personinfo id="293" depart="25946.00" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="1039.00" waitingTime="817.00" timeLoss="27.59" traveltime="222.00">
+        <ride waitingTime="817.00" vehicle="t_9" depart="26763.00" arrival="26985.00" arrivalPos="38.69" duration="222.00" routeLength="2037.25" timeLoss="27.59"/>
+    </personinfo>
+    <personinfo id="313" depart="26349.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="678.00" waitingTime="533.00" timeLoss="18.37" traveltime="145.00">
+        <ride waitingTime="533.00" vehicle="t_0" depart="26882.00" arrival="27027.00" arrivalPos="23.96" duration="145.00" routeLength="1364.96" timeLoss="18.37"/>
+    </personinfo>
+    <personinfo id="273" depart="25534.00" type="DEFAULT_PEDTYPE" speedFactor="0.73" duration="1505.00" waitingTime="1180.00" timeLoss="53.59" traveltime="325.00">
+        <ride waitingTime="1180.00" vehicle="t_13" depart="26714.00" arrival="27039.00" arrivalPos="27.15" duration="325.00" routeLength="4336.59" timeLoss="53.59"/>
+    </personinfo>
+    <personinfo id="204" depart="24072.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="2972.00" waitingTime="456.00" timeLoss="454.24" traveltime="2516.00">
+        <ride waitingTime="456.00" vehicle="t_4" depart="24528.00" arrival="27044.00" arrivalPos="72.80" duration="2516.00" routeLength="26362.48" timeLoss="454.24"/>
+    </personinfo>
+    <personinfo id="284" depart="25735.00" type="DEFAULT_PEDTYPE" speedFactor="0.88" duration="1341.00" waitingTime="578.00" timeLoss="221.32" traveltime="763.00">
+        <ride waitingTime="578.00" vehicle="t_11" depart="26313.00" arrival="27076.00" arrivalPos="26.92" duration="763.00" routeLength="7412.50" timeLoss="221.32"/>
+    </personinfo>
+    <personinfo id="282" depart="25706.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="1408.00" waitingTime="717.00" timeLoss="186.76" traveltime="691.00">
+        <ride waitingTime="717.00" vehicle="t_3" depart="26423.00" arrival="27114.00" arrivalPos="77.65" duration="691.00" routeLength="6852.10" timeLoss="186.76"/>
+    </personinfo>
+    <personinfo id="335" depart="26856.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="261.00" waitingTime="83.00" timeLoss="40.96" traveltime="178.00">
+        <ride waitingTime="83.00" vehicle="t_12" depart="26939.00" arrival="27117.00" arrivalPos="38.27" duration="178.00" routeLength="1593.66" timeLoss="40.96"/>
+    </personinfo>
+    <personinfo id="334" depart="26831.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="339.00" waitingTime="95.00" timeLoss="23.04" traveltime="244.00">
+        <ride waitingTime="95.00" vehicle="t_8" depart="26926.00" arrival="27170.00" arrivalPos="38.69" duration="244.00" routeLength="2489.51" timeLoss="23.04"/>
+    </personinfo>
+    <personinfo id="276" depart="25570.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="1658.00" waitingTime="302.00" timeLoss="337.53" traveltime="1356.00">
+        <ride waitingTime="302.00" vehicle="t_0" depart="25872.00" arrival="27228.00" arrivalPos="68.01" duration="1356.00" routeLength="13252.46" timeLoss="337.53"/>
+    </personinfo>
+    <personinfo id="315" depart="26375.00" type="DEFAULT_PEDTYPE" speedFactor="0.82" duration="861.00" waitingTime="232.00" timeLoss="175.98" traveltime="629.00">
+        <ride waitingTime="232.00" vehicle="t_3" depart="26607.00" arrival="27236.00" arrivalPos="62.80" duration="629.00" routeLength="5221.63" timeLoss="175.98"/>
+    </personinfo>
+    <personinfo id="337" depart="26876.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="365.00" waitingTime="146.00" timeLoss="30.01" traveltime="219.00">
+        <ride waitingTime="146.00" vehicle="t_2" depart="27022.00" arrival="27241.00" arrivalPos="32.30" duration="219.00" routeLength="2225.75" timeLoss="30.01"/>
+    </personinfo>
+    <personinfo id="278" depart="25597.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="1644.00" waitingTime="647.00" timeLoss="206.78" traveltime="997.00">
+        <ride waitingTime="647.00" vehicle="t_5" depart="26244.00" arrival="27241.00" arrivalPos="892.96" duration="997.00" routeLength="11582.40" timeLoss="206.78"/>
+    </personinfo>
+    <personinfo id="338" depart="26939.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="307.00" waitingTime="55.00" timeLoss="78.34" traveltime="252.00">
+        <ride waitingTime="55.00" vehicle="t_7" depart="26994.00" arrival="27246.00" arrivalPos="26.51" duration="252.00" routeLength="2238.09" timeLoss="78.34"/>
+    </personinfo>
+    <personinfo id="316" depart="26403.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="877.00" waitingTime="458.00" timeLoss="72.07" traveltime="419.00">
+        <ride waitingTime="458.00" vehicle="t_1" depart="26861.00" arrival="27280.00" arrivalPos="0.47" duration="419.00" routeLength="4935.65" timeLoss="72.07"/>
+    </personinfo>
+    <personinfo id="330" depart="26658.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="627.00" waitingTime="360.00" timeLoss="25.87" traveltime="267.00">
+        <ride waitingTime="360.00" vehicle="t_6" depart="27018.00" arrival="27285.00" arrivalPos="29.50" duration="267.00" routeLength="2403.01" timeLoss="25.87"/>
+    </personinfo>
+    <personinfo id="285" depart="25737.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="1553.00" waitingTime="631.00" timeLoss="153.32" traveltime="922.00">
+        <ride waitingTime="631.00" vehicle="t_9" depart="26368.00" arrival="27290.00" arrivalPos="71.87" duration="922.00" routeLength="11084.10" timeLoss="153.32"/>
+    </personinfo>
+    <personinfo id="301" depart="26134.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="1185.00" waitingTime="162.00" timeLoss="221.57" traveltime="1023.00">
+        <ride waitingTime="162.00" vehicle="t_12" depart="26296.00" arrival="27319.00" arrivalPos="26.00" duration="1023.00" routeLength="12682.77" timeLoss="221.57"/>
+    </personinfo>
+    <personinfo id="287" depart="25770.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="1551.00" waitingTime="493.00" timeLoss="199.18" traveltime="1058.00">
+        <ride waitingTime="493.00" vehicle="t_10" depart="26263.00" arrival="27321.00" arrivalPos="0.23" duration="1058.00" routeLength="11047.00" timeLoss="199.18"/>
+    </personinfo>
+    <personinfo id="307" depart="26264.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="1084.00" waitingTime="302.00" timeLoss="175.94" traveltime="782.00">
+        <ride waitingTime="302.00" vehicle="t_11" depart="26566.00" arrival="27348.00" arrivalPos="69.35" duration="782.00" routeLength="8466.93" timeLoss="175.94"/>
+    </personinfo>
+    <personinfo id="294" depart="26008.00" type="DEFAULT_PEDTYPE" speedFactor="1.21" duration="1343.00" waitingTime="242.00" timeLoss="251.24" traveltime="1101.00">
+        <ride waitingTime="242.00" vehicle="t_7" depart="26250.00" arrival="27351.00" arrivalPos="26.92" duration="1101.00" routeLength="10345.18" timeLoss="251.24"/>
+    </personinfo>
+    <personinfo id="331" depart="26676.00" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="722.00" waitingTime="397.00" timeLoss="44.74" traveltime="325.00">
+        <ride waitingTime="397.00" vehicle="t_1" depart="27073.00" arrival="27398.00" arrivalPos="3.68" duration="325.00" routeLength="2831.60" timeLoss="44.74"/>
+    </personinfo>
+    <personinfo id="340" depart="27031.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="379.00" waitingTime="142.00" timeLoss="20.39" traveltime="237.00">
+        <ride waitingTime="142.00" vehicle="t_6" depart="27173.00" arrival="27410.00" arrivalPos="26.00" duration="237.00" routeLength="1029.33" timeLoss="20.39"/>
+    </personinfo>
+    <personinfo id="270" depart="25471.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="1940.00" waitingTime="474.00" timeLoss="275.56" traveltime="1466.00">
+        <ride waitingTime="474.00" vehicle="t_12" depart="25945.00" arrival="27411.00" arrivalPos="86.69" duration="1466.00" routeLength="16520.39" timeLoss="275.56"/>
+    </personinfo>
+    <personinfo id="320" depart="26453.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="959.00" waitingTime="298.00" timeLoss="121.33" traveltime="661.00">
+        <ride waitingTime="298.00" vehicle="t_12" depart="26751.00" arrival="27412.00" arrivalPos="86.69" duration="661.00" routeLength="7052.46" timeLoss="121.33"/>
+    </personinfo>
+    <personinfo id="322" depart="26534.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="892.00" waitingTime="313.00" timeLoss="74.82" traveltime="579.00">
+        <ride waitingTime="313.00" vehicle="t_8" depart="26847.00" arrival="27426.00" arrivalPos="75.73" duration="579.00" routeLength="6276.05" timeLoss="74.82"/>
+    </personinfo>
+    <personinfo id="341" depart="27049.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="380.00" waitingTime="93.00" timeLoss="63.27" traveltime="287.00">
+        <ride waitingTime="93.00" vehicle="t_4" depart="27142.00" arrival="27429.00" arrivalPos="38.27" duration="287.00" routeLength="3008.07" timeLoss="63.27"/>
+    </personinfo>
+    <personinfo id="333" depart="26751.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="778.00" waitingTime="580.00" timeLoss="32.99" traveltime="198.00">
+        <ride waitingTime="580.00" vehicle="t_14" depart="27331.00" arrival="27529.00" arrivalPos="78.33" duration="198.00" routeLength="1941.69" timeLoss="32.99"/>
+    </personinfo>
+    <personinfo id="350" depart="27280.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="250.00" waitingTime="55.00" timeLoss="15.88" traveltime="195.00">
+        <ride waitingTime="55.00" vehicle="t_2" depart="27335.00" arrival="27530.00" arrivalPos="125.51" duration="195.00" routeLength="1595.68" timeLoss="15.88"/>
+    </personinfo>
+    <personinfo id="339" depart="27019.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="548.00" waitingTime="360.00" timeLoss="29.65" traveltime="188.00">
+        <ride waitingTime="360.00" vehicle="t_9" depart="27379.00" arrival="27567.00" arrivalPos="81.57" duration="188.00" routeLength="1598.52" timeLoss="29.65"/>
+    </personinfo>
+    <personinfo id="323" depart="26538.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="1033.00" waitingTime="480.00" timeLoss="58.68" traveltime="553.00">
+        <ride waitingTime="480.00" vehicle="t_6" depart="27018.00" arrival="27571.00" arrivalPos="125.51" duration="553.00" routeLength="3881.99" timeLoss="58.68"/>
+    </personinfo>
+    <personinfo id="327" depart="26586.00" type="DEFAULT_PEDTYPE" speedFactor="0.81" duration="997.00" waitingTime="88.00" timeLoss="225.43" traveltime="909.00">
+        <ride waitingTime="88.00" vehicle="t_3" depart="26674.00" arrival="27583.00" arrivalPos="46.21" duration="909.00" routeLength="8563.01" timeLoss="225.43"/>
+    </personinfo>
+    <personinfo id="312" depart="26343.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="1255.00" waitingTime="259.00" timeLoss="276.31" traveltime="996.00">
+        <ride waitingTime="259.00" vehicle="t_0" depart="26602.00" arrival="27598.00" arrivalPos="78.33" duration="996.00" routeLength="9590.31" timeLoss="276.31"/>
+    </personinfo>
+    <personinfo id="317" depart="26416.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="1206.00" waitingTime="485.00" timeLoss="105.42" traveltime="721.00">
+        <ride waitingTime="485.00" vehicle="t_1" depart="26901.00" arrival="27622.00" arrivalPos="81.57" duration="721.00" routeLength="7573.70" timeLoss="105.42"/>
+    </personinfo>
+    <personinfo id="332" depart="26710.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="922.00" waitingTime="244.00" timeLoss="119.30" traveltime="678.00">
+        <ride waitingTime="244.00" vehicle="t_7" depart="26954.00" arrival="27632.00" arrivalPos="105.07" duration="678.00" routeLength="6304.13" timeLoss="119.30"/>
+    </personinfo>
+    <personinfo id="305" depart="26243.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="1394.00" waitingTime="310.00" timeLoss="173.34" traveltime="1084.00">
+        <ride waitingTime="310.00" vehicle="t_8" depart="26553.00" arrival="27637.00" arrivalPos="72.80" duration="1084.00" routeLength="11374.23" timeLoss="173.34"/>
+    </personinfo>
+    <personinfo id="346" depart="27199.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="514.00" waitingTime="304.00" timeLoss="55.19" traveltime="210.00">
+        <ride waitingTime="304.00" vehicle="t_11" depart="27503.00" arrival="27713.00" arrivalPos="119.03" duration="210.00" routeLength="1804.22" timeLoss="55.19"/>
+    </personinfo>
+    <personinfo id="359" depart="27527.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="198.00" waitingTime="34.00" timeLoss="41.64" traveltime="164.00">
+        <ride waitingTime="34.00" vehicle="t_13" depart="27561.00" arrival="27725.00" arrivalPos="85.47" duration="164.00" routeLength="1099.99" timeLoss="41.64"/>
+    </personinfo>
+    <personinfo id="309" depart="26305.00" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="1455.00" waitingTime="551.00" timeLoss="146.52" traveltime="904.00">
+        <ride waitingTime="551.00" vehicle="t_9" depart="26856.00" arrival="27760.00" arrivalPos="84.25" duration="904.00" routeLength="8691.85" timeLoss="146.52"/>
+    </personinfo>
+    <personinfo id="302" depart="26171.00" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="1619.00" waitingTime="325.00" timeLoss="224.39" traveltime="1294.00">
+        <ride waitingTime="325.00" vehicle="t_7" depart="26496.00" arrival="27790.00" arrivalPos="18.37" duration="1294.00" routeLength="12360.08" timeLoss="224.39"/>
+    </personinfo>
+    <personinfo id="349" depart="27260.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="531.00" waitingTime="64.00" timeLoss="72.43" traveltime="467.00">
+        <ride waitingTime="64.00" vehicle="t_3" depart="27324.00" arrival="27791.00" arrivalPos="26.00" duration="467.00" routeLength="5244.54" timeLoss="72.43"/>
+    </personinfo>
+    <personinfo id="343" depart="27107.00" type="DEFAULT_PEDTYPE" speedFactor="1.17" duration="698.00" waitingTime="181.00" timeLoss="80.92" traveltime="517.00">
+        <ride waitingTime="181.00" vehicle="t_8" depart="27288.00" arrival="27805.00" arrivalPos="78.14" duration="517.00" routeLength="3965.71" timeLoss="80.92"/>
+    </personinfo>
+    <personinfo id="354" depart="27432.00" type="DEFAULT_PEDTYPE" speedFactor="0.68" duration="378.00" waitingTime="113.00" timeLoss="91.36" traveltime="265.00">
+        <ride waitingTime="113.00" vehicle="t_12" depart="27545.00" arrival="27810.00" arrivalPos="105.07" duration="265.00" routeLength="1887.45" timeLoss="91.36"/>
+    </personinfo>
+    <personinfo id="297" depart="26081.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="1764.00" waitingTime="1105.00" timeLoss="105.61" traveltime="659.00">
+        <ride waitingTime="1105.00" vehicle="t_13" depart="27186.00" arrival="27845.00" arrivalPos="77.65" duration="659.00" routeLength="7103.76" timeLoss="105.61"/>
+    </personinfo>
+    <personinfo id="353" depart="27389.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="457.00" waitingTime="118.00" timeLoss="80.65" traveltime="339.00">
+        <ride waitingTime="118.00" vehicle="t_10" depart="27507.00" arrival="27846.00" arrivalPos="68.01" duration="339.00" routeLength="4122.97" timeLoss="80.65"/>
+    </personinfo>
+    <personinfo id="298" depart="26093.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="1762.00" waitingTime="545.00" timeLoss="179.71" traveltime="1217.00">
+        <ride waitingTime="545.00" vehicle="t_1" depart="26638.00" arrival="27855.00" arrivalPos="79.18" duration="1217.00" routeLength="11790.36" timeLoss="179.71"/>
+    </personinfo>
+    <personinfo id="363" depart="27596.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="288.00" waitingTime="139.00" timeLoss="17.36" traveltime="149.00">
+        <ride waitingTime="139.00" vehicle="t_2" depart="27735.00" arrival="27884.00" arrivalPos="93.68" duration="149.00" routeLength="904.05" timeLoss="17.36"/>
+    </personinfo>
+    <personinfo id="314" depart="26374.00" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="1530.00" waitingTime="550.00" timeLoss="183.95" traveltime="980.00">
+        <ride waitingTime="550.00" vehicle="t_4" depart="26924.00" arrival="27904.00" arrivalPos="14.88" duration="980.00" routeLength="10443.81" timeLoss="183.95"/>
+    </personinfo>
+    <personinfo id="342" depart="27077.00" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="846.00" waitingTime="649.00" timeLoss="54.87" traveltime="197.00">
+        <ride waitingTime="649.00" vehicle="t_6" depart="27726.00" arrival="27923.00" arrivalPos="5.00" duration="197.00" routeLength="3350.70" timeLoss="54.87"/>
+    </personinfo>
+    <personinfo id="345" depart="27141.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="796.00" waitingTime="462.00" timeLoss="49.78" traveltime="334.00">
+        <ride waitingTime="462.00" vehicle="t_5" depart="27603.00" arrival="27937.00" arrivalPos="979.46" duration="334.00" routeLength="3816.92" timeLoss="49.78"/>
+    </personinfo>
+    <personinfo id="329" depart="26621.00" type="DEFAULT_PEDTYPE" speedFactor="0.82" duration="1336.00" waitingTime="393.00" timeLoss="141.61" traveltime="943.00">
+        <ride waitingTime="393.00" vehicle="t_1" depart="27014.00" arrival="27957.00" arrivalPos="18.57" duration="943.00" routeLength="8473.78" timeLoss="141.61"/>
+    </personinfo>
+    <personinfo id="265" depart="25392.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="2595.00" waitingTime="610.00" timeLoss="511.98" traveltime="1985.00">
+        <ride waitingTime="610.00" vehicle="t_11" depart="26002.00" arrival="27987.00" arrivalPos="268.01" duration="1985.00" routeLength="21296.90" timeLoss="511.98"/>
+    </personinfo>
+    <personinfo id="364" depart="27603.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="415.00" waitingTime="195.00" timeLoss="35.56" traveltime="220.00">
+        <ride waitingTime="195.00" vehicle="t_0" depart="27798.00" arrival="28018.00" arrivalPos="104.38" duration="220.00" routeLength="2253.50" timeLoss="35.56"/>
+    </personinfo>
+    <personinfo id="362" depart="27578.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="445.00" waitingTime="226.00" timeLoss="23.95" traveltime="219.00">
+        <ride waitingTime="226.00" vehicle="t_14" depart="27804.00" arrival="28023.00" arrivalPos="24.53" duration="219.00" routeLength="1965.87" timeLoss="23.95"/>
+    </personinfo>
+    <personinfo id="369" depart="27666.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="414.00" waitingTime="172.00" timeLoss="21.45" traveltime="242.00">
+        <ride waitingTime="172.00" vehicle="t_7" depart="27838.00" arrival="28080.00" arrivalPos="33.53" duration="242.00" routeLength="1653.91" timeLoss="21.45"/>
+    </personinfo>
+    <personinfo id="373" depart="27746.00" type="DEFAULT_PEDTYPE" speedFactor="1.17" duration="368.00" waitingTime="241.00" timeLoss="12.17" traveltime="127.00">
+        <ride waitingTime="241.00" vehicle="t_12" depart="27987.00" arrival="28114.00" arrivalPos="38.69" duration="127.00" routeLength="718.23" timeLoss="12.17"/>
+    </personinfo>
+    <personinfo id="310" depart="26316.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="1821.00" waitingTime="418.00" timeLoss="244.03" traveltime="1403.00">
+        <ride waitingTime="418.00" vehicle="t_2" depart="26734.00" arrival="28137.00" arrivalPos="139.40" duration="1403.00" routeLength="14433.49" timeLoss="244.03"/>
+    </personinfo>
+    <personinfo id="289" depart="25800.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="2338.00" waitingTime="719.00" timeLoss="379.35" traveltime="1619.00">
+        <ride waitingTime="719.00" vehicle="t_5" depart="26519.00" arrival="28138.00" arrivalPos="81.57" duration="1619.00" routeLength="16301.09" timeLoss="379.35"/>
+    </personinfo>
+    <personinfo id="356" depart="27460.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="722.00" waitingTime="368.00" timeLoss="58.56" traveltime="354.00">
+        <ride waitingTime="368.00" vehicle="t_3" depart="27828.00" arrival="28182.00" arrivalPos="139.84" duration="354.00" routeLength="3242.83" timeLoss="58.56"/>
+    </personinfo>
+    <personinfo id="351" depart="27330.00" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="933.00" waitingTime="342.00" timeLoss="112.29" traveltime="591.00">
+        <ride waitingTime="342.00" vehicle="t_4" depart="27672.00" arrival="28263.00" arrivalPos="77.65" duration="591.00" routeLength="6849.38" timeLoss="112.29"/>
+    </personinfo>
+    <personinfo id="344" depart="27113.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="1169.00" waitingTime="340.00" timeLoss="148.32" traveltime="829.00">
+        <ride waitingTime="340.00" vehicle="t_5" depart="27453.00" arrival="28282.00" arrivalPos="84.25" duration="829.00" routeLength="7993.43" timeLoss="148.32"/>
+    </personinfo>
+    <personinfo id="358" depart="27491.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="814.00" waitingTime="433.00" timeLoss="52.11" traveltime="381.00">
+        <ride waitingTime="433.00" vehicle="t_6" depart="27924.00" arrival="28305.00" arrivalPos="117.72" duration="381.00" routeLength="5176.13" timeLoss="52.11"/>
+    </personinfo>
+    <personinfo id="374" depart="27775.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="534.00" waitingTime="299.00" timeLoss="26.13" traveltime="235.00">
+        <ride waitingTime="299.00" vehicle="t_10" depart="28074.00" arrival="28309.00" arrivalPos="33.53" duration="235.00" routeLength="2316.61" timeLoss="26.13"/>
+    </personinfo>
+    <personinfo id="328" depart="26589.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="1730.00" waitingTime="433.00" timeLoss="163.37" traveltime="1297.00">
+        <ride waitingTime="433.00" vehicle="t_2" depart="27022.00" arrival="28319.00" arrivalPos="75.73" duration="1297.00" routeLength="12996.43" timeLoss="163.37"/>
+    </personinfo>
+    <personinfo id="361" depart="27567.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="811.00" waitingTime="461.00" timeLoss="50.46" traveltime="350.00">
+        <ride waitingTime="461.00" vehicle="t_13" depart="28028.00" arrival="28378.00" arrivalPos="69.35" duration="350.00" routeLength="4965.81" timeLoss="50.46"/>
+    </personinfo>
+    <personinfo id="368" depart="27636.00" type="DEFAULT_PEDTYPE" speedFactor="1.18" duration="764.00" waitingTime="373.00" timeLoss="47.66" traveltime="391.00">
+        <ride waitingTime="373.00" vehicle="t_8" depart="28009.00" arrival="28400.00" arrivalPos="69.35" duration="391.00" routeLength="3900.04" timeLoss="47.66"/>
+    </personinfo>
+    <personinfo id="378" depart="27933.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="491.00" waitingTime="295.00" timeLoss="17.99" traveltime="196.00">
+        <ride waitingTime="295.00" vehicle="t_2" depart="28228.00" arrival="28424.00" arrivalPos="27.15" duration="196.00" routeLength="619.90" timeLoss="17.99"/>
+    </personinfo>
+    <personinfo id="347" depart="27205.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="1225.00" waitingTime="417.00" timeLoss="132.63" traveltime="808.00">
+        <ride waitingTime="417.00" vehicle="t_4" depart="27622.00" arrival="28430.00" arrivalPos="52.47" duration="808.00" routeLength="7803.66" timeLoss="132.63"/>
+    </personinfo>
+    <personinfo id="355" depart="27434.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="997.00" waitingTime="188.00" timeLoss="162.82" traveltime="809.00">
+        <ride waitingTime="188.00" vehicle="t_9" depart="27622.00" arrival="28431.00" arrivalPos="97.31" duration="809.00" routeLength="10043.45" timeLoss="162.82"/>
+    </personinfo>
+    <personinfo id="381" depart="28016.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="438.00" waitingTime="193.00" timeLoss="28.61" traveltime="245.00">
+        <ride waitingTime="193.00" vehicle="t_0" depart="28209.00" arrival="28454.00" arrivalPos="18.89" duration="245.00" routeLength="3087.69" timeLoss="28.61"/>
+    </personinfo>
+    <personinfo id="376" depart="27818.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="651.00" waitingTime="215.00" timeLoss="75.29" traveltime="436.00">
+        <ride waitingTime="215.00" vehicle="t_3" depart="28033.00" arrival="28469.00" arrivalPos="268.01" duration="436.00" routeLength="3713.03" timeLoss="75.29"/>
+    </personinfo>
+    <personinfo id="370" depart="27691.00" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="798.00" waitingTime="518.00" timeLoss="28.81" traveltime="280.00">
+        <ride waitingTime="518.00" vehicle="t_7" depart="28209.00" arrival="28489.00" arrivalPos="18.89" duration="280.00" routeLength="3198.85" timeLoss="28.81"/>
+    </personinfo>
+    <personinfo id="379" depart="27995.00" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="516.00" waitingTime="214.00" timeLoss="43.55" traveltime="302.00">
+        <ride waitingTime="214.00" vehicle="t_11" depart="28209.00" arrival="28511.00" arrivalPos="117.72" duration="302.00" routeLength="2609.21" timeLoss="43.55"/>
+    </personinfo>
+    <personinfo id="385" depart="28059.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="461.00" waitingTime="93.00" timeLoss="111.82" traveltime="368.00">
+        <ride waitingTime="93.00" vehicle="t_1" depart="28152.00" arrival="28520.00" arrivalPos="79.18" duration="368.00" routeLength="3405.72" timeLoss="111.82"/>
+    </personinfo>
+    <personinfo id="352" depart="27367.00" type="DEFAULT_PEDTYPE" speedFactor="0.77" duration="1185.00" waitingTime="144.00" timeLoss="196.25" traveltime="1041.00">
+        <ride waitingTime="144.00" vehicle="t_0" depart="27511.00" arrival="28552.00" arrivalPos="93.68" duration="1041.00" routeLength="10864.54" timeLoss="196.25"/>
+    </personinfo>
+    <personinfo id="365" depart="27609.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="969.00" waitingTime="283.00" timeLoss="125.51" traveltime="686.00">
+        <ride waitingTime="283.00" vehicle="t_3" depart="27892.00" arrival="28578.00" arrivalPos="38.69" duration="686.00" routeLength="5680.13" timeLoss="125.51"/>
+    </personinfo>
+    <personinfo id="371" depart="27695.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="900.00" waitingTime="278.00" timeLoss="79.31" traveltime="622.00">
+        <ride waitingTime="278.00" vehicle="t_9" depart="27973.00" arrival="28595.00" arrivalPos="240.81" duration="622.00" routeLength="8132.50" timeLoss="79.31"/>
+    </personinfo>
+    <personinfo id="324" depart="26547.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="2056.00" waitingTime="888.00" timeLoss="234.51" traveltime="1168.00">
+        <ride waitingTime="888.00" vehicle="t_13" depart="27435.00" arrival="28603.00" arrivalPos="4.98" duration="1168.00" routeLength="13220.68" timeLoss="234.51"/>
+    </personinfo>
+    <personinfo id="391" depart="28156.00" type="DEFAULT_PEDTYPE" speedFactor="1.19" duration="455.00" waitingTime="156.00" timeLoss="57.14" traveltime="299.00">
+        <ride waitingTime="156.00" vehicle="t_5" depart="28312.00" arrival="28611.00" arrivalPos="71.87" duration="299.00" routeLength="3227.97" timeLoss="57.14"/>
+    </personinfo>
+    <personinfo id="388" depart="28139.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="515.00" waitingTime="367.00" timeLoss="17.71" traveltime="148.00">
+        <ride waitingTime="367.00" vehicle="t_8" depart="28506.00" arrival="28654.00" arrivalPos="48.40" duration="148.00" routeLength="929.93" timeLoss="17.71"/>
+    </personinfo>
+    <personinfo id="372" depart="27716.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="955.00" waitingTime="205.00" timeLoss="119.73" traveltime="750.00">
+        <ride waitingTime="205.00" vehicle="t_10" depart="27921.00" arrival="28671.00" arrivalPos="757.86" duration="750.00" routeLength="7600.94" timeLoss="119.73"/>
+    </personinfo>
+    <personinfo id="367" depart="27634.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="1046.00" waitingTime="587.00" timeLoss="67.31" traveltime="459.00">
+        <ride waitingTime="587.00" vehicle="t_14" depart="28221.00" arrival="28680.00" arrivalPos="85.99" duration="459.00" routeLength="4844.48" timeLoss="67.31"/>
+    </personinfo>
+    <personinfo id="321" depart="26530.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="2164.00" waitingTime="333.00" timeLoss="304.74" traveltime="1831.00">
+        <ride waitingTime="333.00" vehicle="t_2" depart="26863.00" arrival="28694.00" arrivalPos="84.25" duration="1831.00" routeLength="17700.19" timeLoss="304.74"/>
+    </personinfo>
+    <personinfo id="382" depart="28038.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="703.00" waitingTime="336.00" timeLoss="110.14" traveltime="367.00">
+        <ride waitingTime="336.00" vehicle="t_12" depart="28374.00" arrival="28741.00" arrivalPos="71.87" duration="367.00" routeLength="4770.64" timeLoss="110.14"/>
+    </personinfo>
+    <personinfo id="357" depart="27476.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="1323.00" waitingTime="628.00" timeLoss="106.42" traveltime="695.00">
+        <ride waitingTime="628.00" vehicle="t_4" depart="28104.00" arrival="28799.00" arrivalPos="38.69" duration="695.00" routeLength="6379.99" timeLoss="106.42"/>
+    </personinfo>
+    <personinfo id="383" depart="28039.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="781.00" waitingTime="446.00" timeLoss="100.81" traveltime="335.00">
+        <ride waitingTime="446.00" vehicle="t_6" depart="28485.00" arrival="28820.00" arrivalPos="26.00" duration="335.00" routeLength="2112.15" timeLoss="100.81"/>
+    </personinfo>
+    <personinfo id="387" depart="28135.00" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="685.00" waitingTime="268.00" timeLoss="94.11" traveltime="417.00">
+        <ride waitingTime="268.00" vehicle="t_11" depart="28403.00" arrival="28820.00" arrivalPos="0.47" duration="417.00" routeLength="3744.88" timeLoss="94.11"/>
+    </personinfo>
+    <personinfo id="405" depart="28419.00" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="427.00" waitingTime="290.00" timeLoss="24.65" traveltime="137.00">
+        <ride waitingTime="290.00" vehicle="t_5" depart="28709.00" arrival="28846.00" arrivalPos="72.80" duration="137.00" routeLength="764.27" timeLoss="24.65"/>
+    </personinfo>
+    <personinfo id="325" depart="26549.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="2302.00" waitingTime="819.00" timeLoss="270.20" traveltime="1483.00">
+        <ride waitingTime="819.00" vehicle="t_10" depart="27368.00" arrival="28851.00" arrivalPos="32.30" duration="1483.00" routeLength="15796.26" timeLoss="270.20"/>
+    </personinfo>
+    <personinfo id="406" depart="28450.00" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="418.00" waitingTime="204.00" timeLoss="29.30" traveltime="214.00">
+        <ride waitingTime="204.00" vehicle="t_1" depart="28654.00" arrival="28868.00" arrivalPos="38.27" duration="214.00" routeLength="2470.46" timeLoss="29.30"/>
+    </personinfo>
+    <personinfo id="366" depart="27627.00" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="1257.00" waitingTime="589.00" timeLoss="182.65" traveltime="668.00">
+        <ride waitingTime="589.00" vehicle="t_12" depart="28216.00" arrival="28884.00" arrivalPos="70.28" duration="668.00" routeLength="7699.65" timeLoss="182.65"/>
+    </personinfo>
+    <personinfo id="377" depart="27868.00" type="DEFAULT_PEDTYPE" speedFactor="0.88" duration="1073.00" waitingTime="191.00" timeLoss="95.85" traveltime="882.00">
+        <ride waitingTime="191.00" vehicle="t_8" depart="28059.00" arrival="28941.00" arrivalPos="192.12" duration="882.00" routeLength="8027.62" timeLoss="95.85"/>
+    </personinfo>
+    <personinfo id="392" depart="28170.00" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="788.00" waitingTime="434.00" timeLoss="101.43" traveltime="354.00">
+        <ride waitingTime="434.00" vehicle="t_13" depart="28604.00" arrival="28958.00" arrivalPos="29.51" duration="354.00" routeLength="2872.82" timeLoss="101.43"/>
+    </personinfo>
+    <personinfo id="308" depart="26282.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="2683.00" waitingTime="895.00" timeLoss="305.52" traveltime="1788.00">
+        <ride waitingTime="895.00" vehicle="t_14" depart="27177.00" arrival="28965.00" arrivalPos="53.15" duration="1788.00" routeLength="20461.36" timeLoss="305.52"/>
+    </personinfo>
+    <personinfo id="326" depart="26580.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="2386.00" waitingTime="1130.00" timeLoss="183.71" traveltime="1256.00">
+        <ride waitingTime="1130.00" vehicle="t_14" depart="27710.00" arrival="28966.00" arrivalPos="53.15" duration="1256.00" routeLength="14220.78" timeLoss="183.71"/>
+    </personinfo>
+    <personinfo id="336" depart="26866.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="2124.00" waitingTime="540.00" timeLoss="272.68" traveltime="1584.00">
+        <ride waitingTime="540.00" vehicle="t_10" depart="27406.00" arrival="28990.00" arrivalPos="88.03" duration="1584.00" routeLength="15883.85" timeLoss="272.68"/>
+    </personinfo>
+    <personinfo id="389" depart="28144.00" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="892.00" waitingTime="196.00" timeLoss="161.73" trav
