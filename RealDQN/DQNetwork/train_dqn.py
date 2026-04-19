@@ -400,6 +400,20 @@ def main() -> None:
     parser.add_argument("--epsilon-start", type=float, default=0.4)
     parser.add_argument("--epsilon-end", type=float, default=0.05)
     parser.add_argument(
+        "--epsilon-schedule",
+        choices=["linear", "exponential", "cosine"],
+        default="exponential",
+        help="Epsilon decay shape over training_progress in [0,1]. "
+             "'linear': uniform drop. "
+             "'exponential': fast early drop, long exploitation tail (best for imitation warm-start). "
+             "'cosine': slow→fast→slow, mirrors cosine LR schedule.",
+    )
+    parser.add_argument(
+        "--epsilon-decay-rate", type=float, default=5.0,
+        help="Steepness for --epsilon-schedule=exponential. "
+             "Higher = faster decay. ~5.0 hits epsilon_end by ~progress=0.5.",
+    )
+    parser.add_argument(
         "--reward-clip", type=float, default=5.0,
         help="Clip shaped rewards to [-clip, +clip] to stabilise Q-targets."
     )
@@ -594,9 +608,25 @@ def main() -> None:
             0.0,
             (episode - warmup_offset) / max(1, training_episodes - 1),
         )
-        epsilon = args.epsilon_start + (
-            args.epsilon_end - args.epsilon_start
-        ) * training_progress
+        training_progress = min(1.0, training_progress)
+
+        if args.epsilon_schedule == "linear":
+            epsilon = args.epsilon_start + (
+                args.epsilon_end - args.epsilon_start
+            ) * training_progress
+        elif args.epsilon_schedule == "exponential":
+            # ε_end + (ε_start - ε_end) * exp(-k * progress)
+            epsilon = args.epsilon_end + (
+                args.epsilon_start - args.epsilon_end
+            ) * float(np.exp(-args.epsilon_decay_rate * training_progress))
+        elif args.epsilon_schedule == "cosine":
+            # ε_end + 0.5 * (ε_start - ε_end) * (1 + cos(π * progress))
+            epsilon = args.epsilon_end + 0.5 * (
+                args.epsilon_start - args.epsilon_end
+            ) * (1.0 + float(np.cos(np.pi * training_progress)))
+        else:
+            raise ValueError(f"Unknown epsilon-schedule: {args.epsilon_schedule}")
+
         epsilon = float(np.clip(epsilon, args.epsilon_end, args.epsilon_start))
 
         # Anneal PER beta from beta_start → 1.0 over training episodes
@@ -808,6 +838,8 @@ def main() -> None:
         "tau": args.tau,
         "epsilon_start": args.epsilon_start,
         "epsilon_end": args.epsilon_end,
+        "epsilon_schedule": args.epsilon_schedule,
+        "epsilon_decay_rate": args.epsilon_decay_rate if args.epsilon_schedule == "exponential" else None,
         "reward_clip": args.reward_clip,
         "per_enabled": use_per,
         "per_alpha": args.per_alpha if use_per else None,
