@@ -21,9 +21,11 @@ FIELDS = [
     "mean_loss",
     "completed_requests", "picked_up_requests",
     "avg_wait_until_pickup", "avg_excess_ride_time",
+    "p90_wait_time", "p90_excess_ride_time",
     "epsilon", "lr",
     "eval_completed_requests", "eval_picked_up_requests",
     "eval_avg_wait_until_pickup", "eval_avg_excess_ride_time",
+    "eval_p90_wait_time", "eval_p90_excess_ride_time",
     "eval_eval_total_reward", "eval_eval_steps",
 ]
 

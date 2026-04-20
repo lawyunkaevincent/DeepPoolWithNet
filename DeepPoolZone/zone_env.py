@@ -814,7 +814,8 @@ class ZoneBasedDRTEnv(HeuristicDispatcher):
         stats : dict
             Per-episode metrics matching the training_history.csv schema:
               completed_requests, picked_up_requests,
-              avg_wait_until_pickup, avg_excess_ride_time
+              avg_wait_until_pickup, avg_excess_ride_time,
+              p90_wait_time, p90_excess_ride_time
         """
         self._transitions.clear()
         self._repo_state.clear()
@@ -872,13 +873,17 @@ class ZoneBasedDRTEnv(HeuristicDispatcher):
             "picked_up_requests":   len(picked_up),
             "avg_wait_until_pickup": (sum(wait_times) / len(wait_times)) if wait_times else 0.0,
             "avg_excess_ride_time":  (sum(excess_times) / len(excess_times)) if excess_times else 0.0,
+            "p90_wait_time":         float(np.percentile(wait_times, 90)) if wait_times else 0.0,
+            "p90_excess_ride_time":  float(np.percentile(excess_times, 90)) if excess_times else 0.0,
         }
 
         print(
             f"[ZoneEnv] Episode done — {len(self._transitions)} transitions | "
             f"completed={stats['completed_requests']} picked_up={stats['picked_up_requests']} "
             f"avg_wait={stats['avg_wait_until_pickup']:.1f}s "
-            f"avg_excess={stats['avg_excess_ride_time']:.1f}s"
+            f"avg_excess={stats['avg_excess_ride_time']:.1f}s "
+            f"p90_wait={stats['p90_wait_time']:.1f}s "
+            f"p90_excess={stats['p90_excess_ride_time']:.1f}s"
         )
         return list(self._transitions), stats
 

@@ -153,9 +153,11 @@ def train(args: argparse.Namespace) -> None:
         "mean_loss",
         "completed_requests", "picked_up_requests",
         "avg_wait_until_pickup", "avg_excess_ride_time",
+        "p90_wait_time", "p90_excess_ride_time",
         "epsilon", "lr",
         "eval_completed_requests", "eval_picked_up_requests",
         "eval_avg_wait_until_pickup", "eval_avg_excess_ride_time",
+        "eval_p90_wait_time", "eval_p90_excess_ride_time",
         "eval_eval_total_reward", "eval_eval_steps",
     ]
     csv_file = open(csv_path, "w", newline="")
@@ -245,6 +247,8 @@ def train(args: argparse.Namespace) -> None:
             "picked_up_requests":    ep_stats["picked_up_requests"],
             "avg_wait_until_pickup": ep_stats["avg_wait_until_pickup"],
             "avg_excess_ride_time":  ep_stats["avg_excess_ride_time"],
+            "p90_wait_time":         ep_stats.get("p90_wait_time"),
+            "p90_excess_ride_time":  ep_stats.get("p90_excess_ride_time"),
             "epsilon":               episode_epsilon,
             "lr":                    current_lr,
             # eval columns left empty (no separate eval loop)
@@ -252,6 +256,8 @@ def train(args: argparse.Namespace) -> None:
             "eval_picked_up_requests":   None,
             "eval_avg_wait_until_pickup": None,
             "eval_avg_excess_ride_time": None,
+            "eval_p90_wait_time":         None,
+            "eval_p90_excess_ride_time":  None,
             "eval_eval_total_reward":    None,
             "eval_eval_steps":           None,
         }
