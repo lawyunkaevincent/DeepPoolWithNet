@@ -21,8 +21,8 @@ import traci
 # ── Paths (relative to this script) ────────────────────────────────
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 NET_FILE = os.path.join(SCRIPT_DIR, "SunwaySmallMap", "osm.net.xml")
-REQUEST_FILE = os.path.join(SCRIPT_DIR, "SunwaySmallMap", "self_request.rou.xml")
-TAXI_FILE = os.path.join(SCRIPT_DIR, "SunwaySmallMap", "taxi_more.rou.xml")
+REQUEST_FILE = os.path.join(SCRIPT_DIR, "SunwaySmallMap", "self_request_300.rou.xml")
+TAXI_FILE = os.path.join(SCRIPT_DIR, "SunwaySmallMap", "taxi_more_300.rou.xml")
 OUTPUT_CSV = os.path.join(SCRIPT_DIR, "dtt_results.csv")
 
 # ── Parse requests from XML ────────────────────────────────────────

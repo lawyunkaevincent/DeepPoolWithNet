@@ -6,13 +6,13 @@
   "currently_onboard": 0,
   "currently_assigned": 0,
   "still_pending_or_deferred": 0,
-  "avg_wait_until_pickup": 268.895,
-  "max_wait_until_pickup": 2290.0,
-  "avg_excess_ride_time": 182.62568060772387,
-  "max_excess_ride_time": 1112.2414252009066,
+  "avg_wait_until_pickup": 340.515,
+  "max_wait_until_pickup": 2560.0,
+  "avg_excess_ride_time": 306.2638117768697,
+  "max_excess_ride_time": 1477.5513155956444,
   "decisions_seen": 2000,
-  "final_accum_completed_dropoffs": 6,
+  "final_accum_completed_dropoffs": 8,
   "final_accum_wait_cost": 0.0,
-  "final_accum_ride_cost": 1066.6517466728499,
-  "last_known_request_time": 86780.0
+  "final_accum_ride_cost": 1300.7142374064724,
+  "last_known_request_time": 87000.0
 }

@@ -168,9 +168,21 @@ class ZoneBasedDRTEnv(HeuristicDispatcher):
         grid_rows: int = 7,
         policy_fn: Optional[Callable] = None,
         epsilon: float = 1.0,
+        alpha: float = 1.0,
         step_length: float = 1.0,
         use_gui: bool = False,
     ) -> None:
+        """
+        Parameters
+        ----------
+        alpha : float
+            Action probability (0, 1].  At each idle-taxi decision point the
+            taxi takes a repositioning action with probability alpha and stays
+            put with probability (1 - alpha).  Mirrors the DeepPool paper's
+            alpha parameter (Section V-C) which ramps 0.3 → 1.0 over the
+            first 5000 steps to reduce multi-agent non-stationarity early in
+            training.  Default 1.0 = always act (original behaviour).
+        """
         super().__init__(cfg_path=cfg_path, step_length=step_length, use_gui=use_gui)
 
         self.zone_map      = ZoneMap(net_xml_path, grid_cols=grid_cols, grid_rows=grid_rows)
@@ -180,6 +192,7 @@ class ZoneBasedDRTEnv(HeuristicDispatcher):
 
         self.policy_fn = policy_fn
         self.epsilon   = epsilon
+        self.alpha     = alpha   # action probability (paper Section V-C)
 
         self._repo_state:    Dict[str, TaxiRepoState] = {}
         self._transitions:   List[Transition]          = []
@@ -617,6 +630,18 @@ class ZoneBasedDRTEnv(HeuristicDispatcher):
                     done       = False,
                 ))
 
+            # --- Alpha-exploration gate (DeepPool paper Section V-C) ---
+            # With probability (1 - alpha) the taxi skips repositioning and
+            # stays put.  Early in training (alpha close to 0.3) most taxis
+            # do nothing, limiting simultaneous policy changes and reducing
+            # multi-agent non-stationarity.  As alpha ramps to 1.0 all taxis
+            # always act — identical to the original behaviour.
+            if random.random() > self.alpha:
+                _log(f"  [ZoneRepo SKIP α] taxi={taxi_id} skipping (α={self.alpha:.2f})")
+                # Clear any stale repo entry so the taxi is clean next tick
+                self._repo_state.pop(taxi_id, None)
+                continue
+
             # --- New zone decision ---
             action = self._select_zone_action(current_state)
             target_stop, actual_zone = self._send_taxi_to_zone(taxi_id, action)
@@ -814,8 +839,7 @@ class ZoneBasedDRTEnv(HeuristicDispatcher):
         stats : dict
             Per-episode metrics matching the training_history.csv schema:
               completed_requests, picked_up_requests,
-              avg_wait_until_pickup, avg_excess_ride_time,
-              p90_wait_time, p90_excess_ride_time
+              avg_wait_until_pickup, avg_excess_ride_time
         """
         self._transitions.clear()
         self._repo_state.clear()
@@ -873,17 +897,13 @@ class ZoneBasedDRTEnv(HeuristicDispatcher):
             "picked_up_requests":   len(picked_up),
             "avg_wait_until_pickup": (sum(wait_times) / len(wait_times)) if wait_times else 0.0,
             "avg_excess_ride_time":  (sum(excess_times) / len(excess_times)) if excess_times else 0.0,
-            "p90_wait_time":         float(np.percentile(wait_times, 90)) if wait_times else 0.0,
-            "p90_excess_ride_time":  float(np.percentile(excess_times, 90)) if excess_times else 0.0,
         }
 
         print(
             f"[ZoneEnv] Episode done — {len(self._transitions)} transitions | "
             f"completed={stats['completed_requests']} picked_up={stats['picked_up_requests']} "
             f"avg_wait={stats['avg_wait_until_pickup']:.1f}s "
-            f"avg_excess={stats['avg_excess_ride_time']:.1f}s "
-            f"p90_wait={stats['p90_wait_time']:.1f}s "
-            f"p90_excess={stats['p90_excess_ride_time']:.1f}s"
+            f"avg_excess={stats['avg_excess_ride_time']:.1f}s"
         )
         return list(self._transitions), stats
 

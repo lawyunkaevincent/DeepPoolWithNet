@@ -62,22 +62,22 @@
   "val_decisions": 300,
   "test_decisions": 300,
   "train_result": {
-    "loss": 1.4436421611092307,
-    "choice_accuracy": 0.9471428571428572,
-    "top1_match_rate": 0.9471428571428572,
-    "mean_teacher_rank_of_pred": 1.12
+    "loss": 1.621892435984178,
+    "choice_accuracy": 0.8942857142857142,
+    "top1_match_rate": 0.8942857142857142,
+    "mean_teacher_rank_of_pred": 1.1714285714285715
   },
   "val_result": {
-    "loss": 1.5372845888137818,
+    "loss": 1.6457166433334351,
     "choice_accuracy": 0.8866666666666667,
     "top1_match_rate": 0.8866666666666667,
-    "mean_teacher_rank_of_pred": 1.18
+    "mean_teacher_rank_of_pred": 1.19
   },
   "test_result": {
-    "loss": 1.4602964639663696,
-    "choice_accuracy": 0.9166666666666666,
-    "top1_match_rate": 0.9166666666666666,
-    "mean_teacher_rank_of_pred": 1.1266666666666667
+    "loss": 1.650299620628357,
+    "choice_accuracy": 0.8366666666666667,
+    "top1_match_rate": 0.8366666666666667,
+    "mean_teacher_rank_of_pred": 1.2866666666666666
   },
   "model_class": "ImitationRanker",
   "input_dim": 49

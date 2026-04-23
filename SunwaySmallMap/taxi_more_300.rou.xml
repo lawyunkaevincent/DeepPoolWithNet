@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="myTaxi" vClass="taxi" color="yellow" personCapacity="13">
+        <param key="has.taxi.device" value="true" />
+    </vType>
+    <trip id="t_0" type="myTaxi" depart="0" from="410537376" to="410537376" />
+    <trip id="t_1" type="myTaxi" depart="0" from="-371128535#0" to="-371128535#0" />
+    <trip id="t_2" type="myTaxi" depart="0" from="-1213201223#2" to="-1213201223#2" />
+    <trip id="t_3" type="myTaxi" depart="0" from="53561439#7" to="53561439#7" />
+    <trip id="t_4" type="myTaxi" depart="0" from="-53655510#0" to="-53655510#0" />
+    <trip id="t_5" type="myTaxi" depart="0" from="-53561464#0" to="-53561464#0" />
+    <trip id="t_6" type="myTaxi" depart="0" from="-53561444" to="-53561444" />
+    <trip id="t_7" type="myTaxi" depart="0" from="-480006112#7" to="-480006112#7" />
+    <trip id="t_8" type="myTaxi" depart="0" from="53561437#0" to="53561437#0" />
+    <trip id="t_9" type="myTaxi" depart="0" from="-344408617#4" to="-344408617#4" />
+    <trip id="t_10" type="myTaxi" depart="0" from="53561355#1" to="53561355#1" />
+    <trip id="t_11" type="myTaxi" depart="0" from="53561439#5" to="53561439#5" />
+    <trip id="t_12" type="myTaxi" depart="0" from="776300006" to="776300006" />
+    <trip id="t_13" type="myTaxi" depart="0" from="210983397" to="210983397" />
+    <trip id="t_14" type="myTaxi" depart="0" from="-262321209#0" to="-262321209#0" />
+</routes>

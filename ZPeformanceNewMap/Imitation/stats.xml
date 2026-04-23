@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-20T19:49:36.475201+08:00 by Eclipse SUMO sumo 1.26.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="../../SunwaySmallMap/osm.net.xml"/>
+        <route-files value="../../SunwaySmallMap/self_request_300.rou.xml,../../SunwaySmallMap/taxi_more_300.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="../../SunwaySmallMap/tripinfos.xml"/>
+        <statistic-output value="../../SunwaySmallMap/stats.xml"/>
+    </output>
+
+    <time>
+        <step-length value="1.0"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <tls.actuated.jam-threshold value="30"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="18"/>
+        <device.rerouting.adaptation-interval value="10"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-algorithm value="traci"/>
+        <device.taxi.idle-algorithm value="stop"/>
+    </taxi_device>
+
+    <traci_server>
+        <remote-port value="59558"/>
+    </traci_server>
+
+    <gui_only>
+        <gui-settings-file value="../../SunwaySmallMap/osm.view.xml"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
+    <performance clockBegin="451923.92" clockEnd="452682.63" clockDuration="758.71" traciDuration="747.92" realTimeFactor="114.67" vehicleUpdatesPerSecond="1720.03" personUpdatesPerSecond="2431.22" begin="0.00" end="87000.00" duration="87000.00"/>
+    <vehicles loaded="15" inserted="15" running="15" waiting="0"/>
+    <teleports total="2" jam="0" yield="2" wrongLane="0"/>
+    <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
+    <persons loaded="2000" running="0" jammed="0"/>
+    <personTeleports total="0" abortWait="0" wrongDest="0"/>
+    <vehicleTripStatistics count="0" routeLength="0.00" speed="0.00" duration="0.00" waitingTime="0.00" timeLoss="0.00" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="0.00" totalDepartDelay="0.00"/>
+    <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
+    <rideStatistics number="2000" waitingTime="341.61" routeLength="6824.01" duration="580.68" bus="0" train="0" taxi="2000" bike="0" aborted="0"/>
+    <transportStatistics number="0"/>
+</statistics>

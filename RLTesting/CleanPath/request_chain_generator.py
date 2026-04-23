@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import random
 import sys
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Set, Tuple
+from typing import Callable, Dict, List, Optional, Sequence, Set, Tuple
 
 
 # ─── Day-schedule time windows ────────────────────────────────────────────────
@@ -253,6 +254,55 @@ class RequestChainGenerator:
     def _eligible_targets(self, edge_id: str, min_reachable_dropoff: int) -> List[str]:
         return self.report.eligible_reachable_from(edge_id, min_reachable=min_reachable_dropoff)
 
+    def _sample_pair(
+        self,
+        eligible_from: Sequence[str],
+        min_reachable_dropoff: int,
+        trip_time_fn: Optional[Callable[[str, str], Optional[float]]],
+        min_trip_time: float,
+        max_retries: int,
+        to_constraint: Optional[Set[str]] = None,
+    ) -> Optional[Tuple[str, str]]:
+        """Sample a (from, to) pair where from->to is reachable and (when
+        trip_time_fn is supplied) the SUMO-routed direct trip time is
+        >= min_trip_time seconds.
+
+        If to_constraint is provided, to_edge must additionally belong to that set
+        (used for cycle closure: the last ride's drop-off must reach the first
+        ride's pickup).
+
+        Returns None if no valid pair is found within max_retries attempts.
+        """
+        if not eligible_from:
+            return None
+
+        dtt_required = min_trip_time > 0 and trip_time_fn is not None
+        from_list = list(eligible_from)
+
+        for _ in range(max_retries):
+            from_e = self.rng.choice(from_list)
+            to_candidates = [
+                t for t in self._eligible_targets(from_e, min_reachable_dropoff)
+                if t != from_e
+            ]
+            if to_constraint is not None:
+                to_candidates = [t for t in to_candidates if t in to_constraint]
+            if not to_candidates:
+                continue
+            to_e = self.rng.choice(to_candidates)
+
+            if not dtt_required:
+                return from_e, to_e
+
+            estimated = trip_time_fn(from_e, to_e)
+            if estimated is None:
+                # Edges unknown to the net or no routable path — fall through
+                # and resample.
+                continue
+            if estimated >= min_trip_time:
+                return from_e, to_e
+        return None
+
     def _sample_depart_gap(
         self,
         depart_steps: Sequence[float],
@@ -486,6 +536,274 @@ class RequestChainGenerator:
 
         return rides
 
+    # ── Day schedule generation (unbounded — full eligible edge set) ────────
+
+    def generate_day_schedule_unbounded(
+        self,
+        num_requests: int,
+        min_reachable_pickup: int = 1,
+        min_reachable_dropoff: int = 1,
+        trip_time_fn: Optional[Callable[[str, str], Optional[float]]] = None,
+        min_trip_time: float = 0.0,
+        min_trip_time_fallback: float = 0.0,
+        demand_weights: Optional[Dict[str, float]] = None,
+        day_steps: int = 1440,
+        max_retries_per_request: int = 200,
+        chain_requests: bool = True,
+        close_cycle: bool = True,
+    ) -> Tuple[List[RequestRide], List[str]]:
+        """Day schedule over the FULL pool of eligible edges (no fixed stop set).
+
+        Each request is sampled per-depart-time, chronologically, so that:
+          * from_0 is drawn uniformly from every edge meeting
+            min_reachable_pickup;
+          * for i >= 1, from_i is drawn from
+            eligible_reachable_from(to_{i-1})  — loose chain;
+          * if close_cycle, the last ride's to_edge is restricted to edges that
+            can reach from_0 (loose cycle closure).
+        A minimum direct trip time is enforced via Euclidean distance /
+        avg_speed when --net coords are supplied.
+
+        Args:
+            num_requests:          Total rides to generate across the whole day.
+            min_reachable_pickup:  Pickup edge must have reachable_count >= this.
+            min_reachable_dropoff: Dropoff edge must have reachable_count >= this.
+            trip_time_fn:          Callable (from_id, to_id) -> seconds, typically
+                                   built from sumolib's getShortestPath with a
+                                   travel-time cost. Required when
+                                   min_trip_time > 0.
+            min_trip_time:         Minimum direct trip time in seconds. 0 disables
+                                   the filter.
+            demand_weights:        Override any DEFAULT_DEMAND values.
+            day_steps:             Total simulation steps in one day.
+            max_retries_per_request: Retry budget per sampled pair.
+            chain_requests:        If True, from_i must be reachable from
+                                   to_{i-1}. If False, sample pairs independently.
+            close_cycle:           If True (and chain_requests), force the last
+                                   ride's to_edge to be able to reach from_0.
+                                   Falls back to unrestricted sampling with a
+                                   warning if no such edge can be found.
+
+        Returns:
+            (rides, eligible_edges) — rides sorted by depart time, plus the
+            eligible edge pool that was used (for summary printing).
+        """
+        if num_requests < 1:
+            raise ValueError("num_requests must be at least 1.")
+
+        eligible_edges = [
+            e for e, s in self.report.results.items()
+            if s.reachable_count() >= min_reachable_pickup
+        ]
+        if len(eligible_edges) < 2:
+            raise ValueError(
+                f"Only {len(eligible_edges)} eligible edges with reachable_count "
+                f">= {min_reachable_pickup}. Need at least 2."
+            )
+        if min_trip_time > 0 and trip_time_fn is None:
+            print(
+                "[warn] --min-trip-time set but no trip_time_fn was supplied "
+                "(did you forget --net?); pairs will be accepted without a "
+                "dtt check.",
+                file=sys.stderr,
+            )
+
+        weights = {**DEFAULT_DEMAND, **(demand_weights or {})}
+
+        # Allocate per-window counts then materialise all depart times up front,
+        # sorted ascending — chain semantics need chronological sampling.
+        scale = day_steps / 1440.0
+        windows: List[Tuple[float, float, str, str]] = [
+            (s * scale, e * scale, key, label) for s, e, key, label in TIME_WINDOWS
+        ]
+        last = windows[-1]
+        windows[-1] = (last[0], float(day_steps), last[2], last[3])
+
+        window_weights = [(end - start) * weights[key] for start, end, key, _ in windows]
+        total_weight = sum(window_weights)
+
+        allocated: List[int] = []
+        remaining = num_requests
+        for i, ww in enumerate(window_weights):
+            if i == len(window_weights) - 1:
+                allocated.append(remaining)
+            else:
+                n = round(num_requests * ww / total_weight)
+                allocated.append(n)
+                remaining -= n
+
+        depart_times: List[float] = []
+        for (start, end, _, _), n_window in zip(windows, allocated):
+            for _ in range(n_window):
+                depart_times.append(self.rng.uniform(start, end))
+        depart_times.sort()
+
+        rides: List[RequestRide] = []
+        first_from: Optional[str] = None
+        cycle_targets: Optional[Set[str]] = None
+        dropped = 0
+        chain_fallbacks = 0
+        cycle_fallback = False
+        dtt_fallback_count = 0
+        fallback_enabled = (
+            min_trip_time > 0
+            and 0 < min_trip_time_fallback < min_trip_time
+            and trip_time_fn is not None
+        )
+
+        for i, depart in enumerate(depart_times):
+            is_last = (i == len(depart_times) - 1)
+
+            # ── Determine the candidate pool for from_i ─────────────────────
+            if chain_requests and rides:
+                prev_to = rides[-1].to_edge
+                from_pool: Sequence[str] = self.report.eligible_reachable_from(
+                    prev_to, min_reachable=min_reachable_pickup,
+                )
+                if not from_pool:
+                    # Primary filter (min_reachable_pickup) left no candidates.
+                    # Relax it, but ONLY to edges actually reachable from prev_to
+                    # so the chain stays physically routable by SUMO.
+                    relaxed = [
+                        e for e in self.report.reachable_from(prev_to)
+                        if self.report.has_edge(e)
+                    ]
+                    if not relaxed:
+                        # prev_to has zero outgoing reachability — drop the slot
+                        # rather than generate an unroutable chain link.
+                        dropped += 1
+                        continue
+                    from_pool = relaxed
+                    chain_fallbacks += 1
+            else:
+                from_pool = eligible_edges
+
+            # ── Cycle-closure constraint on the last ride's to_edge ─────────
+            to_constraint: Optional[Set[str]] = None
+            if chain_requests and close_cycle and is_last and first_from is not None:
+                if cycle_targets is None:
+                    cycle_targets = {
+                        e for e, stats in self.report.results.items()
+                        if first_from in stats.reachable_to
+                    }
+                to_constraint = cycle_targets if cycle_targets else None
+
+            # ── Tier 1: primary threshold, with cycle constraint if applicable ──
+            pair = self._sample_pair(
+                eligible_from=from_pool,
+                min_reachable_dropoff=min_reachable_dropoff,
+                trip_time_fn=trip_time_fn,
+                min_trip_time=min_trip_time,
+                max_retries=max_retries_per_request,
+                to_constraint=to_constraint,
+            )
+            used_fallback = False
+            used_cycle_fallback = False
+
+            # ── Tier 2: same threshold but drop the cycle constraint ──
+            if pair is None and to_constraint is not None:
+                used_cycle_fallback = True
+                pair = self._sample_pair(
+                    eligible_from=from_pool,
+                    min_reachable_dropoff=min_reachable_dropoff,
+                    trip_time_fn=trip_time_fn,
+                    min_trip_time=min_trip_time,
+                    max_retries=max_retries_per_request,
+                    to_constraint=None,
+                )
+
+            # ── Tier 3: fallback dtt threshold (still attempt cycle first) ──
+            if pair is None and fallback_enabled:
+                pair = self._sample_pair(
+                    eligible_from=from_pool,
+                    min_reachable_dropoff=min_reachable_dropoff,
+                    trip_time_fn=trip_time_fn,
+                    min_trip_time=min_trip_time_fallback,
+                    max_retries=max_retries_per_request,
+                    to_constraint=to_constraint,
+                )
+                if pair is not None:
+                    used_fallback = True
+                    # Tier 3a kept the cycle constraint, so Tier 2's speculative
+                    # flag is incorrect — reset it.
+                    used_cycle_fallback = False
+                elif to_constraint is not None:
+                    pair = self._sample_pair(
+                        eligible_from=from_pool,
+                        min_reachable_dropoff=min_reachable_dropoff,
+                        trip_time_fn=trip_time_fn,
+                        min_trip_time=min_trip_time_fallback,
+                        max_retries=max_retries_per_request,
+                        to_constraint=None,
+                    )
+                    if pair is not None:
+                        used_fallback = True
+                        used_cycle_fallback = True
+
+            if pair is None:
+                dropped += 1
+                continue
+
+            if used_cycle_fallback:
+                cycle_fallback = True
+            if used_fallback:
+                dtt_fallback_count += 1
+
+            from_e, to_e = pair
+            if first_from is None:
+                first_from = from_e
+            rides.append(RequestRide(
+                person_id="",
+                depart=depart,
+                from_edge=from_e,
+                to_edge=to_e,
+            ))
+            dtt_str = ""
+            if trip_time_fn is not None and min_trip_time > 0:
+                est = trip_time_fn(from_e, to_e)
+                if est is not None:
+                    dtt_str = f" dtt={est:.1f}s"
+            tag = " [fallback]" if used_fallback else ""
+            print(
+                f"[gen]{tag} {len(rides)}/{len(depart_times)}  "
+                f"depart={depart:.1f}s  {from_e} -> {to_e}{dtt_str}",
+                flush=True,
+            )
+
+        # depart_times was pre-sorted, so rides are already chronological.
+        for i, ride in enumerate(rides):
+            ride.person_id = str(i)
+
+        if chain_fallbacks:
+            print(
+                f"[warn] chain broken at {chain_fallbacks} request(s): "
+                "previous dropoff had no eligible next pickup; sampled from the "
+                "full pool at those points.",
+                file=sys.stderr,
+            )
+        if cycle_fallback:
+            print(
+                "[warn] Could not close the cycle within retry budget; "
+                "last ride's drop-off was sampled without the cycle constraint.",
+                file=sys.stderr,
+            )
+        if dtt_fallback_count:
+            print(
+                f"[warn] {dtt_fallback_count} request(s) accepted at the fallback "
+                f"dtt threshold ({min_trip_time_fallback:.0f}s) because the "
+                f"primary threshold ({min_trip_time:.0f}s) exhausted its retries.",
+                file=sys.stderr,
+            )
+        if dropped:
+            print(
+                f"[warn] {dropped} request(s) dropped (retries exhausted). "
+                "Consider lowering --min-trip-time, setting "
+                "--min-trip-time-fallback, or lowering --min-reachable-pickup.",
+                file=sys.stderr,
+            )
+
+        return rides, eligible_edges
+
     # ── Chain generation (original mode) ────────────────────────────────────
 
     def generate_chain(
@@ -654,6 +972,68 @@ class RequestChainGenerator:
         tree.write(output_file, encoding="utf-8", xml_declaration=True)
 
 
+def _load_sumolib():
+    """Import sumolib, falling back to $SUMO_HOME/tools if necessary."""
+    try:
+        import sumolib  # type: ignore
+        return sumolib
+    except ImportError:
+        sumo_home = os.environ.get("SUMO_HOME")
+        if not sumo_home:
+            raise ImportError(
+                "Could not import sumolib. Install SUMO and set the SUMO_HOME "
+                "environment variable, or `pip install sumolib`."
+            )
+        tools = os.path.join(sumo_home, "tools")
+        if tools not in sys.path:
+            sys.path.append(tools)
+        import sumolib  # type: ignore
+        return sumolib
+
+
+def build_trip_time_estimator(
+    net_file: str | Path,
+) -> Callable[[str, str], Optional[float]]:
+    """Return an estimator that uses sumolib's shortest-path router to compute
+    the free-flow travel time between two edges (seconds).
+
+    sumolib's getShortestPath minimises distance. We then sum
+    edge_length / max(edge_speed, 0.1) along the returned path to obtain a
+    free-flow travel time in seconds. This is an upper bound on the fastest
+    path's travel time but is close to it for typical urban networks.
+
+    Results are memoised so repeated queries are cheap.
+    """
+    sumolib = _load_sumolib()
+    print(f"[sumolib] Loading net for routing: {net_file}")
+    net = sumolib.net.readNet(str(net_file))
+
+    cache: Dict[Tuple[str, str], Optional[float]] = {}
+
+    def estimator(from_id: str, to_id: str) -> Optional[float]:
+        key = (from_id, to_id)
+        if key in cache:
+            return cache[key]
+        try:
+            from_edge = net.getEdge(from_id)
+            to_edge = net.getEdge(to_id)
+        except KeyError:
+            cache[key] = None
+            return None
+        result = net.getShortestPath(from_edge, to_edge)
+        path = result[0] if result else None
+        if not path:
+            cache[key] = None
+            return None
+        travel_time = sum(
+            e.getLength() / max(e.getSpeed(), 0.1) for e in path
+        )
+        cache[key] = float(travel_time)
+        return float(travel_time)
+
+    return estimator
+
+
 def write_stops_file(stops: List[str], path: str | Path) -> None:
     """Save the selected stop edge IDs to a JSON file.
 
@@ -731,7 +1111,53 @@ def parse_args() -> argparse.Namespace:
         default=5,
         help=(
             "Number of stop edges in the ride pool. "
-            "All stops will be mutually reachable and spread across the map. (default: 5)"
+            "All stops will be mutually reachable and spread across the map. "
+            "Set to 0 to disable the pool and sample origin/destination per "
+            "request from every edge meeting --min-reachable-pickup (each request "
+            "is still guaranteed to be from->to reachable). (default: 5)"
+        ),
+    )
+    day_group.add_argument(
+        "--min-trip-time",
+        type=float,
+        default=0.0,
+        metavar="SECONDS",
+        help=(
+            "Minimum free-flow direct trip time (in seconds) required between a "
+            "request's origin and destination. Computed by SUMO's router "
+            "(sumolib.net.getShortestPath with edge_length / edge_speed as the "
+            "cost). Requires --net. 0 disables the filter. (default: 0.0)"
+        ),
+    )
+    day_group.add_argument(
+        "--min-trip-time-fallback",
+        type=float,
+        default=0.0,
+        metavar="SECONDS",
+        help=(
+            "Fallback dtt threshold used when the primary --min-trip-time "
+            "exhausts its retry budget for a given depart slot. Must be less "
+            "than --min-trip-time. Requests accepted at this level are tagged "
+            "[fallback] in the progress log. 0 disables the fallback "
+            "(requests that can't meet --min-trip-time are dropped). "
+            "(default: 0.0)"
+        ),
+    )
+    day_group.add_argument(
+        "--no-chain-requests",
+        action="store_true",
+        help=(
+            "Unbounded day mode (--num-stops 0) only. Disables loose-chain "
+            "sampling; each request's from/to pair is drawn independently "
+            "(from->to reachability is still enforced per request)."
+        ),
+    )
+    day_group.add_argument(
+        "--no-close-cycle-day",
+        action="store_true",
+        help=(
+            "Unbounded day mode (--num-stops 0) only. Disables the cycle-closing "
+            "constraint on the last request's drop-off edge."
         ),
     )
     day_group.add_argument(
@@ -892,6 +1318,51 @@ def _print_day_summary(
         print(f"  {label}  mult={demand_weights[key]:.2f}  target={pct:.1f}%  generated={n}")
 
 
+def _print_day_summary_unbounded(
+    eligible_edges: List[str],
+    rides: List[RequestRide],
+    demand_weights: Dict[str, float],
+    day_steps: int,
+    output: str,
+    min_trip_time: float,
+    min_trip_time_fallback: float,
+    min_reachable_pickup: int,
+    min_reachable_dropoff: int,
+    chain_requests: bool,
+    close_cycle: bool,
+) -> None:
+    scale = day_steps / 1440.0
+    print(f"Mode            : day (unbounded)")
+    print(f"Eligible edges  : {len(eligible_edges)}  "
+          f"(reachable_count >= {min_reachable_pickup})")
+    print(f"Dropoff thresh. : reachable_count >= {min_reachable_dropoff}")
+    print(f"Chain requests  : {'yes (loose: from_i reachable from to_(i-1))' if chain_requests else 'no'}")
+    print(f"Cycle closure   : {'yes (to_last reaches from_0)' if (chain_requests and close_cycle) else 'no'}")
+    if min_trip_time > 0:
+        print(f"Min trip time   : {min_trip_time:.1f}s  (via sumolib shortest-path, "
+              f"edge_length / edge_speed)")
+        if 0 < min_trip_time_fallback < min_trip_time:
+            print(f"  fallback      : {min_trip_time_fallback:.1f}s "
+                  f"(used when primary exhausts retries)")
+    else:
+        print(f"Min trip time   : disabled (0s)")
+    print(f"Total requests  : {len(rides)}")
+    print(f"Day steps       : {day_steps}")
+    print(f"Output          : {output}")
+    print()
+    print("Demand profile and request distribution:")
+    total_weight = sum(
+        (int(e * scale) - int(s * scale)) * demand_weights[key]
+        for s, e, key, _ in TIME_WINDOWS
+    )
+    for s, e, key, label in TIME_WINDOWS:
+        ws, we = int(s * scale), int(e * scale)
+        ww = (we - ws) * demand_weights[key]
+        n = sum(1 for r in rides if ws <= r.depart < (we if e < 1440 else day_steps + 1))
+        pct = ww / total_weight * 100 if total_weight > 0 else 0
+        print(f"  {label}  mult={demand_weights[key]:.2f}  target={pct:.1f}%  generated={n}")
+
+
 def main() -> None:
     args = parse_args()
     report = ConnectivityReport.load_json(args.report)
@@ -910,16 +1381,6 @@ def main() -> None:
                 file=sys.stderr,
             )
 
-        stops = generator.select_stops(
-            num_stops=args.num_stops,
-            min_reachable=args.min_reachable_pickup,
-            coords=coords,
-        )
-
-        if args.save_stops:
-            write_stops_file(stops, args.save_stops)
-            print(f"Stops saved     : {args.save_stops}")
-
         demand_weights: Dict[str, float] = {
             "very_low":     args.demand_very_low,
             "morning_peak": args.demand_morning_peak,
@@ -928,15 +1389,70 @@ def main() -> None:
             "low_medium":   args.demand_low_medium,
         }
 
-        rides = generator.generate_day_schedule(
-            stops=stops,
-            num_requests=args.num_requests,
-            demand_weights=demand_weights,
-            day_steps=args.day_steps,
-        )
+        if args.num_stops == 0:
+            # ── Unbounded: sample per-request from the full eligible edge set ──
+            trip_time_fn: Optional[Callable[[str, str], Optional[float]]] = None
+            if args.min_trip_time > 0:
+                if not args.net:
+                    print(
+                        "Error: --min-trip-time requires --net <net.xml> so SUMO's "
+                        "router can compute travel times.",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
+                trip_time_fn = build_trip_time_estimator(args.net)
 
-        generator.write_requests_file(rides, args.output)
-        _print_day_summary(stops, rides, demand_weights, args.day_steps, args.output)
+            rides, eligible_edges = generator.generate_day_schedule_unbounded(
+                num_requests=args.num_requests,
+                min_reachable_pickup=args.min_reachable_pickup,
+                min_reachable_dropoff=args.min_reachable_dropoff,
+                trip_time_fn=trip_time_fn,
+                min_trip_time=args.min_trip_time,
+                min_trip_time_fallback=args.min_trip_time_fallback,
+                demand_weights=demand_weights,
+                day_steps=args.day_steps,
+                chain_requests=not args.no_chain_requests,
+                close_cycle=not args.no_close_cycle_day,
+            )
+
+            if args.save_stops:
+                write_stops_file(eligible_edges, args.save_stops)
+                print(f"Eligible edges saved : {args.save_stops}")
+
+            generator.write_requests_file(rides, args.output)
+            _print_day_summary_unbounded(
+                eligible_edges=eligible_edges,
+                rides=rides,
+                demand_weights=demand_weights,
+                day_steps=args.day_steps,
+                output=args.output,
+                min_trip_time=args.min_trip_time,
+                min_trip_time_fallback=args.min_trip_time_fallback,
+                min_reachable_pickup=args.min_reachable_pickup,
+                min_reachable_dropoff=args.min_reachable_dropoff,
+                chain_requests=not args.no_chain_requests,
+                close_cycle=not args.no_close_cycle_day,
+            )
+        else:
+            stops = generator.select_stops(
+                num_stops=args.num_stops,
+                min_reachable=args.min_reachable_pickup,
+                coords=coords,
+            )
+
+            if args.save_stops:
+                write_stops_file(stops, args.save_stops)
+                print(f"Stops saved     : {args.save_stops}")
+
+            rides = generator.generate_day_schedule(
+                stops=stops,
+                num_requests=args.num_requests,
+                demand_weights=demand_weights,
+                day_steps=args.day_steps,
+            )
+
+            generator.write_requests_file(rides, args.output)
+            _print_day_summary(stops, rides, demand_weights, args.day_steps, args.output)
 
     else:
         # ── Chain mode ──────────────────────────────────────────────────────
