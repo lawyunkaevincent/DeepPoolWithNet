@@ -1,3 +1,4 @@
+import argparse
 from dataclasses import dataclass, field
 from importlib.resources import path
 from pathlib import Path
@@ -184,18 +185,55 @@ class SumoConnectivityChecker:
         tree.write(output_path, encoding="utf-8", xml_declaration=True)
 
 
-if __name__ == "__main__":
-    base_dir = Path.cwd()
-    net_path = (base_dir / "osm.net.xml").resolve()
-    report_path = (base_dir / "connectivity_report.json").resolve()
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Run SUMO edge-connectivity analysis and write a JSON report.",
+    )
+    parser.add_argument(
+        "-n", "--net",
+        required=True,
+        help="Path to the SUMO .net.xml input file.",
+    )
+    parser.add_argument(
+        "-o", "--output",
+        required=True,
+        help=(
+            "Output path. If a directory, 'connectivity_report.json' is written inside it; "
+            "if a file path, it is used as-is."
+        ),
+    )
+    parser.add_argument(
+        "--vclass",
+        default="taxi",
+        help="Vehicle class to analyze (default: taxi).",
+    )
+    parser.add_argument(
+        "--allow-internal",
+        action="store_true",
+        help="Include internal edges (IDs starting with ':').",
+    )
+    return parser.parse_args()
 
-    print("Running from:", base_dir)
-    print("Net path:", net_path)
+
+if __name__ == "__main__":
+    args = _parse_args()
+
+    net_path = Path(args.net).resolve()
+    output_arg = Path(args.output).resolve()
+    if output_arg.is_dir() or output_arg.suffix == "":
+        output_arg.mkdir(parents=True, exist_ok=True)
+        report_path = output_arg / "connectivity_report.json"
+    else:
+        output_arg.parent.mkdir(parents=True, exist_ok=True)
+        report_path = output_arg
+
+    print("Net path:   ", net_path)
+    print("Report path:", report_path)
 
     checker = SumoConnectivityChecker(
         net_file=net_path.as_posix(),
-        vclass="taxi",
-        allow_internal=False,
+        vclass=args.vclass,
+        allow_internal=args.allow_internal,
     )
 
     edge_ids = checker.get_edges_from_net()
